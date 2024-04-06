@@ -4,14 +4,15 @@
 
 
 from pathlib import Path
+import os
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 
-OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"/Users/francescomattone/Desktop/coding/ing_soft2/build/assets/frame10")
+abs = os.getcwd()
+ASSETS_PATH = abs + "/assets/frame10"
 
 
 def relative_to_assets(path: str) -> Path:

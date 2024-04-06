@@ -1,5 +1,6 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage
+import os
 
 
 class MainApp:
@@ -159,7 +160,8 @@ class MainApp:
         button_12.place(x=24.0, y=375.0, width=162.0, height=45.0)
 
     def load_button_image(self, image_path):
-        ASSETS_PATH = Path("/Users/francescomattone/Desktop/coding/ing_soft2/build/assets/frame2")
+        abs = os.getcwd()
+        ASSETS_PATH = abs + "/assets/frame2"
         return PhotoImage(file=ASSETS_PATH / Path(image_path))
 
 
