@@ -1,6 +1,7 @@
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox
 from pathlib import Path
 import json
+import os
 from MainApp import MainApp
 
 class LoginApp:
@@ -136,6 +137,9 @@ class LoginApp:
 
         return False
 
+    ''' def register_clicked(self):
+        self.master.destr'''
+
     def login_clicked(self):
         username = self.entry_1.get()
         password = self.entry_2.get()
@@ -153,8 +157,8 @@ class LoginApp:
 
 
 if __name__ == "__main__":
-    OUTPUT_PATH = Path(__file__).parent
-    ASSETS_PATH = OUTPUT_PATH / Path(r"/Users/francescomattone/Desktop/coding/ing_soft2/build/assets/frame3")
+    abs = os.getcwd()
+    ASSETS_PATH = abs + "/assets/frame3"
 
     root = Tk()
     app = LoginApp(root)

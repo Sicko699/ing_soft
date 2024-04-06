@@ -4,14 +4,21 @@
 
 
 from pathlib import Path
-
-# from tkinter import *
-# Explicit imports to satisfy Flake8
+import os
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
+class RegisterApp:
+    def __init__(self, window):
+        self.window = window
+        self.window.geometry("862x519")
+        self.window.configure(bg = "#FAFFFD")
+        
+        
 
-OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"/Users/francescomattone/Desktop/coding/ing_soft2/build/assets/frame4")
+
+
+abs = os.getcwd()
+ASSETS_PATH = abs + "/assets/frame4"
 
 
 def relative_to_assets(path: str) -> Path:
