@@ -158,7 +158,7 @@ class LoginApp:
 
 if __name__ == "__main__":
     abs = os.getcwd()
-    ASSETS_PATH = abs + "/assets/frame3"
+    ASSETS_PATH = abs + "/build/assets/frame3"
 
     root = Tk()
     app = LoginApp(root)
