@@ -1,8 +1,14 @@
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox
 from pathlib import Path
 import json
-import os, platform
-from MainApp import MainApp
+import os
+import platform
+
+abs_path = os.getcwd()
+if platform.system() == "Darwin":
+    ASSETS_PATH = abs_path + "/assets/frame3"
+else:
+    ASSETS_PATH = abs_path + "/build/assets/frame3"
 
 class LoginApp:
     def __init__(self, master):
@@ -27,9 +33,11 @@ class LoginApp:
             599.0,
             413.0,
             fill="#56AAFF",
-            outline="")
+            outline=""
+        )
 
         self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
+        print("Entry 1 image path:", self.relative_to_assets("entry_1.png"))  # Debugging
         self.entry_bg_1 = self.canvas.create_image(
             431.5,
             191.0,
@@ -86,6 +94,15 @@ class LoginApp:
             font=("Inter Bold", 18)
         )
 
+        self.button_images = {
+            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 2)
+        }
+
+        self.create_buttons()
+
+        self.master.resizable(False, False)
+
+    def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
             image=self.button_image_1,
@@ -100,9 +117,8 @@ class LoginApp:
             width=143.8626708984375,
             height=38.523895263671875
         )
-        
+
         self.button_image_2 = PhotoImage(file=self.relative_to_assets("button_2.png"))
-        
         self.button_2 = Button(
             image=self.button_image_2,
             borderwidth=0,
@@ -117,11 +133,8 @@ class LoginApp:
             height=39.0
         )
 
-
-        self.master.resizable(False, False)
-
     def relative_to_assets(self, path: str) -> Path:
-        return ASSETS_PATH / Path(path)
+        return Path(ASSETS_PATH) / Path(path)
 
     def verify_login(self, username, password):
         with open("data.json", "r") as file:
@@ -137,10 +150,8 @@ class LoginApp:
 
         return False
 
-    ''' def register_clicked(self):
-        self.master.destr'''
-
     def login_clicked(self):
+        from MainApp import MainApp
         username = self.entry_1.get()
         password = self.entry_2.get()
 
@@ -155,15 +166,17 @@ class LoginApp:
         else:
             messagebox.showerror("Login Failed", "Invalid username or password")
 
+    def load_button_image(self, image_path):
+        abs_path = os.getcwd()
+        if platform.system() == "Darwin":
+            assets_path = abs_path + "/assets/frame3"
+        else:
+            assets_path = abs_path + "/build/assets/frame3"
+
+        return PhotoImage(file=Path(assets_path) / Path(image_path))
+
 
 if __name__ == "__main__":
-    abs = os.getcwd()
-    if(platform.system() == "Darwin"):
-        ASSETS_PATH = abs + "/assets/frame3"
-    else:
-        ASSETS_PATH = abs + "/build/assets/frame3"
-
     root = Tk()
     app = LoginApp(root)
     root.mainloop()
-

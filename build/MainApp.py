@@ -2,7 +2,6 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage
 import os, platform
 
-
 class MainApp:
     def __init__(self, window):
         self.window = window
@@ -84,7 +83,7 @@ class MainApp:
             image=self.button_images["button_5"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_5 clicked"),
+            command=self.go_home,
             relief="flat"
         )
         button_5.place(x=46.0, y=452.0, width=47.0, height=45.0)
@@ -162,13 +161,19 @@ class MainApp:
     def load_button_image(self, image_path):
         abs = os.getcwd()
         if(platform.system() == "Darwin"):
-            ASSETS_PATH = abs + "/assets/frame9"
+            ASSETS_PATH = abs + "/assets/frame2"
         else:
-            ASSETS_PATH = abs + "/build/assets/frame9"
+            ASSETS_PATH = abs + "/build/assets/frame2"
 
         return PhotoImage(file=ASSETS_PATH / Path(image_path))
-
-
+    
+    def go_home(self):
+        from LoginApp import LoginApp
+        self.window.destroy()
+        root = Tk()  # Crea una nuova finestra Tk per la MainApp
+        app = LoginApp(root)  # Avvia la MainApp nella nuova finestra Tk
+        root.mainloop()
+    
 if __name__ == "__main__":
     root = Tk()
     app = MainApp(root)
