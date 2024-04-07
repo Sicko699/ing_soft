@@ -2,12 +2,12 @@ from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
-class VisualizzazionePrenotazioni:
-    def __init__(self,window):
+class TariffeDinamicheApp:
+    def __init__(self, window):
         self.window = window
         self.window.geometry("862x519")
         self.window.configure(bg = "#FAFFFD")
-
+        
         self.canvas = Canvas(
             self.window,
             bg = "#FAFFFD",
@@ -25,9 +25,7 @@ class VisualizzazionePrenotazioni:
             210.0,
             519.0,
             fill="#3E97F1",
-            outline=""
-        )
-
+            outline="")
 
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
@@ -150,18 +148,18 @@ class VisualizzazionePrenotazioni:
         )
 
         self.canvas.create_rectangle(
-            321.0,
-            32.0,
-            758.0,
-            488.0,
+            369.0,
+            34.0,
+            703.0,
+            486.0,
             fill="#FAFFFD",
-            outline=""
-        )
+            outline="")
 
-        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
+        self.entry_image_1 = PhotoImage(
+            file=self.relative_to_assets("entry_1.png"))
         self.entry_bg_1 = self.canvas.create_image(
-            539.5,
-            82.0,
+            537.0,
+            92.5,
             image=self.entry_image_1
         )
         self.entry_1 = Entry(
@@ -171,16 +169,17 @@ class VisualizzazionePrenotazioni:
             highlightthickness=0
         )
         self.entry_1.place(
-            x=358.0,
-            y=63.0,
-            width=363.0,
-            height=36.0
+            x=434.0,
+            y=79.0,
+            width=206.0,
+            height=25.0
         )
 
-        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
+        self.entry_image_2 = PhotoImage(
+            file=self.relative_to_assets("entry_2.png"))
         self.entry_bg_2 = self.canvas.create_image(
-            539.5,
-            132.0,
+            537.0,
+            144.0,
             image=self.entry_image_2
         )
         self.entry_2 = Entry(
@@ -190,16 +189,17 @@ class VisualizzazionePrenotazioni:
             highlightthickness=0
         )
         self.entry_2.place(
-            x=358.0,
-            y=113.0,
-            width=363.0,
-            height=36.0
+            x=434.0,
+            y=130.0,
+            width=206.0,
+            height=26.0
         )
 
-        self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
+        self.entry_image_3 = PhotoImage(
+            file=self.relative_to_assets("entry_3.png"))
         self.entry_bg_3 = self.canvas.create_image(
-            539.5,
-            182.0,
+            537.0,
+            248.0,
             image=self.entry_image_3
         )
         self.entry_3 = Entry(
@@ -209,16 +209,17 @@ class VisualizzazionePrenotazioni:
             highlightthickness=0
         )
         self.entry_3.place(
-            x=358.0,
-            y=163.0,
-            width=363.0,
-            height=36.0
+            x=434.0,
+            y=233.0,
+            width=206.0,
+            height=28.0
         )
 
-        self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
+        self.entry_image_4 = PhotoImage(
+            file=self.relative_to_assets("entry_4.png"))
         self.entry_bg_4 = self.canvas.create_image(
-            539.5,
-            232.0,
+            537.0,
+            301.0,
             image=self.entry_image_4
         )
         self.entry_4 = Entry(
@@ -228,16 +229,17 @@ class VisualizzazionePrenotazioni:
             highlightthickness=0
         )
         self.entry_4.place(
-            x=358.0,
-            y=213.0,
-            width=363.0,
-            height=36.0
+            x=434.0,
+            y=287.0,
+            width=206.0,
+            height=26.0
         )
 
-        self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
+        self.entry_image_5 = PhotoImage(
+            file=self.relative_to_assets("entry_5.png"))
         self.entry_bg_5 = self.canvas.create_image(
-            539.5,
-            282.0,
+            537.0,
+            353.0,
             image=self.entry_image_5
         )
         self.entry_5 = Entry(
@@ -247,16 +249,17 @@ class VisualizzazionePrenotazioni:
             highlightthickness=0
         )
         self.entry_5.place(
-            x=358.0,
-            y=263.0,
-            width=363.0,
-            height=36.0
+            x=434.0,
+            y=339.0,
+            width=206.0,
+            height=26.0
         )
 
-        self.entry_image_6 = PhotoImage(file=self.relative_to_assets("entry_6.png"))
+        self.entry_image_6 = PhotoImage(
+            file=self.relative_to_assets("entry_6.png"))
         self.entry_bg_6 = self.canvas.create_image(
-            539.5,
-            332.0,
+            537.0,
+            405.5,
             image=self.entry_image_6
         )
         self.entry_6 = Entry(
@@ -266,16 +269,44 @@ class VisualizzazionePrenotazioni:
             highlightthickness=0
         )
         self.entry_6.place(
-            x=358.0,
-            y=313.0,
-            width=363.0,
-            height=36.0
+            x=434.0,
+            y=392.0,
+            width=206.0,
+            height=25.0
         )
 
-        self.entry_image_7 = PhotoImage(file=self.relative_to_assets("entry_7.png"))
+        self.canvas.create_text(
+            422.0,
+            322.0,
+            anchor="nw",
+            text="Aumento sotto soglia minima",
+            fill="#000000",
+            font=("Quicksand Medium", 12 * -1)
+        )
+
+        self.canvas.create_text(
+            422.0,
+            375.0,
+            anchor="nw",
+            text="Prezzi",
+            fill="#000000",
+            font=("Quicksand Medium", 12 * -1)
+        )
+
+        self.canvas.create_text(
+            422.0,
+            216.0,
+            anchor="nw",
+            text="Riduzione sotto soglia minima",
+            fill="#000000",
+            font=("Quicksand Medium", 12 * -1)
+        )
+
+        self.entry_image_7 = PhotoImage(
+            file=self.relative_to_assets("entry_7.png"))
         self.entry_bg_7 = self.canvas.create_image(
-            539.5,
-            382.0,
+            537.0,
+            196.0,
             image=self.entry_image_7
         )
         self.entry_7 = Entry(
@@ -285,33 +316,50 @@ class VisualizzazionePrenotazioni:
             highlightthickness=0
         )
         self.entry_7.place(
-            x=358.0,
-            y=363.0,
-            width=363.0,
-            height=36.0
+            x=434.0,
+            y=182.0,
+            width=206.0,
+            height=26.0
         )
 
-        self.entry_image_8 = PhotoImage(file=self.relative_to_assets("entry_8.png"))
-        self.entry_bg_8 = self.canvas.create_image(
-            539.5,
-            432.0,
-            image=self.entry_image_8
+        self.canvas.create_text(
+            422.0,
+            165.0,
+            anchor="nw",
+            text="Soglia minima per taglio prezzo",
+            fill="#000000",
+            font=("Quicksand Medium", 12 * -1)
         )
-        self.entry_8 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_8.place(
-            x=358.0,
-            y=413.0,
-            width=363.0,
-            height=36.0
-        )
-        self.entry_8.insert(0, "Prenotazione")
 
-        self.button_image_9 = PhotoImage(file=self.relative_to_assets("button_9.png"))
+        self.canvas.create_text(
+            422.0,
+            62.0,
+            anchor="nw",
+            text="Tipo camera",
+            fill="#000000",
+            font=("Quicksand Medium", 12 * -1)
+        )
+
+        self.canvas.create_text(
+            422.0,
+            113.0,
+            anchor="nw",
+            text="Prezzo generale",
+            fill="#000000",
+            font=("Quicksand Medium", 12 * -1)
+        )
+
+        self.canvas.create_text(
+            422.0,
+            270.0,
+            anchor="nw",
+            text="Soglia massima per aumento prezzo",
+            fill="#000000",
+            font=("Quicksand Medium", 12 * -1)
+        )
+
+        self.button_image_9 = PhotoImage(
+            file=self.relative_to_assets("button_9.png"))
         self.button_9 = Button(
             image=self.button_image_9,
             borderwidth=0,
@@ -320,126 +368,25 @@ class VisualizzazionePrenotazioni:
             relief="flat"
         )
         self.button_9.place(
-            x=690.0,
-            y=68.0,
-            width=28.398725509643555,
-            height=28.398725509643555
+            x=479.9990234375,
+            y=432.82373046875,
+            width=112.00301361083984,
+            height=34.61487579345703
         )
-
-        self.button_image_10 = PhotoImage(file=self.relative_to_assets("button_10.png"))
-        self.button_10 = Button(
-            image=self.button_image_10,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
-            relief="flat"
-        )
-        self.button_10.place(
-            x=690.0,
-            y=218.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_11 = PhotoImage(file=self.relative_to_assets("button_11.png"))
-        self.button_11 = Button(
-            image=self.button_image_11,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_11 clicked"),
-            relief="flat"
-        )
-        self.button_11.place(
-            x=690.0,
-            y=168.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_12 = PhotoImage(file=self.relative_to_assets("button_12.png"))
-        self.button_12 = Button(
-            image=self.button_image_12,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_12 clicked"),
-            relief="flat"
-        )
-        self.button_12.place(
-            x=690.0,
-            y=118.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_13 = PhotoImage(file=self.relative_to_assets("button_13.png"))
-        self.button_13 = Button(
-            image=self.button_image_13,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_13 clicked"),
-            relief="flat"
-        )
-        self.button_13.place(
-            x=690.0,
-            y=268.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_14 = PhotoImage(file=self.relative_to_assets("button_14.png"))
-        self.button_14 = Button(
-            image=self.button_image_14,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_14 clicked"),
-            relief="flat"
-        )
-        self.button_14.place(
-            x=690.0,
-            y=318.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_15 = PhotoImage(file=self.relative_to_assets("button_15.png"))
-        self.button_15 = Button(
-            image=self.button_image_15,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_15 clicked"),
-            relief="flat"
-        )
-        self.button_15.place(
-            x=690.0,
-            y=418.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_16 = PhotoImage(file=self.relative_to_assets("button_16.png"))
-        self.button_16 = Button(
-            image=self.button_image_16,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_16 clicked"),
-            relief="flat"
-        )
-        self.button_16.place(
-            x=690.0,
-            y=368.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-    def relative_to_assets(self,path: str) -> Path:
+    def relative_to_assets(self, path: str) -> Path:
         return ASSETS_PATH / Path(path)
 
 if __name__ == "__main__":
     abs = os.getcwd()
     if(platform.system() == "Darwin"):
-        ASSETS_PATH = abs + "/assets/frame14"
+        ASSETS_PATH = abs + "/assets/frame9"
     else:
-        ASSETS_PATH = abs + "/build/assets/frame14"
+        ASSETS_PATH = abs + "/build/assets/frame9"
+
     root = Tk()
-    app = VisualizzazionePrenotazioni(root)
+    app = TariffeDinamicheApp(root)
     root.mainloop()
+
+
+
+
