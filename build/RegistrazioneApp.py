@@ -4,10 +4,10 @@
 
 
 from pathlib import Path
-import os
+import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
-class RegisterApp:
+class RegistrazioneApp:
     def __init__(self, window):
         self.window = window
         self.window.geometry("862x519")
@@ -224,8 +224,12 @@ class RegisterApp:
 
 if __name__ == '__main__':
     abs = os.getcwd()
-    ASSETS_PATH = abs + "/assets/frame4"
+    if(platform.system() == "Darwin"):
+        ASSETS_PATH = abs + "/assets/frame4"
+    else:
+        ASSETS_PATH = abs + "/build/assets/frame4"
+    
     
     root = Tk()
-    app = RegisterApp(root)
+    app = RegistrazioneApp(root)
     root.mainloop()

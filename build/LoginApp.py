@@ -1,7 +1,7 @@
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox
 from pathlib import Path
 import json
-import os
+import os, platform
 from MainApp import MainApp
 
 class LoginApp:
@@ -158,7 +158,10 @@ class LoginApp:
 
 if __name__ == "__main__":
     abs = os.getcwd()
-    ASSETS_PATH = abs + "/build/assets/frame3"
+    if(platform.system() == "Darwin"):
+        ASSETS_PATH = abs + "/assets/frame3"
+    else:
+        ASSETS_PATH = abs + "/build/assets/frame3"
 
     root = Tk()
     app = LoginApp(root)

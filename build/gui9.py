@@ -4,7 +4,7 @@
 
 
 from pathlib import Path
-import os
+import os, platform
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
@@ -12,8 +12,10 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 
 abs = os.getcwd()
-ASSETS_PATH = abs + "/assets/frame9"
-
+if(platform.system() == "Darwin"):
+    ASSETS_PATH = abs + "/assets/frame9"
+else:
+    ASSETS_PATH = abs + "/build/assets/frame9"
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)

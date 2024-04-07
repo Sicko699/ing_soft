@@ -1,7 +1,5 @@
+import platform
 import os
+import sys
 
-percorso = os.getcwd()
-
-ASSETS_PATH = percorso + "/assets/frame3"
-
-print(ASSETS_PATH)
+print(platform.platform())
