@@ -1,6 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from main import exit_button, go_home_button, go_front_office_button, go_tariffe_dinamiche_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -400,7 +401,7 @@ class BackOfficeApp:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: exit_button(self.window),
             relief="flat"
         )
         self.button_1.place(
@@ -415,7 +416,7 @@ class BackOfficeApp:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=lambda: go_home_button(self.window),
             relief="flat"
         )
         self.button_2.place(
@@ -430,7 +431,7 @@ class BackOfficeApp:
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_3 clicked"),
+            command=lambda: go_front_office_button(self.window),
             relief="flat"
         )
         self.button_3.place(
@@ -460,7 +461,7 @@ class BackOfficeApp:
             image=self.button_image_5,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_5 clicked"),
+            command=lambda: go_tariffe_dinamiche_button(self.window),
             relief="flat"
         )
         self.button_5.place(
@@ -475,7 +476,7 @@ class BackOfficeApp:
             image=self.button_image_6,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_6 clicked"),
+            command=lambda: go_gestione_magazzino(self.window),
             relief="flat"
         )
         self.button_6.place(
@@ -490,7 +491,7 @@ class BackOfficeApp:
             image=self.button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_7 clicked"),
+            command=lambda: go_gestione_servizi(self.window),
             relief="flat"
         )
         self.button_7.place(
@@ -505,7 +506,7 @@ class BackOfficeApp:
             image=self.button_image_8,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_8 clicked"),
+            command=lambda: go_gestione_spa(self.window),
             relief="flat"
         )
         self.button_8.place(

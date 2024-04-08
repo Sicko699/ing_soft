@@ -1,6 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from main import go_front_office_button
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -290,7 +291,7 @@ class TariffeDinamicheApp:
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_3 clicked"),
+            command=lambda: go_front_office_button(self.window),
             relief="flat"
         )
         self.button_3.place(

@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_home_button
+from main import exit_button, go_home_button, go_back_office_button, go_tariffe_dinamiche_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
 
 
 abs_path = os.getcwd()
@@ -252,7 +252,7 @@ class FrontOfficeApp:
             image=self.button_image_6,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_6 clicked"),
+            command=lambda: go_back_office_button(self.window),
             relief="flat"
         )
         self.button_6.place(
@@ -266,7 +266,7 @@ class FrontOfficeApp:
             image=self.button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_7 clicked"),
+            command=lambda: go_tariffe_dinamiche_button(self.window),
             relief="flat"
         )
         self.button_7.place(
@@ -280,7 +280,7 @@ class FrontOfficeApp:
             image=self.button_image_8,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_8 clicked"),
+            command=lambda: go_gestione_magazzino(self.window),
             relief="flat"
         )
         self.button_8.place(
@@ -294,7 +294,7 @@ class FrontOfficeApp:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_9 clicked"),
+            command=lambda: go_gestione_servizi(self.window),
             relief="flat"
         )
         self.button_9.place(
@@ -308,7 +308,7 @@ class FrontOfficeApp:
             image=self.button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
+            command=lambda: go_gestione_spa(self.window),
             relief="flat"
         )
         self.button_10.place(
