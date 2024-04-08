@@ -3,6 +3,12 @@ from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
+abs_path = os.getcwd()
+if platform.system() == "Darwin":
+    ASSETS_PATH = abs_path + "/assets/frame6"
+else:
+    ASSETS_PATH = abs_path + "/build/assets/frame6"
+
 class MostraPrenotazioneApp:
     def __init__(self, window):
         
@@ -48,36 +54,6 @@ class MostraPrenotazioneApp:
             font=("Inter Bold", 16 * -1)
         )
         
-        self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
-        self.button_1 = Button(
-            image=self.button_image_1,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
-            relief="flat"
-        )
-        self.button_1.place(
-            x=282.0,
-            y=310.0,
-            width=143.8626708984375,
-            height=39.882110595703125
-        )
-        
-        self.button_image_2 = PhotoImage(file=self.relative_to_assets("button_2.png"))
-        self.button_2 = Button(
-            image=self.button_image_2,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
-            relief="flat"
-        )
-        self.button_2.place(
-            x=435.86279296875,
-            y=310.0,
-            width=143.8626708984375,
-            height=39.882110595703125
-        )
-        
         self.canvas.create_rectangle(
             302.0,
             184.0,
@@ -111,18 +87,59 @@ class MostraPrenotazioneApp:
             fill="#000000",
             font=("Quicksand Medium", 16 * -1)
         )
-        
-    def relative_to_assets(self, path: str) -> Path:
-        return ASSETS_PATH / Path(path)
 
+        self.button_images = {
+            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 2)
+        }
 
-if __name__ == "__main__":
-    abs = os.getcwd()
-    if(platform.system() == "Darwin"):
-        ASSETS_PATH = abs + "/assets/frame6"
-    else:
-        ASSETS_PATH = abs + "/build/assets/frame6"
+        self.create_buttons()
+
+        self.window.resizable(False, False)
+
+    def create_buttons(self):
+        self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
+        self.button_1 = Button(
+            image=self.button_image_1,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_1 clicked"),
+            relief="flat"
+        )
+        self.button_1.place(
+            x=282.0,
+            y=310.0,
+            width=143.8626708984375,
+            height=39.882110595703125
+        )
         
+        self.button_image_2 = PhotoImage(file=self.relative_to_assets("button_2.png"))
+        self.button_2 = Button(
+            image=self.button_image_2,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_2 clicked"),
+            relief="flat"
+        )
+        self.button_2.place(
+            x=435.86279296875,
+            y=310.0,
+            width=143.8626708984375,
+            height=39.882110595703125
+        )
+        
+    def relative_to_assets(self,path: str) -> Path:
+        return Path(ASSETS_PATH) / Path(path)
+
+    def load_button_image(self, image_path):
+        abs_path = os.getcwd()
+        if platform.system() == "Darwin":
+            assets_path = abs_path + "/assets/frame6"
+        else:
+            assets_path = abs_path + "/build/assets/frame6"
+
+        return PhotoImage(file=Path(assets_path) / Path(image_path))
+    
+if __name__ == "__main__":       
     root = Tk()
     app = MostraPrenotazioneApp(root)
     root.mainloop()

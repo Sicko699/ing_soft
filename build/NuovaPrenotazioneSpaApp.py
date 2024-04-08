@@ -2,6 +2,12 @@ from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
+abs_path = os.getcwd()
+if platform.system() == "Darwin":
+    ASSETS_PATH = abs_path + "/assets/frame12"
+else:
+    ASSETS_PATH = abs_path + "/build/assets/frame12"
+
 class NuovaPrenotazioneSpa:
     def __init__(self,window):
         self.window = window
@@ -28,6 +34,80 @@ class NuovaPrenotazioneSpa:
             outline=""
         )
 
+        self.canvas.create_rectangle(
+            341.0,
+            110.0,
+            731.0,
+            410.0,
+            fill="#FAFFFD",
+            outline=""
+        )
+
+        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
+        self.entry_bg_1 = self.canvas.create_image(
+            536.0,
+            185.5,
+            image=self.entry_image_1
+        )
+        self.entry_1 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_1.place(
+            x=398.0,
+            y=166.0,
+            width=276.0,
+            height=37.0
+        )
+
+        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
+        self.entry_bg_2 = self.canvas.create_image(
+            536.0,
+            260.0,
+            image=self.entry_image_2
+        )
+        self.entry_2 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_2.place(
+            x=398.0,
+            y=241.0,
+            width=276.0,
+            height=36.0
+        )
+
+        self.canvas.create_text(
+            386.0,
+            146.0,
+            anchor="nw",
+            text="Nome servizio spa",
+            fill="#000000",
+            font=("Quicksand Medium", 16 * -1)
+        )
+
+        self.canvas.create_text(
+            386.0,
+            221.0,
+            anchor="nw",
+            text="Camera",
+            fill="#000000",
+            font=("Quicksand Medium", 16 * -1)
+        )
+
+        self.button_images = {
+            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 9)
+        }
+
+        self.create_buttons()
+
+        self.window.resizable(False, False)
+    
+    def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
             image=self.button_image_1,
@@ -148,71 +228,6 @@ class NuovaPrenotazioneSpa:
             height=45.0
         )
 
-        self.canvas.create_rectangle(
-            341.0,
-            110.0,
-            731.0,
-            410.0,
-            fill="#FAFFFD",
-            outline=""
-        )
-
-        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
-        self.entry_bg_1 = self.canvas.create_image(
-            536.0,
-            185.5,
-            image=self.entry_image_1
-        )
-        self.entry_1 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_1.place(
-            x=398.0,
-            y=166.0,
-            width=276.0,
-            height=37.0
-        )
-
-        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
-        self.entry_bg_2 = self.canvas.create_image(
-            536.0,
-            260.0,
-            image=self.entry_image_2
-        )
-        self.entry_2 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_2.place(
-            x=398.0,
-            y=241.0,
-            width=276.0,
-            height=36.0
-        )
-
-        self.canvas.create_text(
-            386.0,
-            146.0,
-            anchor="nw",
-            text="Nome servizio spa",
-            fill="#000000",
-            font=("Quicksand Medium", 16 * -1)
-        )
-
-        self.canvas.create_text(
-            386.0,
-            221.0,
-            anchor="nw",
-            text="Camera",
-            fill="#000000",
-            font=("Quicksand Medium", 16 * -1)
-        )
-
         self.button_image_9 = PhotoImage(file=self.relative_to_assets("button_9.png"))
         self.button_9 = Button(
             image=self.button_image_9,
@@ -229,14 +244,18 @@ class NuovaPrenotazioneSpa:
         )
 
     def relative_to_assets(self,path: str) -> Path:
-        return ASSETS_PATH / Path(path)
+        return Path(ASSETS_PATH) / Path(path)
 
+    def load_button_image(self, image_path):
+        abs_path = os.getcwd()
+        if platform.system() == "Darwin":
+            assets_path = abs_path + "/assets/frame12"
+        else:
+            assets_path = abs_path + "/build/assets/frame12"
+
+        return PhotoImage(file=Path(assets_path) / Path(image_path))
+    
 if __name__ == "__main__":
-    abs = os.getcwd()
-    if(platform.system() == "Darwin"):
-        ASSETS_PATH = abs + "/assets/frame12"
-    else:
-        ASSETS_PATH = abs + "/build/assets/frame12"
     root = Tk()
     app = NuovaPrenotazioneSpa(root)
     root.mainloop()

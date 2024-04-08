@@ -2,6 +2,12 @@ from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
+abs_path = os.getcwd()
+if platform.system() == "Darwin":
+    ASSETS_PATH = abs_path + "/assets/frame4"
+else:
+    ASSETS_PATH = abs_path + "/build/assets/frame4"
+
 class RegistrazioneApp:
     def __init__(self, window):
         self.window = window
@@ -196,6 +202,15 @@ class RegistrazioneApp:
             font=("Inter Bold", 16 * -1)
         )
         
+        self.button_images = {
+            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 1)
+        }
+
+        self.create_buttons()
+
+        self.window.resizable(False, False)
+    
+    def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
             image=self.button_image_1,
@@ -210,21 +225,20 @@ class RegistrazioneApp:
             width=143.8626708984375,
             height=39.882110595703125
         )
-        
-        self.window.resizable(False, False)
-        
+
     def relative_to_assets(self, path: str) -> Path:
-        return ASSETS_PATH / Path(path)
+        return Path(ASSETS_PATH) / Path(path)
 
+    def load_button_image(self, image_path):
+        abs_path = os.getcwd()
+        if platform.system() == "Darwin":
+            assets_path = abs_path + "/assets/frame4"
+        else:
+            assets_path = abs_path + "/build/assets/frame4"
 
-if __name__ == '__main__':
-    abs = os.getcwd()
-    if(platform.system() == "Darwin"):
-        ASSETS_PATH = abs + "/assets/frame4"
-    else:
-        ASSETS_PATH = abs + "/build/assets/frame4"
+        return PhotoImage(file=Path(assets_path) / Path(image_path))
     
-    
+if __name__ == '__main__':    
     root = Tk()
     app = RegistrazioneApp(root)
     root.mainloop()

@@ -1,6 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+
 abs = os.getcwd()
 if(platform.system() == "Darwin"):
     ASSETS_PATH = abs + "/assets/frame17"
