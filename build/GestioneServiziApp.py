@@ -1,6 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from main import go_front_office_button, go_back_office_button, exit_button, go_home_button, 
 
 abs = os.getcwd()
 if(platform.system() == "Darwin"):
@@ -125,7 +126,7 @@ class GestioneServizi:
             image=self.button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_4 clicked"),
+            command=lambda: go_front_office_button(self.window),
             relief="flat"
         )
         self.button_4.place(

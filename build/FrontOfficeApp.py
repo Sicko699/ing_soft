@@ -223,7 +223,7 @@ class FrontOfficeApp:
             image=self.button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_4 clicked"),
+            command=lambda: go_inserimento_prenotazioni(self.window),
             relief="flat"
         )
         self.button_4.place(
@@ -331,7 +331,13 @@ class FrontOfficeApp:
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
         
-        
+def go_inserimento_prenotazioni(window):
+    from InserimentoPrenotazioniApp import InserimentoPrenotazione
+    window.destroy()
+    root = Tk()
+    app = InserimentoPrenotazione(root)
+    root.mainloop()
+
 if __name__ == "__main__":
     root = Tk()
     app = FrontOfficeApp(root)
