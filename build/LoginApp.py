@@ -136,8 +136,13 @@ class LoginApp:
         return Path(ASSETS_PATH) / Path(path)
 
     def verify_login(self, username, password):
-        with open("data.json", "r") as file:
-            data = json.load(file)
+        abs_path = os.getcwd()
+        if platform.system() == "Darwin":
+            with open("data.json", "r") as file:
+                data = json.load(file)
+        else:
+            with open(r"build/data.json", "r") as file:
+                data = json.load(file)
 
         users = data["users"]
 
