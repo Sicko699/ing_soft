@@ -1,7 +1,12 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-
+abs = os.getcwd()
+if(platform.system() == "Darwin"):
+    ASSETS_PATH = abs + "/assets/frame17"
+else:
+    ASSETS_PATH = abs + "/build/assets/frame17"
+    
 class GestioneServizi:
     def __init__(self,window):
         self.window = window
@@ -19,6 +24,7 @@ class GestioneServizi:
         )
 
         self.canvas.place(x = 0, y = 0)
+        
         self.canvas.create_rectangle(
             0.0,
             0.0,
@@ -27,7 +33,46 @@ class GestioneServizi:
             fill="#3E97F1",
             outline=""
         )
+        
+        self.image_image_1 = PhotoImage(file=self.relative_to_assets("image_1.png"))
+        self.image_1 = self.canvas.create_image(
+            403.0,
+            381.0,
+            image=self.image_image_1
+        )
 
+        
+        self.image_image_2 = PhotoImage(file=self.relative_to_assets("image_2.png"))
+        self.image_2 = self.canvas.create_image(
+            401.0,
+            174.0,
+            image=self.image_image_2
+        )
+        
+        self.image_image_3 = PhotoImage(file=self.relative_to_assets("image_3.png"))
+        self.image_3 = self.canvas.create_image(
+            673.0,
+            167.0,
+            image=self.image_image_3
+        )
+
+        self.image_image_4 = PhotoImage(file=self.relative_to_assets("image_4.png"))
+        self.image_4 = self.canvas.create_image(
+            673.0,
+            380.0,
+            image=self.image_image_4
+        )
+
+        self.button_images = {
+            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 12)
+        }
+
+        self.create_buttons()
+
+        self.window.resizable(False, False)
+
+
+    def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
             image=self.button_image_1,
@@ -43,12 +88,6 @@ class GestioneServizi:
             height=174.0
         )
 
-        self.image_image_1 = PhotoImage(file=self.relative_to_assets("image_1.png"))
-        self.image_1 = self.canvas.create_image(
-            403.0,
-            381.0,
-            image=self.image_image_1
-        )
 
         self.button_image_2 = PhotoImage(file=self.relative_to_assets("button_2.png"))
         self.button_2 = Button(
@@ -185,13 +224,6 @@ class GestioneServizi:
             height=174.0
         )
 
-        self.image_image_2 = PhotoImage(file=self.relative_to_assets("image_2.png"))
-        self.image_2 = self.canvas.create_image(
-            401.0,
-            174.0,
-            image=self.image_image_2
-        )
-
         self.button_image_11 = PhotoImage(file=self.relative_to_assets("button_11.png"))
         self.button_11 = Button(
             image=self.button_image_11,
@@ -207,13 +239,6 @@ class GestioneServizi:
             height=174.0
         )
         
-        self.image_image_3 = PhotoImage(file=self.relative_to_assets("image_3.png"))
-        self.image_3 = self.canvas.create_image(
-            673.0,
-            167.0,
-            image=self.image_image_3
-        )
-
         self.button_image_12 = PhotoImage(file=self.relative_to_assets("button_12.png"))
         self.button_12 = Button(
             image=self.button_image_12,
@@ -229,22 +254,20 @@ class GestioneServizi:
             height=174.0
         )
 
-        self.image_image_4 = PhotoImage(file=self.relative_to_assets("image_4.png"))
-        self.image_4 = self.canvas.create_image(
-            673.0,
-            380.0,
-            image=self.image_image_4
-        )
-
     def relative_to_assets(self,path: str) -> Path:
-        return ASSETS_PATH / Path(path)
+        return Path(ASSETS_PATH) / Path(path)
+
+    def load_button_image(self, image_path):
+        abs_path = os.getcwd()
+        if platform.system() == "Darwin":
+            assets_path = abs_path + "/assets/frame17"
+        else:
+            assets_path = abs_path + "/build/assets/frame17"
+
+        return PhotoImage(file=Path(assets_path) / Path(image_path))
+
 
 if __name__ == "__main__":
-    abs = os.getcwd()
-    if(platform.system() == "Darwin"):
-        ASSETS_PATH = abs + "/assets/frame17"
-    else:
-        ASSETS_PATH = abs + "/build/assets/frame17"
     root = Tk()
     app = GestioneServizi(root)
     root.mainloop()

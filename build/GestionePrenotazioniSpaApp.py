@@ -2,6 +2,12 @@ from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
+abs_path = os.getcwd()
+if platform.system() == "Darwin":
+    ASSETS_PATH = abs_path + "/assets/frame11"
+else:
+    ASSETS_PATH = abs_path + "/build/assets/frame11"
+
 class GestionePrenotazioniSpa:
     def __init__(self,window):
         self.window = window
@@ -27,7 +33,159 @@ class GestionePrenotazioniSpa:
             fill="#3E97F1",
             outline=""
         )
+        
+        self.canvas.create_rectangle(
+            315.0,
+            25.0,
+            752.0,
+            494.0,
+            fill="#FAFFFD",
+            outline=""
+        )
+        
+        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
+        self.entry_bg_1 = self.canvas.create_image(
+            533.5,
+            72.0,
+            image=self.entry_image_1
+        )
+        self.entry_1 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_1.place(
+            x=352.0,
+            y=53.0,
+            width=363.0,
+            height=36.0
+        )
 
+        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
+        self.entry_bg_2 = self.canvas.create_image(
+            533.5,
+            122.0,
+            image=self.entry_image_2
+        )
+        self.entry_2 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_2.place(
+            x=352.0,
+            y=103.0,
+            width=363.0,
+            height=36.0
+        )
+        
+        self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
+        self.entry_bg_3 = self.canvas.create_image(
+            533.5,
+            172.0,
+            image=self.entry_image_3
+        )
+        self.entry_3 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_3.place(
+            x=352.0,
+            y=153.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
+        self.entry_bg_4 = self.canvas.create_image(
+            533.5,
+            222.0,
+            image=self.entry_image_4
+        )
+        self.entry_4 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_4.place(
+            x=352.0,
+            y=203.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
+        self.entry_bg_5 = self.canvas.create_image(
+            533.5,
+            272.0,
+            image=self.entry_image_5
+        )
+        self.entry_5 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_5.place(
+            x=352.0,
+            y=253.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.entry_image_6 = PhotoImage(file=self.relative_to_assets("entry_6.png"))
+        self.entry_bg_6 = self.canvas.create_image(
+            533.5,
+            322.0,
+            image=self.entry_image_6
+        )
+        self.entry_6 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_6.place(
+            x=352.0,
+            y=303.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.entry_image_7 = PhotoImage(file=self.relative_to_assets("entry_7.png"))
+        self.entry_bg_7 = self.canvas.create_image(
+            533.5,
+            372.0,
+            image=self.entry_image_7
+        )
+        self.entry_7 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_7.place(
+            x=352.0,
+            y=353.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.button_images = {
+            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 24)
+        }
+
+        self.create_buttons()
+
+        self.window.resizable(False, False)
+
+    
+    def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
             image=self.button_image_1,
@@ -148,15 +306,6 @@ class GestionePrenotazioniSpa:
             height=45.0
         )
 
-        self.canvas.create_rectangle(
-            315.0,
-            25.0,
-            752.0,
-            494.0,
-            fill="#FAFFFD",
-            outline=""
-        )
-
         self.button_image_10 = PhotoImage(file=self.relative_to_assets("button_10.png"))
         self.button_10 = Button(
             image=self.button_image_10,
@@ -170,44 +319,6 @@ class GestionePrenotazioniSpa:
             y=416.0,
             width=247.0,
             height=49.0
-        )
-
-        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
-        self.entry_bg_1 = self.canvas.create_image(
-            533.5,
-            72.0,
-            image=self.entry_image_1
-        )
-        self.entry_1 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_1.place(
-            x=352.0,
-            y=53.0,
-            width=363.0,
-            height=36.0
-        )
-
-        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
-        self.entry_bg_2 = self.canvas.create_image(
-            533.5,
-            122.0,
-            image=self.entry_image_2
-        )
-        self.entry_2 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_2.place(
-            x=352.0,
-            y=103.0,
-            width=363.0,
-            height=36.0
         )
 
         self.button_image_11 = PhotoImage(file=self.relative_to_assets("button_11.png"))
@@ -240,25 +351,6 @@ class GestionePrenotazioniSpa:
             height=28.398725509643555
         )
 
-        self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
-        self.entry_bg_3 = self.canvas.create_image(
-            533.5,
-            172.0,
-            image=self.entry_image_3
-        )
-        self.entry_3 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_3.place(
-            x=352.0,
-            y=153.0,
-            width=363.0,
-            height=36.0
-        )
-
         self.button_image_13 = PhotoImage(file=self.relative_to_assets("button_13.png"))
         self.button_13 = Button(
             image=self.button_image_13,
@@ -272,63 +364,6 @@ class GestionePrenotazioniSpa:
             y=158.0,
             width=28.398725509643555,
             height=28.398725509643555
-        )
-
-        self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
-        self.entry_bg_4 = self.canvas.create_image(
-            533.5,
-            222.0,
-            image=self.entry_image_4
-        )
-        self.entry_4 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_4.place(
-            x=352.0,
-            y=203.0,
-            width=363.0,
-            height=36.0
-        )
-
-        self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
-        self.entry_bg_5 = self.canvas.create_image(
-            533.5,
-            272.0,
-            image=self.entry_image_5
-        )
-        self.entry_5 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_5.place(
-            x=352.0,
-            y=253.0,
-            width=363.0,
-            height=36.0
-        )
-
-        self.entry_image_6 = PhotoImage(file=self.relative_to_assets("entry_6.png"))
-        self.entry_bg_6 = self.canvas.create_image(
-            533.5,
-            322.0,
-            image=self.entry_image_6
-        )
-        self.entry_6 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_6.place(
-            x=352.0,
-            y=303.0,
-            width=363.0,
-            height=36.0
         )
 
         self.button_image_14 = PhotoImage(file=self.relative_to_assets("button_14.png"))
@@ -346,24 +381,6 @@ class GestionePrenotazioniSpa:
             height=28.398725509643555
         )
 
-        self.entry_image_7 = PhotoImage(file=self.relative_to_assets("entry_7.png"))
-        self.entry_bg_7 = self.canvas.create_image(
-            533.5,
-            372.0,
-            image=self.entry_image_7
-        )
-        self.entry_7 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_7.place(
-            x=352.0,
-            y=353.0,
-            width=363.0,
-            height=36.0
-        )
 
         self.button_image_15 = PhotoImage(file=self.relative_to_assets("button_15.png"))
         self.button_15 = Button(
@@ -516,14 +533,19 @@ class GestionePrenotazioniSpa:
         )
 
     def relative_to_assets(self,path: str) -> Path:
-        return ASSETS_PATH / Path(path)
+        return Path(ASSETS_PATH) / Path(path)
+    
+    def load_button_image(self, image_path):
+        abs_path = os.getcwd()
+        if platform.system() == "Darwin":
+            assets_path = abs_path + "/assets/frame11"
+        else:
+            assets_path = abs_path + "/build/assets/frame11"
+
+        return PhotoImage(file=Path(assets_path) / Path(image_path))
+
 
 if __name__ == "__main__":
-    abs = os.getcwd()
-    if(platform.system() == "Darwin"):
-        ASSETS_PATH = abs + "/assets/frame11"
-    else:
-        ASSETS_PATH = abs + "/build/assets/frame11"
     root = Tk()
     app = GestionePrenotazioniSpa(root)
     root.mainloop()
