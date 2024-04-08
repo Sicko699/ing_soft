@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage
 import os, platform
+from main import exit_button, go_front_office_button, go_back_office_button, go_tariffe_dinamiche_button, go_gestione_magazzino
 
 class MainApp:
     def __init__(self, window):
@@ -83,7 +84,7 @@ class MainApp:
             image=self.button_images["button_5"],
             borderwidth=0,
             highlightthickness=0,
-            command=self.go_home,
+            command=lambda: exit_button(self.window),
             relief="flat"
         )
         button_5.place(x=46.0, y=452.0, width=47.0, height=45.0)
@@ -103,7 +104,7 @@ class MainApp:
             image=self.button_images["button_7"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_7 clicked"),
+            command=lambda: go_front_office_button(self.window),
             relief="flat"
         )
         button_7.place(x=24.0, y=75.0, width=162.0, height=45.0)
@@ -113,7 +114,7 @@ class MainApp:
             image=self.button_images["button_8"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_8 clicked"),
+            command=lambda: go_back_office_button(self.window),
             relief="flat"
         )
         button_8.place(x=24.0, y=135.0, width=162.0, height=45.0)
@@ -123,7 +124,7 @@ class MainApp:
             image=self.button_images["button_9"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_9 clicked"),
+            command=lambda: go_tariffe_dinamiche_button(self.window),
             relief="flat"
         )
         button_9.place(x=24.0, y=195.0, width=162.0, height=45.0)
@@ -133,7 +134,7 @@ class MainApp:
             image=self.button_images["button_10"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
+            command=lambda: go_gestione_magazzino(self.window),
             relief="flat"
         )
         button_10.place(x=24.0, y=255.0, width=162.0, height=45.0)
@@ -166,13 +167,6 @@ class MainApp:
             ASSETS_PATH = abs + "/build/assets/frame2"
 
         return PhotoImage(file=ASSETS_PATH / Path(image_path))
-    
-    def go_home(self):
-        from LoginApp import LoginApp
-        self.window.destroy()
-        root = Tk()  # Crea una nuova finestra Tk per la MainApp
-        app = LoginApp(root)  # Avvia la MainApp nella nuova finestra Tk
-        root.mainloop()
     
 if __name__ == "__main__":
     root = Tk()

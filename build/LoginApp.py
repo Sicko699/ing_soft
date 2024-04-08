@@ -11,13 +11,13 @@ else:
     ASSETS_PATH = abs_path + "/build/assets/frame3"
 
 class LoginApp:
-    def __init__(self, master):
-        self.master = master
-        self.master.geometry("862x519")
-        self.master.configure(bg="#FAFFFD")
+    def __init__(self, window):
+        self.window = window
+        self.window.geometry("862x519")
+        self.window.configure(bg="#FAFFFD")
 
         self.canvas = Canvas(
-            self.master,
+            self.window,
             bg="#FAFFFD",
             height=519,
             width=862,
@@ -37,7 +37,6 @@ class LoginApp:
         )
 
         self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
-        print("Entry 1 image path:", self.relative_to_assets("entry_1.png"))  # Debugging
         self.entry_bg_1 = self.canvas.create_image(
             431.5,
             191.0,
@@ -100,7 +99,7 @@ class LoginApp:
 
         self.create_buttons()
 
-        self.master.resizable(False, False)
+        self.window.resizable(False, False)
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -157,7 +156,7 @@ class LoginApp:
 
         if self.verify_login(username, password) == "admin":
             print("Accesso consentito come admin")
-            self.master.destroy()  # Chiude la finestra della LoginApp
+            self.window.destroy()  # Chiude la finestra della LoginApp
             root = Tk()  # Crea una nuova finestra Tk per la MainApp
             app = MainApp(root)  # Avvia la MainApp nella nuova finestra Tk
             root.mainloop()  # Avvia il loop principale della nuova finestra Tk
