@@ -1,6 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from main import exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_tariffe_dinamiche_button
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -31,6 +32,15 @@ class GestioneOrdiniMagazzino:
             210.0,
             519.0,
             fill="#3E97F1",
+            outline=""
+        )
+
+        self.canvas.create_rectangle(
+            315.0,
+            25.0,
+            752.0,
+            494.0,
+            fill="#FAFFFD",
             outline=""
         )
         
@@ -181,7 +191,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: exit_button(self.window),
             relief="flat"
         )
         self.button_1.place(
@@ -196,7 +206,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=lambda: go_home_button(self.window),
             relief="flat"
         )
         self.button_2.place(
@@ -211,7 +221,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_3 clicked"),
+            command=lambda: go_front_office_button(self.window),
             relief="flat"
         )
         self.button_3.place(
@@ -226,7 +236,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_4 clicked"),
+            command=lambda: go_back_office_button(self.window),
             relief="flat"
         )
         self.button_4.place(
@@ -241,7 +251,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_5,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_5 clicked"),
+            command=lambda: go_tariffe_dinamiche_button(self.window),
             relief="flat"
         )
         self.button_5.place(
@@ -256,7 +266,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_6,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_6 clicked"),
+            command=lambda: go_gestione_magazzino(self.window),
             relief="flat"
         )
         self.button_6.place(
@@ -271,7 +281,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_7 clicked"),
+            command=lambda: go_gestione_servizi(self.window),
             relief="flat"
         )
         self.button_7.place(
@@ -286,7 +296,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_8,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_8 clicked"),
+            command=lambda: go_gestione_spa(self.window),
             relief="flat"
         )
         self.button_8.place(
@@ -296,21 +306,12 @@ class GestioneOrdiniMagazzino:
             height=45.0
         )
 
-        self.canvas.create_rectangle(
-            315.0,
-            25.0,
-            752.0,
-            494.0,
-            fill="#FAFFFD",
-            outline=""
-        )
-
         self.button_image_9 = PhotoImage(file=self.relative_to_assets("button_9.png"))
         self.button_9 = Button(
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_9 clicked"),
+            command=lambda: go_nuovo_ordine_magazzino(self.window),
             relief="flat"
         )
         self.button_9.place(
@@ -319,8 +320,6 @@ class GestioneOrdiniMagazzino:
             width=188.0,
             height=49.0
         )
-
-        
 
         self.button_image_10 = PhotoImage(file=self.relative_to_assets("button_10.png"))
         self.button_10 = Button(
@@ -438,6 +437,13 @@ class GestioneOrdiniMagazzino:
             assets_path = abs_path + "/build/assets/frame10"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
+
+def go_nuovo_ordine_magazzino(window):
+    from NuovoOrdineMagazzinoApp import NuovoOrdineMagazzino
+    window.destroy()
+    root = Tk()
+    app = NuovoOrdineMagazzino(root)
+    root.mainloop()
 
 if __name__ == "__main__":
     root = Tk()

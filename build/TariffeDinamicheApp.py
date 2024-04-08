@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_front_office_button
+from main import go_front_office_button, exit_button, go_gestione_servizi, go_back_office_button, go_gestione_magazzino, go_gestione_spa, go_home_button, go_tariffe_dinamiche_button
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -261,7 +261,7 @@ class TariffeDinamicheApp:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: exit_button(self.window),
             relief="flat"
         )
         self.button_1.place(
@@ -276,7 +276,7 @@ class TariffeDinamicheApp:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=lambda: go_home_button(self.window),
             relief="flat"
         )
         self.button_2.place(
@@ -306,7 +306,7 @@ class TariffeDinamicheApp:
             image=self.button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_4 clicked"),
+            command=lambda: go_back_office_button(self.window),
             relief="flat"
         )
         self.button_4.place(
@@ -336,7 +336,7 @@ class TariffeDinamicheApp:
             image=self.button_image_6,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_6 clicked"),
+            command=lambda: go_gestione_magazzino(self.window),
             relief="flat"
         )
         self.button_6.place(
@@ -351,7 +351,7 @@ class TariffeDinamicheApp:
             image=self.button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_7 clicked"),
+            command=lambda: go_gestione_servizi(self.window),
             relief="flat"
         )
         self.button_7.place(
@@ -366,7 +366,7 @@ class TariffeDinamicheApp:
             image=self.button_image_8,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_8 clicked"),
+            command=lambda: go_gestione_spa(self.window),
             relief="flat"
         )
         
@@ -392,6 +392,7 @@ class TariffeDinamicheApp:
             width=112.00301361083984,
             height=34.61487579345703
         )
+        
     def relative_to_assets(self, path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
     

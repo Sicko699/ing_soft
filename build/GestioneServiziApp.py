@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_front_office_button, go_back_office_button, exit_button, go_home_button, 
+from main import go_front_office_button, go_back_office_button, exit_button, go_home_button 
 
 abs = os.getcwd()
 if(platform.system() == "Darwin"):
