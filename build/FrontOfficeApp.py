@@ -66,7 +66,7 @@ class FrontOfficeApp:
             227.2998046875,
             516.0,
             297.2998046875,
-            fill="#6D6D6D",
+            fill="#EAEEEC",
             outline="")
 
         self.canvas.create_rectangle(
@@ -74,7 +74,7 @@ class FrontOfficeApp:
             322.2998046875,
             516.0,
             392.2998046875,
-            fill="#6D6D6D",
+            fill="#EAEEEC",
             outline="")
 
         self.canvas.create_rectangle(
@@ -82,7 +82,7 @@ class FrontOfficeApp:
             227.0,
             716.0,
             297.0,
-            fill="#6D6D6D",
+            fill="#EAEEEC",
             outline="")
 
         self.canvas.create_rectangle(
@@ -90,7 +90,7 @@ class FrontOfficeApp:
             322.0,
             716.0,
             392.0,
-            fill="#6D6D6D",
+            fill="#EAEEEC",
             outline="")
 
         self.canvas.create_text(
