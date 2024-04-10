@@ -99,11 +99,7 @@ class CercaCamere:
             state="readonly",
             width=20,
             height=5,
-<<<<<<< HEAD
-            font=("Quicksand", 16)
-=======
             font=("Quicksand", 16 * -1)
->>>>>>> 191a56996f8a7bbd47698fc4e737c0d48080166e
         )
         self.combo.place(x=302.0, y=270, width=257, height=32)
 

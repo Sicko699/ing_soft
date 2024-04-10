@@ -1,6 +1,6 @@
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox
 from pathlib import Path
-import json
+import json, tempfile
 import os
 import platform
 
@@ -144,9 +144,8 @@ class LoginApp:
             with open(r"build/data.json", "r") as file:
                 data = json.load(file)
 
-        users = data["users"]
-
-        for user in users:
+        users_data = data[0]["users"]  # Accedi al primo elemento della lista e quindi a "users" nel dizionario
+        for user in users_data:
             if user["username"] == username and user["password"] == password and user["role"] == "admin":
                 return "admin"
             elif user["username"] == username and user["password"] == password and user["role"] == "utente":
@@ -156,17 +155,28 @@ class LoginApp:
 
     def login_clicked(self):
         from MainApp import MainApp
+        from CercaCamereApp import CercaCamere
         username = self.entry_1.get()
         password = self.entry_2.get()
 
         if self.verify_login(username, password) == "admin":
-            print("Accesso consentito come admin")
             self.window.destroy()  # Chiude la finestra della LoginApp
             root = Tk()  # Crea una nuova finestra Tk per la MainApp
             app = MainApp(root)  # Avvia la MainApp nella nuova finestra Tk
             root.mainloop()  # Avvia il loop principale della nuova finestra Tk
         elif self.verify_login(username, password) == "utente":
             print("Accesso consentito come utente")
+            current_user = {"username": username, "password": password}
+
+            # Scrivi i dettagli dell'utente nel file current_user.json
+            with open("current_user.json", "w") as json_file:
+                json.dump(current_user, json_file)
+
+            
+            self.window.destroy()  # Chiude la finestra della LoginApp
+            root = Tk()  # Crea una nuova finestra Tk per la MainApp
+            app = CercaCamere(root)  # Avvia la MainApp nella nuova finestra Tk
+            root.mainloop()  # Avvia il loop principale della nuova finestra Tk
         else:
             messagebox.showerror("Login Failed", "Invalid username or password")
 
