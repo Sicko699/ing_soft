@@ -1,15 +1,88 @@
-{
-    "users": [
-      {
-        "username": "admin",
-        "password": "admin123",
-        "role":"admin"
-      },
-      {
-        "username": "user",
-        "password": "password123",
-        "role":"utente"
-      }
-    ]
+[
+  {
+      "users": [
+          {
+              "username": "admin",
+              "password": "admin123",
+              "role": "admin"
+          },
+          {
+              "username": "user",
+              "password": "password123",
+              "role": "utente"
+          },
+          {
+              "nome": "f",
+              "cognome": "f",
+              "email": "f",
+              "telefono": "f",
+              "username": "f",
+              "password": "f"
+          },
+          {
+              "nome": "Francesco",
+              "cognome": "Simonetti",
+              "email": "sapo@gmail.com",
+              "telefono": "1231231234",
+              "username": "Sapo",
+              "password": "Sapo",
+              "role": "utente"
+          },
+          {
+              "nome": "Francesco",
+              "cognome": "Mattone",
+              "email": "sicko@gmail.com",
+              "telefono": "3930519173",
+              "username": "Suca",
+              "password": "Suca",
+              "role": "utente",
+              "prenotazioni": [
+                  {
+                      "data_arrivo": "",
+                      "data_partenza": "",
+                      "tipo_camera": ""
+                  }
+              ]
+          },
+          {
+              "nome": "Chiara",
+              "cognome": "Di Pasquale",
+              "email": "chiara@gmail.com",
+              "telefono": "39393939",
+              "username": "Chiara",
+              "password": "chiara123",
+              "role": "utente"
+          }
+      ]
+  },
+  {
+      "camere": [
+          {
+              "camere_singole": [
+                  {
+                      "libere": 12,
+                      "occupate": 0
+                  }
+              ],
+              "camere_doppie": [
+                  {
+                      "libere": 12,
+                      "occupate": 0
+                  }
+              ],
+              "camere_triple": [
+                  {
+                      "libere": 12,
+                      "occupate": 0
+                  }
+              ],
+              "camere_quadruple": [
+                  {
+                      "libere": 12,
+                      "occupate": 0
+                  }
+              ]
+          }
+      ]
   }
-  
+]

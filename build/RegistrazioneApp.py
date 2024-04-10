@@ -1,6 +1,7 @@
 from pathlib import Path
-import os, platform
+import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from main import go_home_button
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -175,7 +176,8 @@ class RegistrazioneApp:
             bd=0,
             bg="#FAFFFD",
             fg="#000716",
-            highlightthickness=0
+            highlightthickness=0,
+            show="*"
         )
         self.entry_6.place(
             x=314.0,
@@ -216,7 +218,7 @@ class RegistrazioneApp:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("bottone registrazione"),
+            command=lambda: [self.registrazione(), go_cerca_camere(self.window)],
             relief="flat"
         )
         self.button_1.place(
@@ -238,6 +240,48 @@ class RegistrazioneApp:
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
     
+    def registrazione(self):
+        # Raccogli i dati inseriti dall'utente
+        nome = self.entry_1.get()
+        cognome = self.entry_2.get()
+        email = self.entry_3.get()
+        telefono = self.entry_4.get()
+        username = self.entry_5.get()
+        password = self.entry_6.get()
+        role = "utente"
+
+        # Crea un dizionario con i dati dell'utente
+        utente = {
+            "nome": nome,
+            "cognome": cognome,
+            "email": email,
+            "telefono": telefono,
+            "username": username,
+            "password": password,
+            "role": role
+        }
+
+        try:
+            with open('data.json', 'r') as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            data = {"users": []}
+        
+        data["users"].append(utente)
+
+        # Scrivi i dati aggiornati su data.json
+        with open('data.json', 'w') as file:
+            json.dump(data, file, indent=4)
+
+        print("Registrazione completata con successo!")
+    
+def go_cerca_camere(window):
+    from CercaCamereApp import CercaCamere
+    window.destroy()
+    root = Tk()
+    app = CercaCamere(root)
+    root.mainloop()
+        
 if __name__ == '__main__':    
     root = Tk()
     app = RegistrazioneApp(root)

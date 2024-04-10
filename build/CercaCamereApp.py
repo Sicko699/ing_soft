@@ -1,6 +1,9 @@
+import tkinter as tk
+from tkinter import Tk, Button, ttk, PhotoImage
+from tkcalendar import Calendar
 from pathlib import Path
-import os, platform
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+import os
+import platform
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -8,23 +11,23 @@ if platform.system() == "Darwin":
 else:
     ASSETS_PATH = abs_path + "/build/assets/frame5"
 
-class CercaCamereApp:
-    def __init__(self,window):
+class CercaCamere:
+    def __init__(self, window):
         self.window = window
         self.window.geometry("862x519")
-        self.window.configure(bg = "#FAFFFD")
+        self.window.configure(bg="#FAFFFD")
 
-        self.canvas = Canvas(
+        self.canvas = tk.Canvas(
             self.window,
-            bg = "#FAFFFD",
-            height = 519,
-            width = 862,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
+            bg="#FAFFFD",
+            height=519,
+            width=862,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
         )
 
-        self.canvas.place(x = 0, y = 0)
+        self.canvas.place(x=0, y=0)
         self.canvas.create_rectangle(
             262.0,
             106.0,
@@ -34,43 +37,31 @@ class CercaCamereApp:
             outline=""
         )
 
-        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
-        self.entry_bg_1 = self.canvas.create_image(
-            430.5,
-            176.0,
-            image=self.entry_image_1
-        )
-        self.entry_1 = Entry(
-            bd=0,
+        self.arrival_button = Button(
+            self.canvas,
+            text="Seleziona data di arrivo",
+            command=self.open_arrival_calendar,
             bg="#FAFFFD",
             fg="#000716",
-            highlightthickness=0
+            borderwidth=0,
+            highlightthickness=0,
+            relief="flat",
+            font=("Inter Bold", 12)
         )
-        self.entry_1.place(
-            x=314.0,
-            y=160.0,
-            width=233.0,
-            height=30.0
-        )
+        self.arrival_button.place(x=302.0, y=160.0, width=257, height=32)
 
-        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
-        self.entry_bg_2 = self.canvas.create_image(
-            430.5,
-            238.0,
-            image=self.entry_image_2
-        )
-        self.entry_2 = Entry(
-            bd=0,
+        self.departure_button = Button(
+            self.canvas,
+            text="Seleziona data di partenza",
+            command=self.open_departure_calendar,
             bg="#FAFFFD",
             fg="#000716",
-            highlightthickness=0
+            borderwidth=0,
+            highlightthickness=0,
+            relief="flat",
+            font=("Inter Bold", 12)
         )
-        self.entry_2.place(
-            x=314.0,
-            y=222.0,
-            width=233.0,
-            height=30.0
-        )
+        self.departure_button.place(x=302.0, y=222.0, width=257, height=32)
 
         self.canvas.create_text(
             302.0,
@@ -78,35 +69,7 @@ class CercaCamereApp:
             anchor="nw",
             text="Data di arrivo",
             fill="#FFFFFF",
-            font=("Inter Bold", 16 * -1)
-        )
-
-        self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
-        self.entry_bg_3 = self.canvas.create_image(
-            430.5,
-            301.0,
-            image=self.entry_image_3
-        )
-        self.entry_3 = Entry(
-            bd=0,
-            bg="#FAFFFD",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_3.place(
-            x=314.0,
-            y=285.0,
-            width=233.0,
-            height=30.0
-        )
-
-        self.canvas.create_text(
-            302.0,
-            264.0,
-            anchor="nw",
-            text="Tipologia camera",
-            fill="#FFFFFF",
-            font=("Inter Bold", 16 * -1)
+            font=("Quicksand", 16 * -1)
         )
 
         self.canvas.create_text(
@@ -115,18 +78,34 @@ class CercaCamereApp:
             anchor="nw",
             text="Data di partenza",
             fill="#FFFFFF",
-            font=("Inter Bold", 16 * -1)
+            font=("Quicksand", 16 * -1)
         )
+        
+        self.canvas.create_text(
+            302.0,
+            264.0,
+            anchor="nw",
+            text="Tipologia Camera",
+            fill="#FFFFFF",
+            font=("Quicksand", 16)
+        )
+
+        self.combo_var = tk.StringVar()
+        self.combo_var.set("Camera Singola")
+        self.combo = ttk.Combobox(
+            self.canvas,
+            textvariable=self.combo_var,
+            values=["Camera Singola", "Camera Doppia", "Camera Tripla", "Camera Quadrupla"],
+            state="readonly",
+            width=20,
+            height=5,
+        )
+        self.combo.place(x=302.0, y=285, width=257, height=32)
 
         self.button_images = {
             f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 1)
         }
-
-        self.create_buttons()
-
-        self.window.resizable(False, False)
         
-    def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
             image=self.button_image_1,
@@ -143,7 +122,43 @@ class CercaCamereApp:
             height=39.882110595703125
         )
 
-    def relative_to_assets(self,path: str) -> Path:
+        self.window.resizable(False, False)
+        
+    def open_arrival_calendar(self):
+        self.arrival_calendar = tk.Toplevel(self.window)
+        self.arrival_calendar.geometry("330x270")
+        self.arrival_calendar.title("Seleziona data di arrivo")
+        
+        cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
+        cal_arrival.grid(row=0, column=0, padx=10, pady=10)
+        
+        confirm_button = Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
+        confirm_button.grid(row=1, column=0, pady=10)
+
+
+    def confirm_arrival_date(self):
+        selected_date = self.arrival_calendar.winfo_children()[0].get_date()
+        self.arrival_button.config(text=selected_date)
+        self.arrival_calendar.destroy()
+        
+    def open_departure_calendar(self):
+        self.departure_calendar = tk.Toplevel(self.window)
+        self.departure_calendar.geometry("330x270")
+        self.departure_calendar.title("Seleziona data di partenza")
+        
+        cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", 
+                                 font="Quicksand 14", cursor="hand1")
+        cal_departure.grid(row=0, column=0, padx=10, pady=10)
+        
+        confirm_button = Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
+        confirm_button.grid(row=1, column=0, pady=10)
+        
+    def confirm_departure_date(self):
+        selected_date = self.departure_calendar.winfo_children()[0].get_date()
+        self.departure_button.config(text=selected_date)
+        self.departure_calendar.destroy()
+
+    def relative_to_assets(self, path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
 
     def load_button_image(self, image_path):
@@ -153,9 +168,9 @@ class CercaCamereApp:
         else:
             assets_path = abs_path + "/build/assets/frame5"
 
-        return PhotoImage(file=Path(assets_path) / Path(image_path))
+        return tk.PhotoImage(file=Path(assets_path) / Path(image_path))
     
 if __name__ == "__main__":
     root = Tk()
-    app = CercaCamereApp(root)
+    app = CercaCamere(root)
     root.mainloop()
