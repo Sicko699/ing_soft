@@ -122,7 +122,7 @@ class LoginApp:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=lambda: go_registrazione(self.window),
             relief="flat"
         )
         self.button_2.place(
@@ -179,6 +179,12 @@ class LoginApp:
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 
+def go_registrazione(window):
+    from RegistrazioneApp import RegistrazioneApp
+    window.destroy()
+    root = Tk()
+    app = RegistrazioneApp(root)
+    root.mainloop()
 
 if __name__ == "__main__":
     root = Tk()
