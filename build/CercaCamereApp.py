@@ -30,7 +30,7 @@ class CercaCamere:
         self.canvas.place(x=0, y=0)
         self.canvas.create_rectangle(
             262.0,
-            106.0,
+            91.0,
             599.0,
             414.0,
             fill="#56AAFF",
@@ -48,7 +48,7 @@ class CercaCamere:
             relief="flat",
             font=("Inter Bold", 12)
         )
-        self.arrival_button.place(x=302.0, y=160.0, width=257, height=32)
+        self.arrival_button.place(x=302.0, y=145.0, width=257, height=32)
 
         self.departure_button = Button(
             self.canvas,
@@ -61,11 +61,11 @@ class CercaCamere:
             relief="flat",
             font=("Inter Bold", 12)
         )
-        self.departure_button.place(x=302.0, y=222.0, width=257, height=32)
+        self.departure_button.place(x=302.0, y=207.0, width=257, height=32)
 
         self.canvas.create_text(
             302.0,
-            139.0,
+            124.0,
             anchor="nw",
             text="Data di arrivo",
             fill="#FFFFFF",
@@ -74,7 +74,7 @@ class CercaCamere:
 
         self.canvas.create_text(
             302.0,
-            202.0,
+            187.0,
             anchor="nw",
             text="Data di partenza",
             fill="#FFFFFF",
@@ -83,11 +83,11 @@ class CercaCamere:
         
         self.canvas.create_text(
             302.0,
-            264.0,
+            249.0,
             anchor="nw",
             text="Tipologia Camera",
             fill="#FFFFFF",
-            font=("Quicksand", 16)
+            font=("Quicksand", 16 * -1)
         )
 
         self.combo_var = tk.StringVar()
@@ -99,9 +99,13 @@ class CercaCamere:
             state="readonly",
             width=20,
             height=5,
+<<<<<<< HEAD
             font=("Quicksand", 16)
+=======
+            font=("Quicksand", 16 * -1)
+>>>>>>> 191a56996f8a7bbd47698fc4e737c0d48080166e
         )
-        self.combo.place(x=302.0, y=285, width=257, height=32)
+        self.combo.place(x=302.0, y=270, width=257, height=32)
 
         self.button_images = {
             f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 1)
@@ -118,7 +122,7 @@ class CercaCamere:
 
         self.button_1.place(
             x=359.0,
-            y=354.0,
+            y=339.0,
             width=143.8626708984375,
             height=39.882110595703125
         )
