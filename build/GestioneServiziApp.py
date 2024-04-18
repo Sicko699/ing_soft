@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_front_office_button, go_back_office_button, exit_button, go_home_button, go_tariffe_dinamiche_button, go_gestione_magazzino, go_gestione_spa
+from main import go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
 
 abs = os.getcwd()
 if(platform.system() == "Darwin"):
@@ -147,21 +147,6 @@ class GestioneServizi:
         self.button_5.place(
             x=24.0,
             y=135.0,
-            width=162.0,
-            height=45.0
-        )
-
-        self.button_image_6 = PhotoImage(file=self.relative_to_assets("button_6.png"))
-        self.button_6 = Button(
-            image=self.button_image_6,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_6 clicked"),
-            relief="flat"
-        )
-        self.button_6.place(
-            x=24.0,
-            y=195.0,
             width=162.0,
             height=45.0
         )

@@ -28,13 +28,6 @@ def go_back_office_button(window):
     app = BackOfficeApp(root)
     root.mainloop()
     
-def go_tariffe_dinamiche_button(window):
-    from TariffeDinamicheApp import TariffeDinamicheApp
-    window.destroy()
-    root = Tk()
-    app = TariffeDinamicheApp(root)
-    root.mainloop()
-    
 def go_gestione_magazzino(window):
     from GestioneOrdiniMagazzinoApp import GestioneOrdiniMagazzino
     window.destroy()
