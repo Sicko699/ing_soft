@@ -436,7 +436,7 @@ class BackOfficeApp:
         )
         self.button_3.place(
             x=24.0,
-            y=75.0,
+            y=98.0,
             width=162.0,
             height=45.0
         )
@@ -451,7 +451,7 @@ class BackOfficeApp:
         )
         self.button_4.place(
             x=24.0,
-            y=135.0,
+            y=158.0,
             width=162.0,
             height=45.0
         )
@@ -466,7 +466,7 @@ class BackOfficeApp:
         )
         self.button_6.place(
             x=24.0,
-            y=255.0,
+            y=218.0,
             width=162.0,
             height=45.0
         )
@@ -481,7 +481,7 @@ class BackOfficeApp:
         )
         self.button_7.place(
             x=24.0,
-            y=315.0,
+            y=278.0,
             width=162.0,
             height=45.0
         )
@@ -496,7 +496,7 @@ class BackOfficeApp:
         )
         self.button_8.place(
             x=24.0,
-            y=375.0,
+            y=338.0,
             width=162.0,
             height=45.0
         )
