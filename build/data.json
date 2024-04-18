@@ -220,5 +220,15 @@
               ]
           }
       ]
+  },
+  {
+    "prezzi":[
+      {
+        "Camera Singola":"80",
+        "Camera Doppia":"120",
+        "Camera Tripla":"160",
+        "Camera Quadrupla":"200"
+      }
+    ]
   }
 ]
