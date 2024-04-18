@@ -1,7 +1,9 @@
 from pathlib import Path
 import os, platform
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+import tkinter as tk
+from tkinter import Tk, Canvas, Entry, Text, Button, ttk, PhotoImage
 from main import go_front_office_button, exit_button, go_gestione_servizi, go_back_office_button, go_gestione_magazzino, go_gestione_spa, go_home_button, go_tariffe_dinamiche_button
+from tkcalendar import Calendar
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -42,26 +44,18 @@ class TariffeDinamicheApp:
             fill="#FAFFFD",
             outline="")
         
-
-        self.entry_image_1 = PhotoImage(
-            file=self.relative_to_assets("entry_1.png"))
-        self.entry_bg_1 = self.canvas.create_image(
-            537.0,
-            92.5,
-            image=self.entry_image_1
+        self.combo_var = tk.StringVar()
+        self.combo_var.set("Camera Singola")
+        self.combo = ttk.Combobox(
+            self.canvas,
+            textvariable=self.combo_var,
+            values=["Camera Singola", "Camera Doppia", "Camera Tripla", "Camera Quadrupla"],
+            state="readonly",
+            width=20,
+            height=5,
+            font=("Quicksand", 14 * -1)
         )
-        self.entry_1 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_1.place(
-            x=434.0,
-            y=79.0,
-            width=206.0,
-            height=25.0
-        )
+        self.combo.place(x=421.0, y=79.0, width=230.0, height=25)
 
         self.entry_image_2 = PhotoImage(
             file=self.relative_to_assets("entry_2.png"))
@@ -167,7 +161,7 @@ class TariffeDinamicheApp:
             422.0,
             322.0,
             anchor="nw",
-            text="Aumento sotto soglia minima",
+            text="Aumento sotto soglia minima (%)",
             fill="#000000",
             font=("Quicksand Medium", 12 * -1)
         )
@@ -176,7 +170,7 @@ class TariffeDinamicheApp:
             422.0,
             375.0,
             anchor="nw",
-            text="Prezzi",
+            text="Prezzo aggiornato",
             fill="#000000",
             font=("Quicksand Medium", 12 * -1)
         )
@@ -185,7 +179,7 @@ class TariffeDinamicheApp:
             422.0,
             216.0,
             anchor="nw",
-            text="Riduzione sotto soglia minima",
+            text="Riduzione sotto soglia minima (%)",
             fill="#000000",
             font=("Quicksand Medium", 12 * -1)
         )
@@ -214,7 +208,7 @@ class TariffeDinamicheApp:
             422.0,
             165.0,
             anchor="nw",
-            text="Soglia minima per taglio prezzo",
+            text="Soglia minima per taglio prezzo (%)",
             fill="#000000",
             font=("Quicksand Medium", 12 * -1)
         )
@@ -241,7 +235,7 @@ class TariffeDinamicheApp:
             422.0,
             270.0,
             anchor="nw",
-            text="Soglia massima per aumento prezzo",
+            text="Soglia massima per aumento prezzo (%)",
             fill="#000000",
             font=("Quicksand Medium", 12 * -1)
         )
