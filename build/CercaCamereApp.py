@@ -194,6 +194,15 @@ class CercaCamere:
                                 # Se la prenotazione è vuota, la camera è libera
                                 if  prenotazione["arrivo"] == "" and prenotazione["partenza"]=="":
                                     print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato.")
+                                    current_prenotazione = {
+                                        "arrivo": data_arrivo.strftime("%d-%m-%Y"),
+                                        "partenza": data_partenza.strftime("%d-%m-%Y"),
+                                        "tipo_camera": tipo_camera
+                                        }
+
+                                    # Scrivi i dettagli dell'utente nel file current_user.json
+                                    with open("current_prenotazione.json", "w") as json_file:
+                                        json.dump(current_prenotazione, json_file)
                                     return
                                 if prenotazione["arrivo"] and prenotazione["partenza"]:
                                     arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")

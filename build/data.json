@@ -1,234 +1,217 @@
 [
-  {
-      "users": [
-          {
-              "username": "admin",
-              "password": "admin123",
-              "role": "admin"
-          },
-          {
-              "username": "user",
-              "password": "password123",
-              "role": "utente"
-          },
-          {
-              "nome": "f",
-              "cognome": "f",
-              "email": "f",
-              "telefono": "f",
-              "username": "f",
-              "password": "f"
-          },
-          {
-              "nome": "Francesco",
-              "cognome": "Simonetti",
-              "email": "sapo@gmail.com",
-              "telefono": "1231231234",
-              "username": "Sapo",
-              "password": "Sapo",
-              "role": "utente"
-          },
-          {
-              "nome": "Francesco",
-              "cognome": "Mattone",
-              "email": "sicko@gmail.com",
-              "telefono": "3930519173",
-              "username": "Suca",
-              "password": "Suca",
-              "role": "utente",
-              "prenotazioni": [
-                  {
-                      "data_arrivo": "",
-                      "data_partenza": "",
-                      "tipo_camera": ""
-                  }
-              ]
-          },
-          {
-              "nome": "Chiara",
-              "cognome": "Di Pasquale",
-              "email": "chiara@gmail.com",
-              "telefono": "39393939",
-              "username": "Chiara",
-              "password": "chiara123",
-              "role": "utente"
-          }
-      ]
-  },
-  {
-      "camere": [
-          {
-              "Camera Singola": [
-                  {
-                      "singola_1":[
-                        {
-                            "arrivo":"",
-                            "partenza":""
-                        }
-                      ],
-                      "singola_2":[
-                        {
-                            "arrivo":"",
-                            "partenza":""
-                        }
-                      ],
-                      "singola_3":[
-                        {
-                            "arrivo":"",
-                            "partenza":""
-                        }
-                      ],
-                      "singola_4":[
-                        {
-                            "arrivo":"",
-                            "partenza":""
-                        }
-                      ],
-                      "singola_5":[
-                        {
-                            "arrivo":"",
-                            "partenza":""
-                        }
-                      ],
-                      "singola_6":[
-                        {
-                            "arrivo":"",
-                            "partenza":""
-                        }
-                      ]
-                  }
-              ],
-              "Camera Doppia": [
-                {
-                    "doppia_1":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "doppia_2":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "doppia_3":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "doppia_4":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "doppia_5":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "doppia_6":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ]
-                }
-              ],
-              "Camera Tripla": [
-                {
-                    "tripla_1":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "tripla_2":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "tripla_3":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "tripla_4":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "tripla_5":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "tripla_6":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ]
-                }
-              ],
-              "Camera Quadrupla": [
-                {
-                    "quadrupla_1":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "quadrupla_2":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "quadrupla_3":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "quadrupla_4":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "quadrupla_5":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ],
-                    "quadrupla_6":[
-                      {
-                          "arrivo":"",
-                          "partenza":""
-                      }
-                    ]
-                }
-              ]
-          }
-      ]
-  },
-  {
-    "prezzi":[
-      {
-        "Camera Singola":"80",
-        "Camera Doppia":"120",
-        "Camera Tripla":"160",
-        "Camera Quadrupla":"200"
-      }
-    ]
-  }
+    {
+        "users": [
+            {
+                "username": "admin",
+                "password": "admin123",
+                "role": "admin"
+            },
+            {
+                "nome": "Francesco",
+                "cognome": "Mattone",
+                "email": "sicko@gmail.com",
+                "telefono": "3930519173",
+                "username": "Suca",
+                "password": "Suca",
+                "role": "utente",
+                "prenotazioni":{}
+            },
+            {
+                "nome": "Ciao",
+                "cognome": "Ciao",
+                "email": "Ciao",
+                "telefono": "324432432",
+                "username": "Ciao",
+                "password": "Ciao",
+                "role": "utente",
+                "prenotazioni": {}
+            },
+            {
+                "nome": "Ciao",
+                "cognome": "Ciao",
+                "email": "Ciao",
+                "telefono": "432432432",
+                "username": "Ciao",
+                "password": "Ciao",
+                "role": "utente",
+                "prenotazioni": {}
+            }
+        ]
+    },
+    {
+        "camere": [
+            {
+                "Camera Singola": [
+                    {
+                        "singola_1": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "singola_2": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "singola_3": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "singola_4": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "singola_5": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "singola_6": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ]
+                    }
+                ],
+                "Camera Doppia": [
+                    {
+                        "doppia_1": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "doppia_2": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "doppia_3": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "doppia_4": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "doppia_5": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "doppia_6": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ]
+                    }
+                ],
+                "Camera Tripla": [
+                    {
+                        "tripla_1": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "tripla_2": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "tripla_3": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "tripla_4": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "tripla_5": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "tripla_6": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ]
+                    }
+                ],
+                "Camera Quadrupla": [
+                    {
+                        "quadrupla_1": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "quadrupla_2": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "quadrupla_3": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "quadrupla_4": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "quadrupla_5": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ],
+                        "quadrupla_6": [
+                            {
+                                "arrivo": "",
+                                "partenza": ""
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "prezzi": [
+            {
+                "Camera Singola": "80",
+                "Camera Doppia": "120",
+                "Camera Tripla": "160",
+                "Camera Quadrupla": "200"
+            }
+        ]
+    }
 ]

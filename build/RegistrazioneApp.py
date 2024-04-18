@@ -249,6 +249,7 @@ class RegistrazioneApp:
         username = self.entry_5.get()
         password = self.entry_6.get()
         role = "utente"
+        prenotazione = {}
 
         # Crea un dizionario con i dati dell'utente
         utente = {
@@ -258,22 +259,40 @@ class RegistrazioneApp:
             "telefono": telefono,
             "username": username,
             "password": password,
-            "role": role
+            "role": role,
+            "prenotazioni": prenotazione
         }
 
         try:
             with open('data.json', 'r') as file:
                 data = json.load(file)
         except FileNotFoundError:
-            data = {"users": []}
+            data = [{"users": []}]  # Inizializza con una lista contenente un dizionario vuoto se il file non esiste
+
+        # Accedi al dizionario all'interno della lista e quindi alla lista degli utenti
+        users_data = data[0] if data else {"users": []}
+        users_list = users_data.get("users", [])  # Get the users list
+
+        # Aggiungi il nuovo utente alla lista
+        users_list.append(utente)
+
+        # Aggiorna il dizionario con i dati dell'utente
+        users_data["users"] = users_list
         
-        data["users"].append(utente)
+        current_user = {"username": username, "password": password}
+
+            # Scrivi i dettagli dell'utente nel file current_user.json
+        with open("current_user.json", "w") as json_file:
+            json.dump(current_user, json_file)
+
 
         # Scrivi i dati aggiornati su data.json
         with open('data.json', 'w') as file:
             json.dump(data, file, indent=4)
 
         print("Registrazione completata con successo!")
+
+
     
 def go_cerca_camere(window):
     from CercaCamereApp import CercaCamere
