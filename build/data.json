@@ -58,29 +58,165 @@
   {
       "camere": [
           {
-              "camere_singole": [
+              "Camera Singola": [
                   {
-                      "libere": 12,
-                      "occupate": 0
+                      "singola_1":[
+                        {
+                            "arrivo":"",
+                            "partenza":""
+                        }
+                      ],
+                      "singola_2":[
+                        {
+                            "arrivo":"",
+                            "partenza":""
+                        }
+                      ],
+                      "singola_3":[
+                        {
+                            "arrivo":"",
+                            "partenza":""
+                        }
+                      ],
+                      "singola_4":[
+                        {
+                            "arrivo":"",
+                            "partenza":""
+                        }
+                      ],
+                      "singola_5":[
+                        {
+                            "arrivo":"",
+                            "partenza":""
+                        }
+                      ],
+                      "singola_6":[
+                        {
+                            "arrivo":"",
+                            "partenza":""
+                        }
+                      ]
                   }
               ],
-              "camere_doppie": [
-                  {
-                      "libere": 12,
-                      "occupate": 0
-                  }
+              "Camera Doppia": [
+                {
+                    "doppia_1":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "doppia_2":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "doppia_3":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "doppia_4":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "doppia_5":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "doppia_6":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ]
+                }
               ],
-              "camere_triple": [
-                  {
-                      "libere": 12,
-                      "occupate": 0
-                  }
+              "Camera Tripla": [
+                {
+                    "tripla_1":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "tripla_2":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "tripla_3":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "tripla_4":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "tripla_5":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "tripla_6":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ]
+                }
               ],
-              "camere_quadruple": [
-                  {
-                      "libere": 12,
-                      "occupate": 0
-                  }
+              "Camera Quadrupla": [
+                {
+                    "quadrupla_1":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "quadrupla_2":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "quadrupla_3":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "quadrupla_4":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "quadrupla_5":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ],
+                    "quadrupla_6":[
+                      {
+                          "arrivo":"",
+                          "partenza":""
+                      }
+                    ]
+                }
               ]
           }
       ]

@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter import Tk, Button, ttk, PhotoImage
 from tkcalendar import Calendar
 from pathlib import Path
-import os
-import platform
+import platform, json, os
+from datetime import datetime
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -112,7 +112,7 @@ class CercaCamere:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=self.check_availability,
             relief="flat"
         )
 
@@ -170,6 +170,45 @@ class CercaCamere:
             assets_path = abs_path + "/build/assets/frame5"
 
         return tk.PhotoImage(file=Path(assets_path) / Path(image_path))
+    
+    def check_availability(self):
+    # Ottieni il tipo di camera selezionato
+        tipo_camera = self.combo_var.get()
+
+        # Ottieni le date di arrivo e partenza
+        data_arrivo = datetime.strptime(self.arrival_button.cget("text"), "%d-%m-%Y")
+        data_partenza = datetime.strptime(self.departure_button.cget("text"), "%d-%m-%Y")
+        print(tipo_camera, data_arrivo, data_partenza)
+        # Carica i dati dal file JSON
+        with open("data.json", "r") as file:
+            data = json.load(file)
+
+        # Cerca la camera corrispondente
+        for categoria_camera in data[1]["camere"]:
+            for tipo, camere in categoria_camera.items():
+                print(f"tipo:{tipo}, camere:{camere}\n")
+                if tipo == tipo_camera:
+                    for camera in camere:
+                        for numero_camera, prenotazioni in camera.items():
+                            for prenotazione in prenotazioni:
+                                # Se la prenotazione è vuota, la camera è libera
+                                if  prenotazione["arrivo"] == "" and prenotazione["partenza"]=="":
+                                    print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato.")
+                                    return
+                                if prenotazione["arrivo"] and prenotazione["partenza"]:
+                                    arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
+                                    partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
+
+                                    # Verifica se le date si sovrappongono
+                                    if (data_arrivo < partenza_prenotazione and data_partenza > arrivo_prenotazione) or \
+                                    (data_arrivo == arrivo_prenotazione and data_partenza == partenza_prenotazione):
+                                        print(f"La camera {numero_camera} non è disponibile nell'intervallo selezionato.")
+                                        return
+                    print("Tutte le camere sono disponibili nell'intervallo selezionato.")
+                    return
+        print("Nessuna camera disponibile nell'intervallo selezionato.")
+
+
     
 if __name__ == "__main__":
     root = Tk()
