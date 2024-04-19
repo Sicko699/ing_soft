@@ -126,16 +126,26 @@ class CercaCamere:
         self.window.resizable(False, False)
         
     def open_arrival_calendar(self):
-        self.arrival_calendar = tk.Toplevel(self.window)
-        self.arrival_calendar.geometry("330x270")
-        self.arrival_calendar.title("Seleziona data di arrivo")
+        if platform.system() == "Darwin":
+            self.arrival_calendar = tk.Toplevel(self.window)
+            self.arrival_calendar.geometry("330x270")
+            self.arrival_calendar.title("Seleziona data di arrivo")
         
-        cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
-        cal_arrival.grid(row=0, column=0, padx=10, pady=10)
+            cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
+            cal_arrival.grid(row=0, column=0, padx=10, pady=10)
+            
+            confirm_button = Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
+            confirm_button.grid(row=1, column=0, pady=10)
+        else:
+            self.arrival_calendar = tk.Toplevel(self.window)
+            self.arrival_calendar.geometry("390x300")
+            self.arrival_calendar.title("Seleziona data di arrivo")
         
-        confirm_button = Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
-        confirm_button.grid(row=1, column=0, pady=10)
-
+            cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
+            cal_arrival.grid(row=0, column=0, padx=10, pady=10)
+            
+            confirm_button = Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
+            confirm_button.grid(row=1, column=0, pady=10)
 
     def confirm_arrival_date(self):
         selected_date = self.arrival_calendar.winfo_children()[0].get_date()
@@ -143,17 +153,29 @@ class CercaCamere:
         self.arrival_calendar.destroy()
         
     def open_departure_calendar(self):
-        self.departure_calendar = tk.Toplevel(self.window)
-        self.departure_calendar.geometry("330x270")
-        self.departure_calendar.title("Seleziona data di partenza")
-        
-        cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", 
-                                 font="Quicksand 14", cursor="hand1")
-        cal_departure.grid(row=0, column=0, padx=10, pady=10)
-        
-        confirm_button = Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
-        confirm_button.grid(row=1, column=0, pady=10)
-        
+        if platform.system() == "Darwin":
+            self.departure_calendar = tk.Toplevel(self.window)
+            self.departure_calendar.geometry("330x270")
+            self.departure_calendar.title("Seleziona data di partenza")
+            
+            cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", 
+                                    font="Quicksand 14", cursor="hand1")
+            cal_departure.grid(row=0, column=0, padx=10, pady=10)
+            
+            confirm_button = Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
+            confirm_button.grid(row=1, column=0, pady=10)
+        else:
+            self.departure_calendar = tk.Toplevel(self.window)
+            self.departure_calendar.geometry("390x300")
+            self.departure_calendar.title("Seleziona data di partenza")
+            
+            cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", 
+                                    font="Quicksand 14", cursor="hand1")
+            cal_departure.grid(row=0, column=0, padx=10, pady=10)
+            
+            confirm_button = Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
+            confirm_button.grid(row=1, column=0, pady=10)
+
     def confirm_departure_date(self):
         selected_date = self.departure_calendar.winfo_children()[0].get_date()
         self.departure_button.config(text=selected_date)
@@ -180,13 +202,16 @@ class CercaCamere:
         data_partenza = datetime.strptime(self.departure_button.cget("text"), "%d-%m-%Y")
         print(tipo_camera, data_arrivo, data_partenza)
         # Carica i dati dal file JSON
-        with open("data.json", "r") as file:
-            data = json.load(file)
+        if platform.system() == "Darwin":
+            with open("data.json", "r") as file:
+                data = json.load(file)
+        else:
+            with open(r"build/data.json", "r") as file:
+                data = json.load(file)
 
         # Cerca la camera corrispondente
         for categoria_camera in data[1]["camere"]:
             for tipo, camere in categoria_camera.items():
-                print(f"tipo:{tipo}, camere:{camere}\n")
                 if tipo == tipo_camera:
                     for camera in camere:
                         for numero_camera, prenotazioni in camera.items():
@@ -201,8 +226,12 @@ class CercaCamere:
                                         }
 
                                     # Scrivi i dettagli dell'utente nel file current_user.json
-                                    with open("current_prenotazione.json", "w") as json_file:
-                                        json.dump(current_prenotazione, json_file)
+                                    if platform.system() == "Darwin":
+                                        with open("current_prenotazione.json", "w") as file:
+                                            json.dump(current_prenotazione, file)
+                                    else:
+                                        with open(r"build/current_prenotazione.json", "w") as file:
+                                            json.dump(current_prenotazione, file)
                                     return
                                 if prenotazione["arrivo"] and prenotazione["partenza"]:
                                     arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
