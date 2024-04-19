@@ -1,7 +1,7 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage
 import os, platform
-from main import exit_button, go_front_office_button, go_back_office_button, go_gestione_magazzino
+from main import exit_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
 
 class MainApp:
     def __init__(self, window):
@@ -107,7 +107,7 @@ class MainApp:
             command=lambda: go_front_office_button(self.window),
             relief="flat"
         )
-        button_7.place(x=24.0, y=75.0, width=162.0, height=45.0)
+        button_7.place(x=24.0, y=98.0, width=162.0, height=45.0)
 
         button_8 = Button(
             self.window,
@@ -117,7 +117,7 @@ class MainApp:
             command=lambda: go_back_office_button(self.window),
             relief="flat"
         )
-        button_8.place(x=24.0, y=135.0, width=162.0, height=45.0)
+        button_8.place(x=24.0, y=158.0, width=162.0, height=45.0)
 
         button_10 = Button(
             self.window,
@@ -127,27 +127,27 @@ class MainApp:
             command=lambda: go_gestione_magazzino(self.window),
             relief="flat"
         )
-        button_10.place(x=24.0, y=255.0, width=162.0, height=45.0)
+        button_10.place(x=24.0, y=218.0, width=162.0, height=45.0)
 
         button_11 = Button(
             self.window,
             image=self.button_images["button_11"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_11 clicked"),
+            command=lambda: go_gestione_servizi(self.window),
             relief="flat"
         )
-        button_11.place(x=24.0, y=315.0, width=162.0, height=45.0)
+        button_11.place(x=24.0, y=278.0, width=162.0, height=45.0)
 
         button_12 = Button(
             self.window,
             image=self.button_images["button_12"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_12 clicked"),
+            command=lambda: go_gestione_spa(self.window),
             relief="flat"
         )
-        button_12.place(x=24.0, y=375.0, width=162.0, height=45.0)
+        button_12.place(x=24.0, y=338.0, width=162.0, height=45.0)
 
     def load_button_image(self, image_path):
         abs = os.getcwd()
