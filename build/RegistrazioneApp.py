@@ -264,8 +264,12 @@ class RegistrazioneApp:
         }
 
         try:
-            with open('data.json', 'r') as file:
-                data = json.load(file)
+            if platform.system() == "Darwin":
+                with open("data.json", "r") as file:
+                    data = json.load(file)
+            else:
+                with open(r"build/data.json", "r") as file:
+                    data = json.load(file)
         except FileNotFoundError:
             data = [{"users": []}]  # Inizializza con una lista contenente un dizionario vuoto se il file non esiste
 
@@ -282,13 +286,20 @@ class RegistrazioneApp:
         current_user = {"username": username, "password": password}
 
             # Scrivi i dettagli dell'utente nel file current_user.json
-        with open("current_user.json", "w") as json_file:
-            json.dump(current_user, json_file)
+        if platform.system() == "Darwin":
+            with open("current_user.json", "w") as file:
+                json.dump(current_user, file)
+        else:
+            with open(r"build/current_user.json", "w") as file:
+                json.dump(current_user, file)
 
+        if platform.system() == "Darwin":
+            with open('data.json', 'w') as file:
+                json.dump(data, file, indent=4)
+        else:
+            with open(r"build/data.json", "w") as file:
+                json.dump(data, file, indent=4)
 
-        # Scrivi i dati aggiornati su data.json
-        with open('data.json', 'w') as file:
-            json.dump(data, file, indent=4)
 
         print("Registrazione completata con successo!")
 

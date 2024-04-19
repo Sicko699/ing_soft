@@ -14,7 +14,7 @@
                 "username": "Suca",
                 "password": "Suca",
                 "role": "utente",
-                "prenotazioni":{}
+                "prenotazioni": {}
             },
             {
                 "nome": "Ciao",
@@ -33,6 +33,16 @@
                 "telefono": "432432432",
                 "username": "Ciao",
                 "password": "Ciao",
+                "role": "utente",
+                "prenotazioni": {}
+            },
+            {
+                "nome": "fewf",
+                "cognome": "fwf",
+                "email": "ew",
+                "telefono": "23423",
+                "username": "few",
+                "password": "few",
                 "role": "utente",
                 "prenotazioni": {}
             }
