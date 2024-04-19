@@ -237,11 +237,6 @@ class CercaCamere:
                                     arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
                                     partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
 
-                                    # Verifica se le date si sovrappongono
-                                    if (data_arrivo < partenza_prenotazione and data_partenza > arrivo_prenotazione) or \
-                                    (data_arrivo == arrivo_prenotazione and data_partenza == partenza_prenotazione):
-                                        print(f"La camera {numero_camera} non è disponibile nell'intervallo selezionato.")
-                                        return
                     print("Tutte le camere sono disponibili nell'intervallo selezionato.")
                     return
         print("Nessuna camera disponibile nell'intervallo selezionato.")
