@@ -1,6 +1,5 @@
 from pathlib import Path
-import os
-import platform
+import platform, json, os
 from tkinter import Tk, Canvas, Button, PhotoImage
 from datetime import datetime
 
@@ -151,7 +150,7 @@ class MostraPrenotazioneApp:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=self.update_data_json,  # Collega il bottone alla funzione di aggiornamento
             relief="flat"
         )
         self.button_2.place(
@@ -172,6 +171,69 @@ class MostraPrenotazioneApp:
             assets_path = abs_path + "/build/assets/frame6"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
+
+    def update_data_json(self):
+    # Carica i dati correnti da data.json
+        with open("data.json", "r") as file:
+            data_json = json.load(file)
+
+        # Estrai i dati della prenotazione corrente da current_prenotazione.json
+        with open("current_prenotazione.json", "r") as file:
+            current_prenotazione = json.load(file)
+
+        # Estrai il nome utente corrente da current_user.json
+        with open("current_user.json", "r") as file:
+            current_user = json.load(file)
+            username = current_user["username"]
+
+        # Trova l'utente corrispondente
+        user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
+
+        if user_data is None:
+            print("Utente non trovato.")
+            return
+
+        # Aggiungi il nome e il cognome alla prenotazione
+        current_prenotazione["nome"] = user_data.get("nome", "")
+        current_prenotazione["cognome"] = user_data.get("cognome", "")
+
+        # Trova la camera corrispondente alla prenotazione
+        for camera in data_json[1]["camere"]:
+            if current_prenotazione["tipo_camera"] in camera:
+                prenotazioni_camera = camera[current_prenotazione["tipo_camera"]]
+                # Trova la prima cella libera in base alle date di arrivo e partenza
+                for numero_camera, prenotazioni in prenotazioni_camera[0].items():
+                    cella_disponibile = True
+                    for prenotazione in prenotazioni:
+                        if prenotazione["arrivo"] == "" and prenotazione["partenza"] == "":
+                            continue  # La cella è libera, continua con la prossima camera
+                        elif (current_prenotazione["arrivo"] >= prenotazione["partenza"] or
+                            current_prenotazione["partenza"] <= prenotazione["arrivo"]):
+                            continue  # Le date della prenotazione non si sovrappongono, continua con la prossima camera
+                        else:
+                            cella_disponibile = False
+                            break  # La cella è occupata, esci dal ciclo
+                    if cella_disponibile:
+                        # Aggiorna le date di arrivo e partenza
+                        prenotazioni.append({
+                            "arrivo": current_prenotazione["arrivo"],
+                            "partenza": current_prenotazione["partenza"],
+                            "nome": current_prenotazione["nome"],
+                            "cognome": current_prenotazione["cognome"]
+                        })
+                        print(f"Prenotazione inserita nella camera {current_prenotazione['tipo_camera']} {numero_camera}")
+                        break  # Esci dal ciclo delle camere
+                else:
+                    print(f"Non ci sono camere disponibili per la prenotazione della camera {current_prenotazione['tipo_camera']}")
+                    # Gestisci il caso in cui non ci siano camere disponibili per la prenotazione
+                    break  # Esci dal ciclo delle camere
+
+        # Sovrascrivi il file data.json con i dati aggiornati
+        with open("data.json", "w") as file:
+            json.dump(data_json, file, indent=4)
+
+        print("Dati della prenotazione aggiornati con successo.")
+
 
 
 if __name__ == "__main__":

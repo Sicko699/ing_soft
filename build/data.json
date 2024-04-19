@@ -44,7 +44,13 @@
                 "username": "few",
                 "password": "few",
                 "role": "utente",
-                "prenotazioni": {}
+                "prenotazioni": {
+                    "arrivo": "18-04-2024",
+                    "partenza": "23-04-2024",
+                    "tipo_camera": "Camera Tripla",
+                    "nome": "fewf",
+                    "cognome": "fwf"
+                }
             }
         ]
     },
@@ -135,32 +141,54 @@
                     {
                         "301": [
                             {
-                                "arrivo": "",
-                                "partenza": ""
+                                "arrivo": "19-04-2024",
+                                "partenza": "25-04-2024"
+                            },
+                            {
+                                "arrivo": "26-04-2024",
+                                "partenza": "03-05-2024"
                             }
                         ],
                         "302": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "22-04-2024",
+                                "partenza": "29-04-2024"
                             }
                         ],
                         "303": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "18-04-2024",
+                                "partenza": "23-04-2024"
                             }
                         ],
                         "304": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "18-04-2024",
+                                "partenza": "23-04-2024"
                             }
                         ],
                         "305": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "18-04-2024",
+                                "partenza": "23-04-2024",
+                                "nome": "fewf",
+                                "cognome": "fwf"
                             }
                         ],
                         "306": [
