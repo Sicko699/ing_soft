@@ -1,7 +1,7 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage
 import os, platform
-from main import exit_button, go_front_office_button, go_back_office_button, go_tariffe_dinamiche_button, go_gestione_magazzino
+from main import exit_button, go_front_office_button, go_back_office_button, go_gestione_magazzino
 
 class MainApp:
     def __init__(self, window):
@@ -118,16 +118,6 @@ class MainApp:
             relief="flat"
         )
         button_8.place(x=24.0, y=135.0, width=162.0, height=45.0)
-
-        button_9 = Button(
-            self.window,
-            image=self.button_images["button_9"],
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: go_tariffe_dinamiche_button(self.window),
-            relief="flat"
-        )
-        button_9.place(x=24.0, y=195.0, width=162.0, height=45.0)
 
         button_10 = Button(
             self.window,

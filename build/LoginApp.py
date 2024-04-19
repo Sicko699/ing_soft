@@ -169,8 +169,12 @@ class LoginApp:
             current_user = {"username": username, "password": password}
 
             # Scrivi i dettagli dell'utente nel file current_user.json
-            with open("current_user.json", "w") as json_file:
-                json.dump(current_user, json_file)
+            if platform.system() == "Darwin":
+                with open("current_user.json", "w") as file:
+                    json.dump(current_user, file)
+            else:
+                with open(r"build/current_user.json", "w") as file:
+                    json.dump(current_user, file)
 
             
             self.window.destroy()  # Chiude la finestra della LoginApp
