@@ -4,12 +4,13 @@ from tkcalendar import Calendar
 from pathlib import Path
 import platform, json, os
 from datetime import datetime
+from main import exit_button
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame5"
+    ASSETS_PATH = abs_path + "/assets/frame19"
 else:
-    ASSETS_PATH = abs_path + "/build/assets/frame5"
+    ASSETS_PATH = abs_path + "/build/assets/frame19"
 
 class CercaCamere:
     def __init__(self, window):
@@ -32,7 +33,7 @@ class CercaCamere:
             262.0,
             91.0,
             599.0,
-            414.0,
+            399.0,
             fill="#56AAFF",
             outline=""
         )
@@ -48,7 +49,7 @@ class CercaCamere:
             relief="flat",
             font=("Inter Bold", 12)
         )
-        self.arrival_button.place(x=302.0, y=145.0, width=257, height=32)
+        self.arrival_button.place(x=314.0, y=145.0, width=233, height=30)
 
         self.departure_button = Button(
             self.canvas,
@@ -61,10 +62,10 @@ class CercaCamere:
             relief="flat",
             font=("Inter Bold", 12)
         )
-        self.departure_button.place(x=302.0, y=207.0, width=257, height=32)
+        self.departure_button.place(x=314.0, y=207.0, width=233, height=30)
 
         self.canvas.create_text(
-            302.0,
+            314.0,
             124.0,
             anchor="nw",
             text="Data di arrivo",
@@ -73,7 +74,7 @@ class CercaCamere:
         )
 
         self.canvas.create_text(
-            302.0,
+            314.0,
             187.0,
             anchor="nw",
             text="Data di partenza",
@@ -82,7 +83,7 @@ class CercaCamere:
         )
         
         self.canvas.create_text(
-            302.0,
+            314.0,
             249.0,
             anchor="nw",
             text="Tipologia Camera",
@@ -101,7 +102,7 @@ class CercaCamere:
             height=5,
             font=("Quicksand", 16 * -1)
         )
-        self.combo.place(x=302.0, y=270, width=257, height=32)
+        self.combo.place(x=314.0, y=270, width=233, height=30)
 
         self.button_images = {
             f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 1)
@@ -121,6 +122,51 @@ class CercaCamere:
             y=339.0,
             width=143.8626708984375,
             height=39.882110595703125
+        )
+
+        self.button_image_2 = PhotoImage(file=self.relative_to_assets("button_2.png"))
+        self.button_2 = Button(
+            image=self.button_image_2,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: exit_button(self.window),
+            relief="flat"
+        )
+        self.button_2.place(
+            x=407.0,
+            y=439.0,
+            width=47.0,
+            height=45.0
+        )
+
+        self.button_image_3 = PhotoImage(file=self.relative_to_assets("button_3.png"))
+        self.button_3 = Button(
+            image=self.button_image_3,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: go_lista_prenotazioni(self.window),
+            relief="flat"
+        )
+        self.button_3.place(
+            x=240.0,
+            y=444.0,
+            width=152.0,
+            height=36.0
+        )
+
+        self.button_image_4 = PhotoImage(file=self.relative_to_assets("button_4.png"))
+        self.button_4 = Button(
+            image=self.button_image_4,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: go_modifica_profilo(self.window),
+            relief="flat"
+        )
+        self.button_4.place(
+            x=469.0,
+            y=444.0,
+            width=152.0,
+            height=36.0
         )
 
         self.window.resizable(False, False)
@@ -246,8 +292,20 @@ class CercaCamere:
                     return
         print("Nessuna camera disponibile nell'intervallo selezionato.")
 
+def go_lista_prenotazioni(window):
+    from ListaPrenotazioni import ListaPrenotazioni
+    window.destroy()
+    root = Tk()
+    app = ListaPrenotazioni(root)
+    root.mainloop()
 
-    
+def go_modifica_profilo(window):
+    from ModificaProfilo import ModificaProfilo
+    window.destroy()
+    root = Tk()
+    app = ModificaProfilo(root)
+    root.mainloop()
+
 if __name__ == "__main__":
     root = Tk()
     app = CercaCamere(root)
