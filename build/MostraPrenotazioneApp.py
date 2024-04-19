@@ -1,7 +1,8 @@
-
 from pathlib import Path
-import os, platform
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+import os
+import platform
+from tkinter import Tk, Canvas, Button, PhotoImage
+from datetime import datetime
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -9,25 +10,48 @@ if platform.system() == "Darwin":
 else:
     ASSETS_PATH = abs_path + "/build/assets/frame6"
 
+data = [
+    {
+        "prezzi": [
+            {
+                "Camera Singola": "80",
+                "Camera Doppia": "120",
+                "Camera Tripla": "160",
+                "Camera Quadrupla": "200"
+            }
+        ]
+    }
+]
+
 class MostraPrenotazioneApp:
     def __init__(self, window):
-        
         self.window = window
         self.window.geometry("862x519")
-        self.window.configure(bg = "#FAFFFD")
-        
+        self.window.configure(bg="#FAFFFD")
+
         self.canvas = Canvas(
             self.window,
-            bg = "#FAFFFD",
-            height = 519,
-            width = 862,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
+            bg="#FAFFFD",
+            height=519,
+            width=862,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
         )
 
-        self.canvas.place(x = 0, y = 0)
-        
+        self.canvas.place(x=0, y=0)
+
+        # Estraiamo la prenotazione corrente dall'oggetto `current_prenotazione`
+        current_prenotazione = {"arrivo": "19-04-2024", "partenza": "25-04-2024", "tipo_camera": "Camera Tripla"}
+
+        # Calcoliamo il prezzo totale
+        arrivo = datetime.strptime(current_prenotazione['arrivo'], "%d-%m-%Y")
+        partenza = datetime.strptime(current_prenotazione['partenza'], "%d-%m-%Y")
+        numero_giorni = (partenza - arrivo).days
+        prezzo_camera = int(data[0]['prezzi'][0][current_prenotazione['tipo_camera']])
+        prezzo_totale = numero_giorni * prezzo_camera
+
+        # Creiamo gli elementi sulla canvas
         self.canvas.create_rectangle(
             262.0,
             140.0,
@@ -37,16 +61,25 @@ class MostraPrenotazioneApp:
             outline="")
 
         self.canvas.create_text(
-            315.0,
+            325.0,
             163.0,
             anchor="nw",
             text="Tipologia camera selezionata",
             fill="#FFFFFF",
             font=("Inter Bold", 16 * -1)
         )
-        
+
         self.canvas.create_text(
-            378.0,
+            369.0,
+            200.0,  # Modifica la coordinata y per spostare il testo verso il basso
+            anchor="nw",
+            text=current_prenotazione['tipo_camera'],
+            fill="#000000",
+            font=("Quicksand Medium", 16 * -1)
+        )
+
+        self.canvas.create_text(
+            383.0,
             222.0,
             anchor="nw",
             text="Prezzo totale",
@@ -60,7 +93,8 @@ class MostraPrenotazioneApp:
             559.0,
             216.0,
             fill="#FAFFFD",
-            outline="")
+            outline=""
+        )
 
         self.canvas.create_rectangle(
             302.0,
@@ -69,12 +103,12 @@ class MostraPrenotazioneApp:
             274.0,
             fill="#FAFFFD",
             outline="")
-
+        
         self.canvas.create_text(
-            369.0,
-            190.0,
+            379.0,
+            190.0,  # Modifica la coordinata y per spostare il testo verso il basso
             anchor="nw",
-            text="Camera doppia",
+            text=current_prenotazione['tipo_camera'],
             fill="#000000",
             font=("Quicksand Medium", 16 * -1)
         )
@@ -83,7 +117,7 @@ class MostraPrenotazioneApp:
             411.0,
             248.0,
             anchor="nw",
-            text="700€",
+            text=f"{prezzo_totale}€",  # Mostra il prezzo totale calcolato
             fill="#000000",
             font=("Quicksand Medium", 16 * -1)
         )
@@ -111,7 +145,7 @@ class MostraPrenotazioneApp:
             width=143.8626708984375,
             height=39.882110595703125
         )
-        
+
         self.button_image_2 = PhotoImage(file=self.relative_to_assets("button_2.png"))
         self.button_2 = Button(
             image=self.button_image_2,
@@ -126,8 +160,8 @@ class MostraPrenotazioneApp:
             width=143.8626708984375,
             height=39.882110595703125
         )
-        
-    def relative_to_assets(self,path: str) -> Path:
+
+    def relative_to_assets(self, path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
 
     def load_button_image(self, image_path):
@@ -138,8 +172,9 @@ class MostraPrenotazioneApp:
             assets_path = abs_path + "/build/assets/frame6"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
-    
-if __name__ == "__main__":       
+
+
+if __name__ == "__main__":
     root = Tk()
     app = MostraPrenotazioneApp(root)
     root.mainloop()

@@ -53,37 +53,37 @@
             {
                 "Camera Singola": [
                     {
-                        "singola_1": [
+                        "101": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "singola_2": [
+                        "102": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "singola_3": [
+                        "103": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "singola_4": [
+                        "104": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "singola_5": [
+                        "105": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "singola_6": [
+                        "106": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
@@ -93,37 +93,37 @@
                 ],
                 "Camera Doppia": [
                     {
-                        "doppia_1": [
+                        "201": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "doppia_2": [
+                        "202": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "doppia_3": [
+                        "203": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "doppia_4": [
+                        "204": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "doppia_5": [
+                        "205": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "doppia_6": [
+                        "206": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
@@ -133,37 +133,37 @@
                 ],
                 "Camera Tripla": [
                     {
-                        "tripla_1": [
+                        "301": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "tripla_2": [
+                        "302": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "tripla_3": [
+                        "303": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "tripla_4": [
+                        "304": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "tripla_5": [
+                        "305": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "tripla_6": [
+                        "306": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
@@ -173,37 +173,37 @@
                 ],
                 "Camera Quadrupla": [
                     {
-                        "quadrupla_1": [
+                        "401": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "quadrupla_2": [
+                        "402": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "quadrupla_3": [
+                        "403": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "quadrupla_4": [
+                        "404": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "quadrupla_5": [
+                        "405": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
-                        "quadrupla_6": [
+                        "406": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
