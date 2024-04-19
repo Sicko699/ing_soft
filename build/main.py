@@ -49,3 +49,9 @@ def go_gestione_spa(window):
     app = GestionePrenotazioniSpa(root)
     root.mainloop()
     
+def go_home_button_user(window):
+    from CercaCamereApp import CercaCamere
+    window.destroy()
+    root = Tk()
+    app = CercaCamere(root)
+    root.mainloop()
