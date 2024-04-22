@@ -51,6 +51,16 @@
                     "nome": "fewf",
                     "cognome": "fwf"
                 }
+            },
+            {
+                "nome": "Sapo",
+                "cognome": "sAPO",
+                "email": "sapo@outl.iy",
+                "telefono": "3535353535",
+                "username": "Sapo",
+                "password": "Sapo",
+                "role": "utente",
+                "prenotazioni": {}
             }
         ]
     },

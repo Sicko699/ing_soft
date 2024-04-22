@@ -5,7 +5,6 @@ from pathlib import Path
 import platform, json, os
 from datetime import datetime
 from main import exit_button
-import pdb
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -241,7 +240,6 @@ class CercaCamere:
         return tk.PhotoImage(file=Path(assets_path) / Path(image_path))
     
     def check_availability(self):
-        pdb.set_trace()
     # Ottieni il tipo di camera selezionato
         tipo_camera = self.combo_var.get()
 
