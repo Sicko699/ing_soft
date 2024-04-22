@@ -183,18 +183,29 @@ class MostraPrenotazioneApp:
 
     def update_data_json(self):
     # Carica i dati correnti da data.json
-        with open("data.json", "r") as file:
-            data_json = json.load(file)
+        if platform.system() == "Darwin":
+            with open("data.json", "r") as file:
+                data_json = json.load(file)
+        else:
+            with open(r"build/data.json", "r") as file:
+                data_json = json.load(file)
 
         # Estrai i dati della prenotazione corrente da current_prenotazione.json
-        with open("current_prenotazione.json", "r") as file:
-            current_prenotazione = json.load(file)
-
+        if platform.system() == "Darwin":
+            with open("current_prenotazione.json", "r") as file:
+                current_prenotazione = json.load(file)
+        else:
+            with open(r"build/current_prenotazione.json", "r") as file:
+                current_prenotazione = json.load(file)
         # Estrai il nome utente corrente da current_user.json
-        with open("current_user.json", "r") as file:
-            current_user = json.load(file)
-            username = current_user["username"]
-
+        if platform.system() == "Darwin":
+            with open("current_user.json", "r") as file:
+                current_user = json.load(file)
+                username = current_user["username"]
+        else:
+            with open(r"build/current_user.json", "r") as file:
+                current_user = json.load(file)
+                username = current_user["username"]
         # Trova l'utente corrispondente
         user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
 
@@ -238,9 +249,12 @@ class MostraPrenotazioneApp:
                     break  # Esci dal ciclo delle camere
 
         # Sovrascrivi il file data.json con i dati aggiornati
-        with open("data.json", "w") as file:
-            json.dump(data_json, file, indent=4)
-
+        if platform.system() == "Darwin":
+            with open("data.json", "w") as file:
+                json.dump(data_json, file, indent=4)
+        else:
+            with open(r"build/data.json", "w") as file:
+                json.dump(data_json, file, indent=4)
         print("Dati della prenotazione aggiornati con successo.")
 
 
