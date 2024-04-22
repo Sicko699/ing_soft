@@ -113,7 +113,7 @@ class CercaCamere:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.check_availability, go_mostra_prenotazione(self.window)),
+            command=lambda: (self.check_availability(), go_mostra_prenotazione(self.window)),
             relief="flat"
         )
 
