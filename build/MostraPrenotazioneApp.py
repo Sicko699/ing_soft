@@ -54,7 +54,20 @@ class MostraPrenotazioneApp:
         
 
         prezzo_totale = numero_giorni * prezzo
-
+        
+        if(tipo_camera == "Camera Singola"):
+            numero_ospiti = 1
+        elif(tipo_camera == "Camera Doppia"):
+            numero_ospiti = 2
+        elif(tipo_camera == "Camera Tripla"):
+            numero_ospiti = 3
+        elif(tipo_camera == "Camera Quadrupla"):
+            numero_ospiti = 4
+        else:
+            numero_ospiti = None
+        
+        
+        
         self.canvas = Canvas(
             self.window,
             bg="#FAFFFD",
@@ -159,7 +172,7 @@ class MostraPrenotazioneApp:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=self.update_data_json,  # Collega il bottone alla funzione di aggiornamento
+            command= lambda: self.update_data_json,  # Collega il bottone alla funzione di aggiornamento
             relief="flat"
         )
         self.button_2.place(
@@ -216,6 +229,18 @@ class MostraPrenotazioneApp:
         # Aggiungi il nome e il cognome alla prenotazione
         current_prenotazione["nome"] = user_data.get("nome", "")
         current_prenotazione["cognome"] = user_data.get("cognome", "")
+        
+        tipo_camera = current_prenotazione["tipo_camera"]
+        if(tipo_camera == "Camera Singola"):
+            numero_ospiti = 1
+        elif(tipo_camera == "Camera Doppia"):
+            numero_ospiti = 2
+        elif(tipo_camera == "Camera Tripla"):
+            numero_ospiti = 3
+        elif(tipo_camera == "Camera Quadrupla"):
+            numero_ospiti = 4
+        else:
+            numero_ospiti = None
 
         # Trova la camera corrispondente alla prenotazione
         for camera in data_json[1]["camere"]:
@@ -239,7 +264,11 @@ class MostraPrenotazioneApp:
                             "arrivo": current_prenotazione["arrivo"],
                             "partenza": current_prenotazione["partenza"],
                             "nome": current_prenotazione["nome"],
-                            "cognome": current_prenotazione["cognome"]
+                            "cognome": current_prenotazione["cognome"],
+                            "numero_ospiti": numero_ospiti,
+                            "tipo_camera": current_prenotazione["tipo_camera"],
+                            
+                            
                         })
                         print(f"Prenotazione inserita nella camera {current_prenotazione['tipo_camera']} {numero_camera}")
                         break  # Esci dal ciclo delle camere
