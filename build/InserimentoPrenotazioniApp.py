@@ -1,8 +1,8 @@
 from pathlib import Path
 import os, platform
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, ttk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_home_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
-
+import tkinter as tk
 abs = os.getcwd()
 if(platform.system() == "Darwin"):
     ASSETS_PATH = abs + "/assets/frame15"
@@ -102,24 +102,18 @@ class InserimentoPrenotazione:
             height=25.0
         )
 
-        self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
-        self.entry_bg_4 = self.canvas.create_image(
-            541.5,
-            296.5,
-            image=self.entry_image_4
+        self.combo_var = tk.StringVar()
+        self.combo_var.set("Camera Singola")
+        self.combo = ttk.Combobox(
+            self.canvas,
+            textvariable=self.combo_var,
+            values=["Camera Singola", "Camera Doppia", "Camera Tripla", "Camera Quadrupla"],
+            state="readonly",
+            width=20,
+            height=5,
+            font=("Quicksand", 16 * -1)
         )
-        self.entry_4 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_4.place(
-            x=437.0,
-            y=283.0,
-            width=209.0,
-            height=25.0
-        )
+        self.combo.place(x=430.0, y=283.0, width=225, height=25)
         
         self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
         self.entry_bg_5 = self.canvas.create_image(
