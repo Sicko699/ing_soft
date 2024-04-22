@@ -113,7 +113,7 @@ class CercaCamere:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=self.check_availability,
+            command=lambda: (self.check_availability, go_mostra_prenotazione(self.window)),
             relief="flat"
         )
 
@@ -286,6 +286,13 @@ class CercaCamere:
                     print("Tutte le camere sono disponibili nell'intervallo selezionato.")
                     return
         print("Nessuna camera disponibile nell'intervallo selezionato.")
+
+def go_mostra_prenotazione(window):
+    from MostraPrenotazioneApp import MostraPrenotazioneApp
+    window.destroy()
+    root = Tk()
+    app = MostraPrenotazioneApp(root)
+    root.mainloop()
 
 def go_lista_prenotazioni(window):
     from ListaPrenotazioni import ListaPrenotazioni

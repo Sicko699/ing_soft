@@ -9,24 +9,51 @@ if platform.system() == "Darwin":
 else:
     ASSETS_PATH = abs_path + "/build/assets/frame6"
 
-data = [
-    {
-        "prezzi": [
-            {
-                "Camera Singola": "80",
-                "Camera Doppia": "120",
-                "Camera Tripla": "160",
-                "Camera Quadrupla": "200"
-            }
-        ]
-    }
-]
+data_prezzi = {
+    "prezzi": [
+        {
+            "Camera Singola": "80",
+            "Camera Doppia": "120",
+            "Camera Tripla": "160",
+            "Camera Quadrupla": "200"
+        }
+    ]
+}
 
 class MostraPrenotazioneApp:
     def __init__(self, window):
         self.window = window
         self.window.geometry("862x519")
         self.window.configure(bg="#FAFFFD")
+        
+        if platform.system() == "Darwin":
+            with open("current_prenotazione.json", "r") as file:
+                data = json.load(file)
+        else:
+            with open(r"build/current_prenotazione.json", "r") as file:
+                data = json.load(file)
+
+        tipo_camera = data["tipo_camera"]
+        data_arrivo = data["arrivo"]
+        data_partenza = data["partenza"]
+        
+        arrivo = datetime.strptime(data_arrivo, "%d-%m-%Y")
+        partenza = datetime.strptime(data_partenza, "%d-%m-%Y")
+
+        # Calcola la differenza tra le date
+        differenza = partenza - arrivo
+
+        # Estrai il numero di giorni dalla differenza
+        numero_giorni = differenza.days
+        
+        prezzo = None
+        for prezzi in data_prezzi["prezzi"]:
+            if tipo_camera in prezzi:
+                prezzo = int(prezzi[tipo_camera])
+                break
+        
+
+        prezzo_totale = numero_giorni * prezzo
 
         self.canvas = Canvas(
             self.window,
@@ -40,16 +67,7 @@ class MostraPrenotazioneApp:
 
         self.canvas.place(x=0, y=0)
 
-        # Estraiamo la prenotazione corrente dall'oggetto `current_prenotazione`
-        current_prenotazione = {"arrivo": "19-04-2024", "partenza": "25-04-2024", "tipo_camera": "Camera Tripla"}
-
-        # Calcoliamo il prezzo totale
-        arrivo = datetime.strptime(current_prenotazione['arrivo'], "%d-%m-%Y")
-        partenza = datetime.strptime(current_prenotazione['partenza'], "%d-%m-%Y")
-        numero_giorni = (partenza - arrivo).days
-        prezzo_camera = int(data[0]['prezzi'][0][current_prenotazione['tipo_camera']])
-        prezzo_totale = numero_giorni * prezzo_camera
-
+        
         # Creiamo gli elementi sulla canvas
         self.canvas.create_rectangle(
             262.0,
@@ -66,15 +84,6 @@ class MostraPrenotazioneApp:
             text="Tipologia camera selezionata",
             fill="#FFFFFF",
             font=("Inter Bold", 16 * -1)
-        )
-
-        self.canvas.create_text(
-            369.0,
-            200.0,  # Modifica la coordinata y per spostare il testo verso il basso
-            anchor="nw",
-            text=current_prenotazione['tipo_camera'],
-            fill="#000000",
-            font=("Quicksand Medium", 16 * -1)
         )
 
         self.canvas.create_text(
@@ -107,7 +116,7 @@ class MostraPrenotazioneApp:
             379.0,
             190.0,  # Modifica la coordinata y per spostare il testo verso il basso
             anchor="nw",
-            text=current_prenotazione['tipo_camera'],
+            text=tipo_camera,
             fill="#000000",
             font=("Quicksand Medium", 16 * -1)
         )
