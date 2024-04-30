@@ -95,6 +95,14 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "02-05-2024",
+                                "partenza": "05-05-2024",
+                                "nome": "Francesco",
+                                "cognome": "Mattone",
+                                "numero_ospiti": 2,
+                                "tipo_camera": "Camera Doppia"
                             }
                         ],
                         "202": [

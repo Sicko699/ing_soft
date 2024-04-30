@@ -172,7 +172,7 @@ class MostraPrenotazioneApp:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command= lambda: self.update_data_json,  # Collega il bottone alla funzione di aggiornamento
+            command=self.update_data_json,  # Collega il bottone alla funzione di aggiornamento
             relief="flat"
         )
         self.button_2.place(
@@ -202,7 +202,7 @@ class MostraPrenotazioneApp:
         else:
             with open(r"build/data.json", "r") as file:
                 data_json = json.load(file)
-
+                
         # Estrai i dati della prenotazione corrente da current_prenotazione.json
         if platform.system() == "Darwin":
             with open("current_prenotazione.json", "r") as file:
