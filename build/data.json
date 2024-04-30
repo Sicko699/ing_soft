@@ -27,32 +27,6 @@
                 "prenotazioni": {}
             },
             {
-                "nome": "Ciao",
-                "cognome": "Ciao",
-                "email": "Ciao",
-                "telefono": "432432432",
-                "username": "Ciao",
-                "password": "Ciao",
-                "role": "utente",
-                "prenotazioni": {}
-            },
-            {
-                "nome": "fewf",
-                "cognome": "fwf",
-                "email": "ew",
-                "telefono": "23423",
-                "username": "few",
-                "password": "few",
-                "role": "utente",
-                "prenotazioni": {
-                    "arrivo": "18-04-2024",
-                    "partenza": "23-04-2024",
-                    "tipo_camera": "Camera Tripla",
-                    "nome": "fewf",
-                    "cognome": "fwf"
-                }
-            },
-            {
                 "nome": "Sapo",
                 "cognome": "sAPO",
                 "email": "sapo@outl.iy",
@@ -70,10 +44,6 @@
                 "Camera Singola": [
                     {
                         "101": [
-                            {
-                                "arrivo": "",
-                                "partenza": ""
-                            },
                             {
                                 "arrivo": "26-04-2024",
                                 "partenza": "29-04-2024",
