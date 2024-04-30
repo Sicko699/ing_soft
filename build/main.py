@@ -55,3 +55,17 @@ def go_home_button_user(window):
     root = Tk()
     app = CercaCamere(root)
     root.mainloop()
+
+def go_mostra_prenotazione(window):
+    from MostraPrenotazioneApp import MostraPrenotazioneApp
+    window.destroy()
+    root = Tk()
+    app = MostraPrenotazioneApp(root)
+    root.mainloop()
+    
+def go_cerca_camere(window):
+    from CercaCamereApp import CercaCamere
+    window.destroy()
+    root = Tk()
+    app = CercaCamere(root)
+    root.mainloop()

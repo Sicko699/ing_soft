@@ -1,8 +1,14 @@
+import sys
+sys.dont_write_bytecode = True
+
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox
 from pathlib import Path
 import json, tempfile
 import os
 import platform
+import faulthandler; faulthandler.enable()
+import verify_login
+from main import go_home_button, go_cerca_camere
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -135,36 +141,15 @@ class LoginApp:
     def relative_to_assets(self, path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
 
-    def verify_login(self, username, password):
-        abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            with open("data.json", "r") as file:
-                data = json.load(file)
-        else:
-            with open(r"build/data.json", "r") as file:
-                data = json.load(file)
-
-        users_data = data[0]["users"]  # Accedi al primo elemento della lista e quindi a "users" nel dizionario
-        for user in users_data:
-            if user["username"] == username and user["password"] == password and user["role"] == "admin":
-                return "admin"
-            elif user["username"] == username and user["password"] == password and user["role"] == "utente":
-                return "utente"
-
-        return False
-
     def login_clicked(self):
-        from MainApp import MainApp
-        from CercaCamereApp import CercaCamere
         username = self.entry_1.get()
         password = self.entry_2.get()
 
-        if self.verify_login(username, password) == "admin":
-            self.window.destroy()  # Chiude la finestra della LoginApp
-            root = Tk()  # Crea una nuova finestra Tk per la MainApp
-            app = MainApp(root)  # Avvia la MainApp nella nuova finestra Tk
-            root.mainloop()  # Avvia il loop principale della nuova finestra Tk
-        elif self.verify_login(username, password) == "utente":
+        if verify_login.verify_login(username, password) == "admin":
+            print("Accesso consentito come admin")
+            go_home_button(self.window)
+            
+        elif verify_login.verify_login(username, password) == "utente":
             print("Accesso consentito come utente")
             current_user = {"username": username, "password": password}
 
@@ -176,11 +161,7 @@ class LoginApp:
                 with open(r"build/current_user.json", "w") as file:
                     json.dump(current_user, file)
 
-            
-            self.window.destroy()  # Chiude la finestra della LoginApp
-            root = Tk()  # Crea una nuova finestra Tk per la MainApp
-            app = CercaCamere(root)  # Avvia la MainApp nella nuova finestra Tk
-            root.mainloop()  # Avvia il loop principale della nuova finestra Tk
+            go_cerca_camere(self.window)
         else:
             messagebox.showerror("Login Failed", "Invalid username or password")
 

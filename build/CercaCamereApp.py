@@ -4,7 +4,7 @@ from tkcalendar import Calendar
 from pathlib import Path
 import platform, json, os
 from datetime import datetime
-from main import exit_button
+from main import exit_button, go_mostra_prenotazione
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -41,7 +41,7 @@ class CercaCamere:
         self.arrival_button = Button(
             self.canvas,
             text="Seleziona data di arrivo",
-            command=self.open_arrival_calendar,
+            command=lambda: self.open_arrival_calendar(),
             bg="#FAFFFD",
             fg="#000716",
             borderwidth=0,
@@ -54,7 +54,7 @@ class CercaCamere:
         self.departure_button = Button(
             self.canvas,
             text="Seleziona data di partenza",
-            command=self.open_departure_calendar,
+            command=lambda: self.open_departure_calendar(),
             bg="#FAFFFD",
             fg="#000716",
             borderwidth=0,
@@ -144,7 +144,7 @@ class CercaCamere:
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_lista_prenotazioni(self.window),
+            command=lambda: print("lista prenotazioni"),
             relief="flat"
         )
         self.button_3.place(
@@ -159,7 +159,7 @@ class CercaCamere:
             image=self.button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_modifica_profilo(self.window),
+            command= lambda : print("modifica profilo"),
             relief="flat"
         )
         self.button_4.place(
@@ -173,15 +173,14 @@ class CercaCamere:
         
     def open_arrival_calendar(self):
         if platform.system() == "Darwin":
-            self.arrival_calendar = tk.Toplevel(self.window)
-            self.arrival_calendar.geometry("330x270")
-            self.arrival_calendar.title("Seleziona data di arrivo")
-        
-            cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
-            cal_arrival.grid(row=0, column=0, padx=10, pady=10)
-            
-            confirm_button = Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
-            confirm_button.grid(row=1, column=0, pady=10)
+            self.arrival_calendar = ttk.Frame(self.window)
+            self.arrival_calendar.pack(padx=10, pady=10)
+
+            self.cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
+            self.cal_arrival.grid(row=0, column=0, padx=10, pady=10)
+
+            self.confirm_button = ttk.Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
+            self.confirm_button.grid(row=1, column=0, pady=10)
         else:
             self.arrival_calendar = tk.Toplevel(self.window)
             self.arrival_calendar.geometry("390x300")
@@ -200,16 +199,14 @@ class CercaCamere:
         
     def open_departure_calendar(self):
         if platform.system() == "Darwin":
-            self.departure_calendar = tk.Toplevel(self.window)
-            self.departure_calendar.geometry("330x270")
-            self.departure_calendar.title("Seleziona data di partenza")
-            
-            cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", 
-                                    font="Quicksand 14", cursor="hand1")
-            cal_departure.grid(row=0, column=0, padx=10, pady=10)
-            
-            confirm_button = Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
-            confirm_button.grid(row=1, column=0, pady=10)
+            self.departure_calendar = ttk.Frame(self.window)
+            self.departure_calendar.pack(padx=10, pady=10)
+
+            self.cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
+            self.cal_departure.grid(row=0, column=0, padx=10, pady=10)
+
+            self.confirm_button = ttk.Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
+            self.confirm_button.grid(row=1, column=0, pady=10)
         else:
             self.departure_calendar = tk.Toplevel(self.window)
             self.departure_calendar.geometry("390x300")
@@ -287,26 +284,6 @@ class CercaCamere:
                     return
         print("Nessuna camera disponibile nell'intervallo selezionato.")
 
-def go_mostra_prenotazione(window):
-    from MostraPrenotazioneApp import MostraPrenotazioneApp
-    window.destroy()
-    root = Tk()
-    app = MostraPrenotazioneApp(root)
-    root.mainloop()
-
-def go_lista_prenotazioni(window):
-    from ListaPrenotazioni import ListaPrenotazioni
-    window.destroy()
-    root = Tk()
-    app = ListaPrenotazioni(root)
-    root.mainloop()
-
-def go_modifica_profilo(window):
-    from ModificaProfilo import ModificaProfilo
-    window.destroy()
-    root = Tk()
-    app = ModificaProfilo(root)
-    root.mainloop()
 
 if __name__ == "__main__":
     root = Tk()
