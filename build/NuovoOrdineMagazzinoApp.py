@@ -1,6 +1,8 @@
 from pathlib import Path
-import os, platform
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+import os, platform, json
+from datetime import datetime, timedelta
+from tkinter import ttk, Tk, Canvas, Entry, Text, Button, PhotoImage
+import tkinter as tk
 from main import exit_button, go_gestione_spa, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_home_button
 
 abs_path = os.getcwd()
@@ -14,6 +16,7 @@ class NuovoOrdineMagazzino:
         self.window = window
         self.window.geometry("862x519")
         self.window.configure(bg = "#FAFFFD")
+        
 
         self.canvas = Canvas(
             self.window,
@@ -34,6 +37,19 @@ class NuovoOrdineMagazzino:
             fill="#3E97F1",
             outline=""
         )
+        
+        self.combo_var = tk.StringVar()
+        self.combo_var.set("")
+        self.combo = ttk.Combobox(
+            self.canvas,
+            textvariable=self.combo_var,
+            values=["Lenzuola", "Cuscini", "Materasso", "Topper", "Asciugamani", "Carta igienica", "Spazzolini", "Kit di benvenuto", "Detersivo", "Sapone"],
+            state="readonly",
+            width=20,
+            height=5,
+            font=("Quicksand", 16 * -1)
+        )
+        self.combo.place(x=390.0, y=166, width=299, height=37)
 
         self.canvas.create_rectangle(
             344.0,
@@ -42,25 +58,6 @@ class NuovoOrdineMagazzino:
             410.0,
             fill="#FAFFFD",
             outline=""
-        )
-
-        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
-        self.entry_bg_1 = self.canvas.create_image(
-            539.0,
-            185.5,
-            image=self.entry_image_1
-        )
-        self.entry_1 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_1.place(
-            x=401.0,
-            y=166.0,
-            width=276.0,
-            height=37.0
         )
 
         self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
@@ -107,6 +104,7 @@ class NuovoOrdineMagazzino:
         self.create_buttons()
 
         self.window.resizable(False, False)
+        
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -219,7 +217,7 @@ class NuovoOrdineMagazzino:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_gestione_magazzino(self.window),
+            command=lambda: self.invia_ordine(),
             relief="flat"
         )
         self.button_9.place(
@@ -241,6 +239,40 @@ class NuovoOrdineMagazzino:
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 
+    def invia_ordine(self):
+        nome_articolo = self.combo_var.get()
+        quantita = self.entry_2.get()
+
+        # Calcola le date di spedizione e consegna
+        oggi = datetime.now().date()
+        
+        data_spedizione = oggi + timedelta(days=1)
+        data_consegna = oggi + timedelta(days=3)
+
+        ordine = {
+            "nome_articolo": nome_articolo,
+            "quantita": quantita,
+            "data": oggi.strftime("%d-%m-%Y"),
+            "spedizione": data_spedizione.strftime("%d-%m-%Y"),
+            "consegna": data_consegna.strftime("%d-%m-%Y")
+        }
+
+        # Stampa dell'ordine per il controllo
+        print("Ordine da aggiungere:", ordine)
+
+        # Tentativo di leggere e aggiornare il file JSON
+        try:
+            with open("data.json", "r") as file:
+                data = json.load(file)
+
+            # Aggiungi l'ordine al magazzino
+            data[-1]["magazzino"].append(ordine)
+
+            with open("data.json", "w") as file:
+                json.dump(data, file, indent=4)
+            print("Ordine aggiunto con successo al file JSON.")
+        except Exception as e:
+            print("Si è verificato un errore durante l'aggiunta dell'ordine al file JSON:", e)
 if __name__ == "__main__":
     root = Tk()
     app = NuovoOrdineMagazzino(root)

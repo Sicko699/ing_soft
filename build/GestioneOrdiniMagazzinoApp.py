@@ -1,5 +1,5 @@
 from pathlib import Path
-import os, platform
+import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
 
@@ -184,6 +184,37 @@ class GestioneOrdiniMagazzino:
         self.create_buttons()
 
         self.window.resizable(False, False)
+        
+        with open("data.json", "r") as json_file:
+            data = json.load(json_file)
+
+        # Estrazione degli ordini magazzino
+        magazzino = data[3]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
+
+        # Popolamento degli entry con gli ordini magazzino
+        for i, ordine in enumerate(magazzino):
+            for j, (key, value) in enumerate(ordine.items()):
+                if isinstance(value, dict):  # Verifica se value è un dizionario
+                    articolo = value.get("nome_articolo", "")  # Utilizza get per ottenere il valore con una chiave predefinita e gestire il caso in cui la chiave non esista
+                    quantita = value.get("quantita", "")
+                    entry_value = f"{articolo}: {quantita}"  # Costruisci il valore da inserire nell'entry
+                    entry = Entry(
+                        bd=0,
+                        bg="#EAEEEC",
+                        fg="#000716",
+                        highlightthickness=0
+                    )
+                    entry.place(
+                        x=352.0,
+                        y=53.0 + i * 50,  # Posiziona l'entry in base all'indice dell'ordine magazzino
+                        width=363.0,
+                        height=36.0
+                    )
+                    entry.insert(0, entry_value)  # Inserisci il valore nell'entry
+                else:
+                    print("Ordine magazzino non valido:", value)
+
+
         
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
