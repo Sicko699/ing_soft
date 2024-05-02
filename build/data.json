@@ -14,15 +14,8 @@
                 "username": "Suca",
                 "password": "Suca",
                 "role": "utente",
-                "prenotazione": {
-                    "nome": "Francesco",
-                    "cognome": "Mattone",
-                    "telefono": "3930519173",
-                    "numero_ospiti": 4,
-                    "tipo_camera": "Camera Quadrupla",
-                    "arrivo": "02-05-2024",
-                    "partenza": "04-05-2024"
-                }
+                "prenotazioni": [
+                ]
             },
             {
                 "nome": "Ciao",
@@ -32,8 +25,7 @@
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": {},
-                "prenotazione": "suca"
+                "prenotazioni": []
             },
             {
                 "nome": "Sapo",
@@ -43,7 +35,18 @@
                 "username": "Sapo",
                 "password": "Sapo",
                 "role": "utente",
-                "prenotazioni": {}
+                "prenotazioni": []
+            },
+            {
+                "nome": "Sara",
+                "cognome": "Sara",
+                "email": "sara@outlook.it",
+                "telefono": "3535353535",
+                "username": "Sara",
+                "password": "Sara",
+                "role": "utente",
+                "prenotazioni": [
+                ]
             }
         ]
     },

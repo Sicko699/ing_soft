@@ -249,7 +249,7 @@ class RegistrazioneApp:
         username = self.entry_5.get()
         password = self.entry_6.get()
         role = "utente"
-        prenotazione = {}
+        prenotazione = []
 
         # Crea un dizionario con i dati dell'utente
         utente = {

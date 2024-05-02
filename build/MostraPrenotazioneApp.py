@@ -275,16 +275,17 @@ class MostraPrenotazioneApp:
                         })
                         
                         print(f"Prenotazione inserita nella camera {current_prenotazione['tipo_camera']} {numero_camera}")
-                        prenotazione_utente = ({
-                            "nome":current_prenotazione["nome"],
-                            "cognome":current_prenotazione["cognome"],
-                            "telefono":user_data["telefono"],
-                            "numero_ospiti":numero_ospiti,
+                        prenotazione_utente = {
+                            "nome": current_prenotazione["nome"],
+                            "cognome": current_prenotazione["cognome"],
+                            "telefono": user_data["telefono"],
+                            "numero_ospiti": numero_ospiti,
                             "tipo_camera": current_prenotazione["tipo_camera"],
                             "arrivo": current_prenotazione["arrivo"],
                             "partenza": current_prenotazione["partenza"]
-                        })
-                        user_data["prenotazione"] = prenotazione_utente
+                        }
+
+                        user_data["prenotazioni"].append(prenotazione_utente)
                         camera_disponibile = True
                         break  # Esci dal ciclo delle camere
                 else:
