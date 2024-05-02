@@ -247,6 +247,7 @@ class MostraPrenotazioneApp:
         
 
         # Trova la camera corrispondente alla prenotazione
+        camera_disponibile = False
         for camera in data_json[1]["camere"]:
             if current_prenotazione["tipo_camera"] in camera:
                 prenotazioni_camera = camera[current_prenotazione["tipo_camera"]]
@@ -284,11 +285,16 @@ class MostraPrenotazioneApp:
                             "partenza": current_prenotazione["partenza"]
                         })
                         user_data["prenotazione"] = prenotazione_utente
+                        camera_disponibile = True
                         break  # Esci dal ciclo delle camere
-                    else:
-                        print(f"Non ci sono camere disponibili per la prenotazione della camera {current_prenotazione['tipo_camera']}")
-                        # Gestisci il caso in cui non ci siano camere disponibili per la prenotazione
-                        break  # Esci dal ciclo delle camere
+                else:
+                    continue  # Prova con la prossima camera
+                break  # Esci dal ciclo delle camere
+
+        # Se nessuna camera è disponibile, mostra un messaggio
+        if not camera_disponibile:
+            print("Non ci sono camere disponibili per la prenotazione.")
+            return
 
         # Sovrascrivi il file data.json con i dati aggiornati
         if platform.system() == "Darwin":

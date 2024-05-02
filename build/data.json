@@ -54,56 +54,8 @@
                     {
                         "101": [
                             {
-                                "arrivo": "26-04-2024",
-                                "partenza": "29-04-2024",
-                                "nome": "fewf",
-                                "cognome": "fwf"
-                            },
-                            {
-                                "arrivo": "19-04-2024",
-                                "partenza": "24-04-2024",
-                                "nome": "fewf",
-                                "cognome": "fwf"
-                            },
-                            {
-                                "arrivo": "30-04-2024",
-                                "partenza": "02-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "numero_ospiti": 1,
-                                "tipo_camera": "Camera Singola"
-                            },
-                            {
-                                "arrivo": "30-04-2024",
-                                "partenza": "03-05-2024",
-                                "nome": "Ciao",
-                                "cognome": "Ciao",
-                                "numero_ospiti": 1,
-                                "tipo_camera": "Camera Singola"
-                            },
-                            {
-                                "arrivo": "02-05-2024",
-                                "partenza": "04-05-2024",
-                                "nome": "Ciao",
-                                "cognome": "Ciao",
-                                "numero_ospiti": 1,
-                                "tipo_camera": "Camera Singola"
-                            },
-                            {
-                                "arrivo": "30-04-2024",
-                                "partenza": "02-05-2024",
-                                "nome": "Ciao",
-                                "cognome": "Ciao",
-                                "numero_ospiti": 1,
-                                "tipo_camera": "Camera Singola"
-                            },
-                            {
-                                "arrivo": "30-04-2024",
-                                "partenza": "01-05-2024",
-                                "nome": "Ciao",
-                                "cognome": "Ciao",
-                                "numero_ospiti": 1,
-                                "tipo_camera": "Camera Singola"
+                                "arrivo": "",
+                                "partenza": ""
                             }
                         ],
                         "102": [
@@ -144,14 +96,6 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "02-05-2024",
-                                "partenza": "05-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "numero_ospiti": 2,
-                                "tipo_camera": "Camera Doppia"
                             }
                         ],
                         "202": [
@@ -192,22 +136,6 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "30-04-2024",
-                                "partenza": "03-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "numero_ospiti": 3,
-                                "tipo_camera": "Camera Tripla"
-                            },
-                            {
-                                "arrivo": "30-04-2024",
-                                "partenza": "02-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "numero_ospiti": 3,
-                                "tipo_camera": "Camera Tripla"
                             }
                         ],
                         "302": [
@@ -230,10 +158,8 @@
                         ],
                         "305": [
                             {
-                                "arrivo": "18-04-2024",
-                                "partenza": "23-04-2024",
-                                "nome": "fewf",
-                                "cognome": "fwf"
+                                "arrivo": "",
+                                "partenza": ""
                             }
                         ],
                         "306": [
@@ -250,14 +176,6 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "02-05-2024",
-                                "partenza": "04-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "numero_ospiti": 4,
-                                "tipo_camera": "Camera Quadrupla"
                             }
                         ],
                         "402": [
