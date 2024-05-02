@@ -14,7 +14,15 @@
                 "username": "Suca",
                 "password": "Suca",
                 "role": "utente",
-                "prenotazioni": {}
+                "prenotazione": {
+                    "nome": "Francesco",
+                    "cognome": "Mattone",
+                    "telefono": "3930519173",
+                    "numero_ospiti": 4,
+                    "tipo_camera": "Camera Quadrupla",
+                    "arrivo": "02-05-2024",
+                    "partenza": "04-05-2024"
+                }
             },
             {
                 "nome": "Ciao",
@@ -24,7 +32,8 @@
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": {}
+                "prenotazioni": {},
+                "prenotazione": "suca"
             },
             {
                 "nome": "Sapo",
@@ -83,6 +92,14 @@
                             {
                                 "arrivo": "30-04-2024",
                                 "partenza": "02-05-2024",
+                                "nome": "Ciao",
+                                "cognome": "Ciao",
+                                "numero_ospiti": 1,
+                                "tipo_camera": "Camera Singola"
+                            },
+                            {
+                                "arrivo": "30-04-2024",
+                                "partenza": "01-05-2024",
                                 "nome": "Ciao",
                                 "cognome": "Ciao",
                                 "numero_ospiti": 1,
@@ -175,6 +192,22 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "30-04-2024",
+                                "partenza": "03-05-2024",
+                                "nome": "Francesco",
+                                "cognome": "Mattone",
+                                "numero_ospiti": 3,
+                                "tipo_camera": "Camera Tripla"
+                            },
+                            {
+                                "arrivo": "30-04-2024",
+                                "partenza": "02-05-2024",
+                                "nome": "Francesco",
+                                "cognome": "Mattone",
+                                "numero_ospiti": 3,
+                                "tipo_camera": "Camera Tripla"
                             }
                         ],
                         "302": [
@@ -217,6 +250,14 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "02-05-2024",
+                                "partenza": "04-05-2024",
+                                "nome": "Francesco",
+                                "cognome": "Mattone",
+                                "numero_ospiti": 4,
+                                "tipo_camera": "Camera Quadrupla"
                             }
                         ],
                         "402": [

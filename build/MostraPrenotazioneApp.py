@@ -195,7 +195,7 @@ class MostraPrenotazioneApp:
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 
     def update_data_json(self):
-    # Carica i dati correnti da data.json
+        # Carica i dati correnti da data.json
         if platform.system() == "Darwin":
             with open("data.json", "r") as file:
                 data_json = json.load(file)
@@ -210,7 +210,8 @@ class MostraPrenotazioneApp:
         else:
             with open(r"build/current_prenotazione.json", "r") as file:
                 current_prenotazione = json.load(file)
-        # Estrai il nome utente corrente da current_user.json
+                
+        # Estrai i dati dell'utente da current_user.json
         if platform.system() == "Darwin":
             with open("current_user.json", "r") as file:
                 current_user = json.load(file)
@@ -219,6 +220,7 @@ class MostraPrenotazioneApp:
             with open(r"build/current_user.json", "r") as file:
                 current_user = json.load(file)
                 username = current_user["username"]
+                
         # Trova l'utente corrispondente
         user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
 
@@ -241,6 +243,8 @@ class MostraPrenotazioneApp:
             numero_ospiti = 4
         else:
             numero_ospiti = None
+
+        
 
         # Trova la camera corrispondente alla prenotazione
         for camera in data_json[1]["camere"]:
@@ -267,15 +271,24 @@ class MostraPrenotazioneApp:
                             "cognome": current_prenotazione["cognome"],
                             "numero_ospiti": numero_ospiti,
                             "tipo_camera": current_prenotazione["tipo_camera"],
-                            
-                            
                         })
+                        
                         print(f"Prenotazione inserita nella camera {current_prenotazione['tipo_camera']} {numero_camera}")
+                        prenotazione_utente = ({
+                            "nome":current_prenotazione["nome"],
+                            "cognome":current_prenotazione["cognome"],
+                            "telefono":user_data["telefono"],
+                            "numero_ospiti":numero_ospiti,
+                            "tipo_camera": current_prenotazione["tipo_camera"],
+                            "arrivo": current_prenotazione["arrivo"],
+                            "partenza": current_prenotazione["partenza"]
+                        })
+                        user_data["prenotazione"] = prenotazione_utente
                         break  # Esci dal ciclo delle camere
-                else:
-                    print(f"Non ci sono camere disponibili per la prenotazione della camera {current_prenotazione['tipo_camera']}")
-                    # Gestisci il caso in cui non ci siano camere disponibili per la prenotazione
-                    break  # Esci dal ciclo delle camere
+                    else:
+                        print(f"Non ci sono camere disponibili per la prenotazione della camera {current_prenotazione['tipo_camera']}")
+                        # Gestisci il caso in cui non ci siano camere disponibili per la prenotazione
+                        break  # Esci dal ciclo delle camere
 
         # Sovrascrivi il file data.json con i dati aggiornati
         if platform.system() == "Darwin":
