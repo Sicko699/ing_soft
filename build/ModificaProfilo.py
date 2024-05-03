@@ -1,4 +1,5 @@
 import os, platform, json
+import tkinter.messagebox
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import go_home_button_user
@@ -237,6 +238,41 @@ class ModificaProfilo:
         self.create_buttons()
 
         self.window.resizable(False, False)
+        
+    def save_changes(self):
+        # Leggi i valori dalle Entry
+        nome = self.entry_1.get()
+        cognome = self.entry_2.get()
+        email = self.entry_3.get()
+        telefono = self.entry_4.get()
+        username = self.entry_5.get()
+        password = self.entry_6.get()
+
+        # Leggi il file data.json
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+
+        # Trova l'utente corrispondente
+        with open("current_user.json", "r") as user_file:
+            current_user = json.load(user_file)
+            username = current_user["username"]
+
+        for user in data[0]["users"]:
+            if user["username"] == username:
+                # Aggiorna i valori dell'utente
+                user["nome"] = nome
+                user["cognome"] = cognome
+                user["email"] = email
+                user["telefono"] = telefono
+                user["username"] = username
+                user["password"] = password
+
+        # Scrivi le modifiche nel file data.json
+        with open("data.json", "w") as data_file:
+            json.dump(data, data_file, indent=4)
+            
+        tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
+        go_home_button_user(self.window)
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -244,7 +280,7 @@ class ModificaProfilo:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: self.save_changes(),
             relief="flat"
         )
         self.button_1.place(
