@@ -178,7 +178,7 @@ class GestioneOrdiniMagazzino:
         )
         
         self.button_images = {
-            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 16)
+            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 9)
         }
 
         self.create_buttons()
@@ -193,29 +193,23 @@ class GestioneOrdiniMagazzino:
 
         # Popolamento degli entry con gli ordini magazzino
         for i, ordine in enumerate(magazzino):
-            for j, (key, value) in enumerate(ordine.items()):
-                if isinstance(value, dict):  # Verifica se value è un dizionario
-                    articolo = value.get("nome_articolo", "")  # Utilizza get per ottenere il valore con una chiave predefinita e gestire il caso in cui la chiave non esista
-                    quantita = value.get("quantita", "")
-                    entry_value = f"{articolo}: {quantita}"  # Costruisci il valore da inserire nell'entry
-                    entry = Entry(
-                        bd=0,
-                        bg="#EAEEEC",
-                        fg="#000716",
-                        highlightthickness=0
-                    )
-                    entry.place(
-                        x=352.0,
-                        y=53.0 + i * 50,  # Posiziona l'entry in base all'indice dell'ordine magazzino
-                        width=363.0,
-                        height=36.0
-                    )
-                    entry.insert(0, entry_value)  # Inserisci il valore nell'entry
-                else:
-                    print("Ordine magazzino non valido:", value)
+            articolo = ordine.get("nome_articolo", "")
+            quantita = ordine.get("quantita", "")
+            entry_value = f"Nome articolo: {articolo}, Quantità: {quantita}"
+            entry = Entry(
+                bd=0,
+                bg="#EAEEEC",
+                fg="#000716",
+                highlightthickness=0
+            )
+            entry.place(
+                x=352.0,
+                y=53.0 + i * 50,
+                width=363.0,
+                height=36.0
+            )
+            entry.insert(0, entry_value)
 
-
-        
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
@@ -335,111 +329,6 @@ class GestioneOrdiniMagazzino:
             y=418.0,
             width=188.0,
             height=49.0
-        )
-
-        self.button_image_10 = PhotoImage(file=self.relative_to_assets("button_10.png"))
-        self.button_10 = Button(
-            image=self.button_image_10,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
-            relief="flat"
-        )
-        self.button_10.place(
-            x=684.0,
-            y=58.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_11 = PhotoImage(file=self.relative_to_assets("button_11.png"))
-        self.button_11 = Button(
-            image=self.button_image_11,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_11 clicked"),
-            relief="flat"
-        )
-        self.button_11.place(
-            x=684.0,
-            y=208.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_12 = PhotoImage(file=self.relative_to_assets("button_12.png"))
-        self.button_12 = Button(
-            image=self.button_image_12,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_12 clicked"),
-            relief="flat"
-        )
-        self.button_12.place(
-            x=684.0,
-            y=158.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_13 = PhotoImage(file=self.relative_to_assets("button_13.png"))
-        self.button_13 = Button(
-            image=self.button_image_13,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_13 clicked"),
-            relief="flat"
-        )
-        self.button_13.place(
-            x=684.0,
-            y=108.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_14 = PhotoImage(file=self.relative_to_assets("button_14.png"))
-        self.button_14 = Button(
-            image=self.button_image_14,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_14 clicked"),
-            relief="flat"
-        )
-        self.button_14.place(
-            x=684.0,
-            y=258.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_15 = PhotoImage(file=self.relative_to_assets("button_15.png"))
-        self.button_15 = Button(
-            image=self.button_image_15,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_15 clicked"),
-            relief="flat"
-        )
-        self.button_15.place(
-            x=684.0,
-            y=308.0,
-            width=28.398725509643555,
-            height=28.398725509643555
-        )
-
-        self.button_image_16 = PhotoImage(file=self.relative_to_assets("button_16.png"))
-        self.button_16 = Button(
-            image=self.button_image_16,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: print("button_16 clicked"),
-            relief="flat"
-        )
-        self.button_16.place(
-            x=684.0,
-            y=358.0,
-            width=28.398725509643555,
-            height=28.398725509643555
         )
 
     def relative_to_assets(self,path: str) -> Path:

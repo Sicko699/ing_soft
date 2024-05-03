@@ -4,7 +4,7 @@ from tkcalendar import Calendar
 from pathlib import Path
 import platform, json, os
 from datetime import datetime
-from main import exit_button, go_mostra_prenotazione
+from main import exit_button, go_mostra_prenotazione, go_lista_prenotazioni, go_modifica_profilo
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -144,7 +144,7 @@ class CercaCamere:
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("lista prenotazioni"),
+            command=lambda: go_lista_prenotazioni(self.window),
             relief="flat"
         )
         self.button_3.place(
@@ -159,7 +159,7 @@ class CercaCamere:
             image=self.button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command= lambda : print("modifica profilo"),
+            command= lambda : go_modifica_profilo(self.window),
             relief="flat"
         )
         self.button_4.place(

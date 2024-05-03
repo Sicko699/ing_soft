@@ -69,3 +69,17 @@ def go_cerca_camere(window):
     root = Tk()
     app = CercaCamere(root)
     root.mainloop()
+    
+def go_lista_prenotazioni(window):
+    from ListaPrenotazioni import ListaPrenotazioni
+    window.destroy()
+    root = Tk()
+    app = ListaPrenotazioni(root)
+    root.mainloop()
+    
+def go_modifica_profilo(window):
+    from ModificaProfilo import ModificaProfilo
+    window.destroy()
+    root = Tk()
+    app = ModificaProfilo(root)
+    root.mainloop()

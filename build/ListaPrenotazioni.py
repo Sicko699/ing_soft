@@ -1,5 +1,5 @@
 from pathlib import Path
-import os, platform
+import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import go_home_button_user
 
@@ -154,7 +154,7 @@ class ListaPrenotazioni:
 
         self.create_buttons()
 
-        self.window.resizable(False, False)
+        self.window.resizable(False, False)    
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))

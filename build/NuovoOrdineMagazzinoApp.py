@@ -245,7 +245,6 @@ class NuovoOrdineMagazzino:
 
         # Calcola le date di spedizione e consegna
         oggi = datetime.now().date()
-        
         data_spedizione = oggi + timedelta(days=1)
         data_consegna = oggi + timedelta(days=3)
 
@@ -266,13 +265,16 @@ class NuovoOrdineMagazzino:
                 data = json.load(file)
 
             # Aggiungi l'ordine al magazzino
-            data[-1]["magazzino"].append(ordine)
+            magazzino = data[-1]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
+            magazzino.append(ordine)
 
             with open("data.json", "w") as file:
                 json.dump(data, file, indent=4)
             print("Ordine aggiunto con successo al file JSON.")
         except Exception as e:
             print("Si è verificato un errore durante l'aggiunta dell'ordine al file JSON:", e)
+
+            
 if __name__ == "__main__":
     root = Tk()
     app = NuovoOrdineMagazzino(root)

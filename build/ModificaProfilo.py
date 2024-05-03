@@ -1,4 +1,4 @@
-import os, platform
+import os, platform, json
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import go_home_button_user
@@ -34,6 +34,27 @@ class ModificaProfilo:
             494.0,
             fill="#56AAFF",
             outline="")
+        
+        with open("data.json", "r") as data_json:
+            data_json = json.load(data_json)
+        
+        with open("current_user.json", "r") as user_json:
+            current_user = json.load(user_json)
+            username = current_user["username"]
+            
+        user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
+
+        if user_data is None:
+            print("Utente non trovato.")
+            return
+            
+        print(user_data)
+        nome = user_data.get("nome", "")
+        cognome = user_data.get("cognome", "")
+        email = user_data.get("email", "")
+        telefono = user_data.get("telefono", "")
+        username = user_data.get("username", "")
+        password = user_data.get("password", "")
 
         self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
         self.entry_bg_1 = self.canvas.create_image(
@@ -184,6 +205,12 @@ class ModificaProfilo:
             width=233.0,
             height=30.0
         )
+        self.entry_1.insert(0, nome)
+        self.entry_2.insert(0, cognome)
+        self.entry_3.insert(0, email)
+        self.entry_4.insert(0, telefono)
+        self.entry_5.insert(0, username)
+        self.entry_6.insert(0, password)
 
         self.canvas.create_text(
             302.0,
