@@ -265,7 +265,7 @@ class NuovoOrdineMagazzino:
                 data = json.load(file)
 
             # Aggiungi l'ordine al magazzino
-            magazzino = data[-1]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
+            magazzino = data[3]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
             magazzino.append(ordine)
 
             with open("data.json", "w") as file:

@@ -82,4 +82,4 @@ def go_modifica_profilo(window):
     window.destroy()
     root = Tk()
     app = ModificaProfilo(root)
-    root.mainloop()
+    root.mainloop()    

@@ -332,102 +332,20 @@
             },
             {
                 "nome_articolo": "Materasso",
-                "quantita": "1",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Cuscini",
-                "quantita": "2",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Cuscini",
-                "quantita": "2",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Kit di benvenuto",
-                "quantita": "2",
-                "data": "03-05-2024",
-                "spedizione": "04-05-2024",
-                "consegna": "06-05-2024"
-            },
-            {
-                "nome_articolo": "Materasso",
-                "quantita": "1",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Materasso",
-                "quantita": "1",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Cuscini",
-                "quantita": "2",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Cuscini",
-                "quantita": "2",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Kit di benvenuto",
-                "quantita": "2",
-                "data": "03-05-2024",
-                "spedizione": "04-05-2024",
-                "consegna": "06-05-2024"
-            },
-            {
-                "nome_articolo": "Materasso",
-                "quantita": "1",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Materasso",
-                "quantita": "1",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Cuscini",
-                "quantita": "2",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Cuscini",
-                "quantita": "2",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Kit di benvenuto",
-                "quantita": "2",
+                "quantita": "10",
                 "data": "03-05-2024",
                 "spedizione": "04-05-2024",
                 "consegna": "06-05-2024"
             }
+        ],
+        "servizi": [
+            {
+                "nome_servizio": "Visita guidata centro storico",
+                "numero_camera": "101"
+            }
+        ],
+        "spa":[
+            
         ]
     }
 ]

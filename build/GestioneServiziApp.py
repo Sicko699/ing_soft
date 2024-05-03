@@ -80,7 +80,7 @@ class GestioneServizi:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: button_1_click(self.window),
             relief="flat"
         )
         self.button_1.place(
@@ -201,7 +201,7 @@ class GestioneServizi:
             image=self.button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
+            command=lambda: button_10_click(self.window),
             relief="flat"
         )
         self.button_10.place(
@@ -216,7 +216,7 @@ class GestioneServizi:
             image=self.button_image_11,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_11 clicked"),
+            command=lambda: button_11_click(self.window),
             relief="flat"
         )
         self.button_11.place(
@@ -231,7 +231,7 @@ class GestioneServizi:
             image=self.button_image_12,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_12 clicked"),
+            command=lambda: button_12_click(self.window),
             relief="flat"
         )
         self.button_12.place(
@@ -252,6 +252,38 @@ class GestioneServizi:
             assets_path = abs_path + "/build/assets/frame17"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
+
+def button_10_click(window):
+    from PrenotazioneServiziApp import PrenotazioneServizi
+    window.destroy()
+    root = Tk() 
+    prenotazione_servizi = PrenotazioneServizi(root)
+    prenotazione_servizi.fill_entry("Visita guidata centro storico")  
+    root.mainloop()
+
+def button_1_click(window):
+    from PrenotazioneServiziApp import PrenotazioneServizi
+    window.destroy()
+    root = Tk() 
+    prenotazione_servizi = PrenotazioneServizi(root)
+    prenotazione_servizi.fill_entry("Noleggio biciclette")  
+    root.mainloop()
+    
+def button_11_click(window):
+    from PrenotazioneServiziApp import PrenotazioneServizi
+    window.destroy()
+    root = Tk() 
+    prenotazione_servizi = PrenotazioneServizi(root)
+    prenotazione_servizi.fill_entry("Giro in barca")  
+    root.mainloop()
+    
+def button_12_click(window):
+    from PrenotazioneServiziApp import PrenotazioneServizi
+    window.destroy()
+    root = Tk() 
+    prenotazione_servizi = PrenotazioneServizi(root)
+    prenotazione_servizi.fill_entry("Piscina privata")  
+    root.mainloop()
 
 
 if __name__ == "__main__":

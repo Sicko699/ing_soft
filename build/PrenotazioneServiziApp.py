@@ -1,5 +1,5 @@
 from pathlib import Path
-import os, platform
+import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_gestione_magazzino, go_back_office_button, go_front_office_button, go_gestione_servizi, go_gestione_spa, go_home_button
 
@@ -104,6 +104,10 @@ class PrenotazioneServizi:
 
         self.window.resizable(False, False)
         
+    def fill_entry(self, text):
+        self.entry_1.delete(0, 'end')
+        self.entry_1.insert(0, text)
+        
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
@@ -185,7 +189,7 @@ class PrenotazioneServizi:
             image=self.button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_gestione_servizi(self.window),
+            command=lambda: self.invia_servizio(),
             relief="flat"
         )
         self.button_7.place(
@@ -215,7 +219,7 @@ class PrenotazioneServizi:
             image=self.button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_gestione_servizi(self.window),
+            command=lambda: self.invia_servizio(),
             relief="flat"
         )
         self.button_10.place(
@@ -224,6 +228,31 @@ class PrenotazioneServizi:
             width=187.0,
             height=49.0
         )    
+        
+    def invia_servizio(self):
+        nome_servizio = self.entry_1.get()
+        numero_camera = self.entry_2.get()
+        
+        servizio = {
+            "nome_servizio" : nome_servizio,
+            "numero_camera" : numero_camera
+        }
+        
+        try:
+            with open("data.json", "r") as file:
+                data = json.load(file)
+                
+            # Assuming you want to append 'servizio' to the 'servizi' list in the last dictionary of 'data'
+            servizi = data[-1]["servizi"]
+            servizi.append(servizio)
+            
+            with open("data.json", "w") as file:
+                json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary
+                print("Servizio aggiunto con successo")
+        except Exception as e:
+            print("Si è verificato un errore:", e)
+
+        
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
