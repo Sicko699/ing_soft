@@ -189,7 +189,7 @@ class GestioneOrdiniMagazzino:
             data = json.load(json_file)
 
         # Estrazione degli ordini magazzino
-        magazzino = data[3]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
+        magazzino = data[-1]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
 
         # Popolamento degli entry con gli ordini magazzino
         for i, ordine in enumerate(magazzino):

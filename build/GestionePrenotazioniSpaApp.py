@@ -1,5 +1,5 @@
 from pathlib import Path
-import os, platform
+import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button
 
@@ -185,6 +185,28 @@ class GestionePrenotazioniSpa:
 
         self.window.resizable(False, False)
 
+        with open("data.json", "r") as json_file:
+            data = json.load(json_file)
+            
+        prenotazioni = data[-1]["spa"]
+        
+        for i, prenotazione in enumerate(prenotazioni):
+            nome_servizio = prenotazione.get("nome_servizio", "")
+            numero_camera = prenotazione.get("numero_camera", "")
+            entry_value = f"Tipo: {nome_servizio}, Numero camera: {numero_camera}"
+            entry = Entry(
+                bd=0,
+                bg="#EAEEEC",
+                fg="#000716",
+                highlightthickness=0
+            )
+            entry.place(
+                x=352.0,
+                y=53.0 + i * 50,
+                width=290.0,
+                height=36.0
+            )
+            entry.insert(0, entry_value)
     
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))

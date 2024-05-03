@@ -1,5 +1,5 @@
 from pathlib import Path
-import os, platform
+import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button
 
@@ -8,6 +8,7 @@ if platform.system() == "Darwin":
     ASSETS_PATH = abs_path + "/assets/frame12"
 else:
     ASSETS_PATH = abs_path + "/build/assets/frame12"
+
 
 class NuovaPrenotazioneSpa:
     def __init__(self,window):
@@ -219,7 +220,7 @@ class NuovaPrenotazioneSpa:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_gestione_spa(self.window),
+            command=lambda: self.invia_prenotazione(),
             relief="flat"
         )
         self.button_9.place(
@@ -228,6 +229,29 @@ class NuovaPrenotazioneSpa:
             width=187.0,
             height=49.0
         )
+
+    def invia_prenotazione(self):
+        nome_servizio = self.entry_1.get()
+        numero_camera = self.entry_2.get()
+        
+        servizio = {
+            "nome_servizio" : nome_servizio,
+            "numero_camera" : numero_camera
+        }
+        
+        try:
+            with open("data.json", "r") as file:
+                data = json.load(file)
+                
+            # Assuming you want to append 'servizio' to the 'servizi' list in the last dictionary of 'data'
+            servizi = data[-1]["spa"]
+            servizi.append(servizio)
+            
+            with open("data.json", "w") as file:
+                json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary
+                print("Servizio spa aggiunto con successo")
+        except Exception as e:
+            print("Si è verificato un errore:", e)
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)

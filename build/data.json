@@ -344,8 +344,11 @@
                 "numero_camera": "101"
             }
         ],
-        "spa":[
-            
+        "spa": [
+            {
+                "nome_servizio": "Bucchin",
+                "numero_camera": "101"
+            }
         ]
     }
 ]
