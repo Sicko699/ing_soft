@@ -1,4 +1,5 @@
 from tkinter import Tk
+import platform, json
 
 def exit_button(window):
     from LoginApp import LoginApp
@@ -76,7 +77,61 @@ def go_lista_prenotazioni(window):
     root = Tk()
     app = ListaPrenotazioni(root)
     root.mainloop()
-    
+
+def multiplatform_open_read_data_json():
+    if platform.system() == "Darwin":
+        with open("data.json", "r") as json_file:
+            data_json = json.load(json_file)
+    else:
+        with open(r"build/data.json", "r") as json_file:
+            data_json = json.load(json_file)
+    return data_json
+
+def multiplatform_open_read_current_user():
+    if platform.system() == "Darwin":
+        with open("current_user.json", "r") as user_file:
+            current_user = json.load(user_file)
+    else:
+        with open(r"build/current_user.json", "r") as user_file:
+            current_user = json.load(user_file)
+    return current_user
+
+def multiplatform_open_read_current_prenotazione():
+    if platform.system() == "Darwin":
+        with open("current_prenotazione.json", "r") as file:
+            current_prenotazione = json.load(file)
+    else:
+        with open(r"build/current_prenotazione.json", "r") as file:
+            current_prenotazione = json.load(file)
+    return current_prenotazione
+
+def multiplatform_open_write_data_json(data_json):
+    if platform.system() == "Darwin":
+        with open("data.json", "w") as file:
+            write_data_json = json.dump(data_json, file, indent=4)
+    else:
+        with open(r"build/data.json", "w") as file:
+            write_data_json = json.dump(data_json, file, indent=4)
+    return write_data_json
+
+def multiplatform_open_write_current_user(current_user):
+    if platform.system() == "Darwin":
+        with open("current_user.json", "w") as file:
+            write_current_user = json.dump(current_user, file)
+    else:
+        with open(r"build/current_user.json", "w") as file:
+            write_current_user = json.dump(current_user, file)
+    return write_current_user
+
+def multiplatform_open_write_current_prenotazione(current_prenotazione):
+    if platform.system() == "Darwin":
+        with open("current_prenotazione.json", "w") as file:
+            write_current_prenotazione = json.dump(current_prenotazione, file)
+    else:
+        with open(r"build/current_prenotazione.json", "w") as file:
+            write_current_prenotazione = json.dump(current_prenotazione, file)
+    return write_current_prenotazione
+
 def go_modifica_profilo(window):
     from ModificaProfilo import ModificaProfilo
     window.destroy()

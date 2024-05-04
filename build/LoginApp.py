@@ -8,7 +8,7 @@ import os
 import platform
 import faulthandler; faulthandler.enable()
 import verify_login
-from main import go_home_button, go_cerca_camere
+from main import go_home_button, go_cerca_camere, multiplatform_open_write_current_user
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -154,12 +154,7 @@ class LoginApp:
             current_user = {"username": username, "password": password}
 
             # Scrivi i dettagli dell'utente nel file current_user.json
-            if platform.system() == "Darwin":
-                with open("current_user.json", "w") as file:
-                    json.dump(current_user, file)
-            else:
-                with open(r"build/current_user.json", "w") as file:
-                    json.dump(current_user, file)
+            current_user = multiplatform_open_write_current_user(current_user)
 
             go_cerca_camere(self.window)
         else:

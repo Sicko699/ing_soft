@@ -4,7 +4,7 @@ from tkcalendar import Calendar
 from pathlib import Path
 import platform, json, os
 from datetime import datetime
-from main import exit_button, go_mostra_prenotazione, go_lista_prenotazioni, go_modifica_profilo
+from main import exit_button, go_mostra_prenotazione, go_lista_prenotazioni, go_modifica_profilo, multiplatform_open_read_data_json, multiplatform_open_write_current_prenotazione
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -245,12 +245,7 @@ class CercaCamere:
         data_partenza = datetime.strptime(self.departure_button.cget("text"), "%d-%m-%Y")
         print(tipo_camera, data_arrivo, data_partenza)
         # Carica i dati dal file JSON
-        if platform.system() == "Darwin":
-            with open("data.json", "r") as file:
-                data = json.load(file)
-        else:
-            with open(r"build/data.json", "r") as file:
-                data = json.load(file)
+        data = multiplatform_open_read_data_json()
 
         # Cerca la camera corrispondente
         for categoria_camera in data[1]["camere"]:
@@ -269,12 +264,7 @@ class CercaCamere:
                                         }
 
                                     # Scrivi i dettagli dell'utente nel file current_user.json
-                                    if platform.system() == "Darwin":
-                                        with open("current_prenotazione.json", "w") as file:
-                                            json.dump(current_prenotazione, file)
-                                    else:
-                                        with open(r"build/current_prenotazione.json", "w") as file:
-                                            json.dump(current_prenotazione, file)
+                                    current_prenotazione = multiplatform_open_write_current_prenotazione(current_prenotazione)
                                     return
                                 if prenotazione["arrivo"] and prenotazione["partenza"]:
                                     arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
