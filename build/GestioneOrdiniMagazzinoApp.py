@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
+from main import exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, multiplatform_open_read_data_json
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -185,13 +185,8 @@ class GestioneOrdiniMagazzino:
 
         self.window.resizable(False, False)
         
-        if platform.system() == "Darwin":
-            with open("data.json", "r") as json_file:
-                data = json.load(json_file)
-        else:
-            with open(r"build/data.json", "r") as json_file:
-                data = json.load(json_file)
-
+        data = multiplatform_open_read_data_json()
+        
         # Estrazione degli ordini magazzino
         magazzino = data[-1]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
 
