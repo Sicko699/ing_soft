@@ -24,7 +24,17 @@
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "nome": "Ciao",
+                        "cognome": "Ciao",
+                        "telefono": "324432432",
+                        "numero_ospiti": 4,
+                        "tipo_camera": "Camera Quadrupla",
+                        "arrivo": "16-05-2024",
+                        "partenza": "18-05-2024"
+                    }
+                ]
             },
             {
                 "nome": "Sapo",
@@ -239,6 +249,14 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "16-05-2024",
+                                "partenza": "18-05-2024",
+                                "nome": "Ciao",
+                                "cognome": "Ciao",
+                                "numero_ospiti": 4,
+                                "tipo_camera": "Camera Quadrupla"
                             }
                         ],
                         "402": [
