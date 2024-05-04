@@ -240,15 +240,23 @@ class NuovaPrenotazioneSpa:
         }
         
         try:
-            with open("data.json", "r") as file:
-                data = json.load(file)
-                
+            if platform.system() == "Darwin":
+                with open("data.json", "r") as file:
+                    data = json.load(file)
+            else:
+                with open(r"build/data.json", "r") as file:
+                    data = json.load(file)
+
             # Assuming you want to append 'servizio' to the 'servizi' list in the last dictionary of 'data'
             servizi = data[-1]["spa"]
             servizi.append(servizio)
             
-            with open("data.json", "w") as file:
-                json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary
+            if platform.system() == "Darwin":
+                with open("data.json", "w") as file:
+                    json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary
+            else:
+                with open(r"build/data.json", "w") as file:
+                    json.dump(data, file, indent=4)        
                 print("Servizio spa aggiunto con successo")
         except Exception as e:
             print("Si è verificato un errore:", e)

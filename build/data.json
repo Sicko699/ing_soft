@@ -10,7 +10,7 @@
                 "nome": "Francesco",
                 "cognome": "Mattone",
                 "email": "sicko@gmail.com",
-                "telefono": "3930519173",
+                "telefono": "3930519123",
                 "username": "Suca",
                 "password": "Suca",
                 "role": "utente",
@@ -342,12 +342,20 @@
             {
                 "nome_servizio": "Visita guidata centro storico",
                 "numero_camera": "101"
+            },
+            {
+                "nome_servizio": "Noleggio biciclette",
+                "numero_camera": "104"
             }
         ],
         "spa": [
             {
                 "nome_servizio": "Bucchin",
                 "numero_camera": "101"
+            },
+            {
+                "nome_servizio": "Massaggio",
+                "numero_camera": "104"
             }
         ]
     }

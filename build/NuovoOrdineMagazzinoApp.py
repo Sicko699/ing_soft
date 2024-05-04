@@ -261,15 +261,22 @@ class NuovoOrdineMagazzino:
 
         # Tentativo di leggere e aggiornare il file JSON
         try:
-            with open("data.json", "r") as file:
-                data = json.load(file)
-
+            if platform.system() == "Darwin":
+                with open("data.json", "r") as file:
+                    data = json.load(file)
+            else:
+                with open(r"build/data.json", "r") as file:
+                    data = json.load(file)
             # Aggiungi l'ordine al magazzino
             magazzino = data[3]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
             magazzino.append(ordine)
 
-            with open("data.json", "w") as file:
-                json.dump(data, file, indent=4)
+            if platform.system() == "Darwin":
+                with open("data.json", "w") as file:
+                    json.dump(data, file, indent=4)
+            else:
+                with open(r"build/data.json", "w") as file:
+                    json.dump(data, file, indent=4)
             print("Ordine aggiunto con successo al file JSON.")
         except Exception as e:
             print("Si è verificato un errore durante l'aggiunta dell'ordine al file JSON:", e)

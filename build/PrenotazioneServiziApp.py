@@ -189,7 +189,7 @@ class PrenotazioneServizi:
             image=self.button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.invia_servizio(),
+            command=lambda: go_gestione_servizi(self.window),
             relief="flat"
         )
         self.button_7.place(
@@ -239,15 +239,22 @@ class PrenotazioneServizi:
         }
         
         try:
-            with open("data.json", "r") as file:
-                data = json.load(file)
-                
+            if platform.system() == "Darwin":
+                with open("data.json", "r") as file:
+                    data = json.load(file)
+            else:
+                with open(r"build/data.json", "r") as file:
+                    data = json.load(file)    
             # Assuming you want to append 'servizio' to the 'servizi' list in the last dictionary of 'data'
             servizi = data[-1]["servizi"]
             servizi.append(servizio)
             
-            with open("data.json", "w") as file:
-                json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary
+            if platform.system() == "Darwin":
+                with open("data.json", "w") as file:
+                    json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary
+            else:
+                with open(r"build/data.json", "w") as file:
+                    json.dump(data, file, indent=4)        
                 print("Servizio aggiunto con successo")
         except Exception as e:
             print("Si è verificato un errore:", e)

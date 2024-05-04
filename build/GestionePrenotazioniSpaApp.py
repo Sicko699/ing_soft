@@ -185,12 +185,16 @@ class GestionePrenotazioniSpa:
 
         self.window.resizable(False, False)
 
-        with open("data.json", "r") as json_file:
-            data = json.load(json_file)
-            
+        if platform.system() == "Darwin":
+            with open("data.json", "r") as json_file:
+                data = json.load(json_file)
+        else:
+            with open(r"build/data.json", "r") as json_file:
+                data = json.load(json_file)
+
         prenotazioni = data[-1]["spa"]
         
-        for i, prenotazione in enumerate(prenotazioni):
+        for i, prenotazione in enumerate(prenotazioni[:7]):
             nome_servizio = prenotazione.get("nome_servizio", "")
             numero_camera = prenotazione.get("numero_camera", "")
             entry_value = f"Tipo: {nome_servizio}, Numero camera: {numero_camera}"

@@ -266,7 +266,7 @@ def button_1_click(window):
     window.destroy()
     root = Tk() 
     prenotazione_servizi = PrenotazioneServizi(root)
-    prenotazione_servizi.fill_entry("Noleggio biciclette")  
+    prenotazione_servizi.fill_entry("Giro in barca")  
     root.mainloop()
     
 def button_11_click(window):
@@ -274,7 +274,7 @@ def button_11_click(window):
     window.destroy()
     root = Tk() 
     prenotazione_servizi = PrenotazioneServizi(root)
-    prenotazione_servizi.fill_entry("Giro in barca")  
+    prenotazione_servizi.fill_entry("Noleggio biciclette")  
     root.mainloop()
     
 def button_12_click(window):

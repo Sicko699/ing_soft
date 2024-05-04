@@ -185,14 +185,18 @@ class GestioneOrdiniMagazzino:
 
         self.window.resizable(False, False)
         
-        with open("data.json", "r") as json_file:
-            data = json.load(json_file)
+        if platform.system() == "Darwin":
+            with open("data.json", "r") as json_file:
+                data = json.load(json_file)
+        else:
+            with open(r"build/data.json", "r") as json_file:
+                data = json.load(json_file)
 
         # Estrazione degli ordini magazzino
         magazzino = data[-1]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
 
         # Popolamento degli entry con gli ordini magazzino
-        for i, ordine in enumerate(magazzino):
+        for i, ordine in enumerate(magazzino[:7]):
             articolo = ordine.get("nome_articolo", "")
             quantita = ordine.get("quantita", "")
             entry_value = f"Nome articolo: {articolo}, Quantità: {quantita}"
