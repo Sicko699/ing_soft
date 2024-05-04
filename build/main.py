@@ -132,6 +132,15 @@ def multiplatform_open_write_current_prenotazione(current_prenotazione):
             write_current_prenotazione = json.dump(current_prenotazione, file)
     return write_current_prenotazione
 
+def multiplatform_open_read_entry_json():
+    if platform.system() == "Darwin":
+        with open("current_entry.json", "r") as user_json:
+            current_entry = json.load(user_json)
+    else:
+        with open(r"build/current_entry.json", "r") as user_json:
+            current_entry = json.load(user_json)
+    return current_entry
+
 def go_modifica_profilo(window):
     from ModificaProfilo import ModificaProfilo
     window.destroy()

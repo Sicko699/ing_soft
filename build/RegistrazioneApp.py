@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_home_button
+from main import go_home_button, multiplatform_open_write_data_json, multiplatform_open_write_current_user, multiplatform_open_read_data_json
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -264,12 +264,7 @@ class RegistrazioneApp:
         }
 
         try:
-            if platform.system() == "Darwin":
-                with open("data.json", "r") as file:
-                    data = json.load(file)
-            else:
-                with open(r"build/data.json", "r") as file:
-                    data = json.load(file)
+            data = multiplatform_open_read_data_json()
         except FileNotFoundError:
             data = [{"users": []}]  # Inizializza con una lista contenente un dizionario vuoto se il file non esiste
 
@@ -286,20 +281,9 @@ class RegistrazioneApp:
         current_user = {"username": username, "password": password}
 
             # Scrivi i dettagli dell'utente nel file current_user.json
-        if platform.system() == "Darwin":
-            with open("current_user.json", "w") as file:
-                json.dump(current_user, file)
-        else:
-            with open(r"build/current_user.json", "w") as file:
-                json.dump(current_user, file)
+        write_current_user = multiplatform_open_write_current_user(current_user)
 
-        if platform.system() == "Darwin":
-            with open('data.json', 'w') as file:
-                json.dump(data, file, indent=4)
-        else:
-            with open(r"build/data.json", "w") as file:
-                json.dump(data, file, indent=4)
-
+        write_data = multiplatform_open_write_data_json(data)
 
         print("Registrazione completata con successo!")
 

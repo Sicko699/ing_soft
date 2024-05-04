@@ -3,7 +3,7 @@ import os, platform, json
 from datetime import datetime, timedelta
 from tkinter import ttk, Tk, Canvas, Entry, Text, Button, PhotoImage
 import tkinter as tk
-from main import exit_button, go_gestione_spa, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_home_button
+from main import multiplatform_open_write_data_json, multiplatform_open_read_data_json, exit_button, go_gestione_spa, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_home_button
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -261,22 +261,13 @@ class NuovoOrdineMagazzino:
 
         # Tentativo di leggere e aggiornare il file JSON
         try:
-            if platform.system() == "Darwin":
-                with open("data.json", "r") as file:
-                    data = json.load(file)
-            else:
-                with open(r"build/data.json", "r") as file:
-                    data = json.load(file)
+            data = multiplatform_open_read_data_json()
             # Aggiungi l'ordine al magazzino
             magazzino = data[3]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
             magazzino.append(ordine)
 
-            if platform.system() == "Darwin":
-                with open("data.json", "w") as file:
-                    json.dump(data, file, indent=4)
-            else:
-                with open(r"build/data.json", "w") as file:
-                    json.dump(data, file, indent=4)
+            write_data = multiplatform_open_write_data_json(data)
+            
             print("Ordine aggiunto con successo al file JSON.")
         except Exception as e:
             print("Si è verificato un errore durante l'aggiunta dell'ordine al file JSON:", e)

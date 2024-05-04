@@ -2,7 +2,7 @@ import os, platform, json
 import tkinter.messagebox
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_home_button_user
+from main import go_home_button_user, multiplatform_open_write_data_json, multiplatform_open_read_data_json, multiplatform_open_read_current_user
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -36,21 +36,11 @@ class ModificaProfilo:
             fill="#56AAFF",
             outline="")
         
-        if platform.system() == "Darwin":
-            with open("data.json", "r") as data_json:
-                data_json = json.load(data_json)
-        else:
-            with open(r"build/data.json", "r") as data_json:
-                data_json = json.load(data_json)
+        data_json = multiplatform_open_read_data_json()
+
+        current_user = multiplatform_open_read_current_user()
         
-        if platform.system() == "Darwin":
-            with open("current_user.json", "r") as user_json:
-                current_user = json.load(user_json)
-                username = current_user["username"]
-        else:
-            with open(r"build/current_user.json", "r") as user_json:
-                current_user = json.load(user_json)
-                username = current_user["username"]
+        username = current_user["username"]
         
         user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
 
@@ -258,22 +248,12 @@ class ModificaProfilo:
         password = self.entry_6.get()
 
         # Leggi il file data.json
-        if platform.system() == "Darwin":
-            with open("data.json", "r") as data_file:
-                data = json.load(data_file)
-        else:
-            with open(r"build/data.json", "r") as data_file:
-                data = json.load(data_file)
+        data = multiplatform_open_read_data_json()
     
         # Trova l'utente corrispondente
-        if platform.system() == "Darwin":
-            with open("current_user.json", "r") as user_file:
-                current_user = json.load(user_file)
-                username = current_user["username"]
-        else:
-            with open(r"build/current_user.json", "r") as user_file:
-                current_user = json.load(user_file)
-                username = current_user["username"]
+        current_user = multiplatform_open_read_current_user()
+        
+        username = current_user["username"]
 
         for user in data[0]["users"]:
             if user["username"] == username:
@@ -286,12 +266,7 @@ class ModificaProfilo:
                 user["password"] = password
 
         # Scrivi le modifiche nel file data.json
-        if platform.system() == "Darwin":
-            with open("data.json", "w") as data_file:
-                json.dump(data, data_file, indent=4)
-        else:
-            with open(r"build/data.json", "w") as data_file:
-                json.dump(data, data_file, indent=4)
+        write_data = multiplatform_open_write_data_json(data)
                     
         tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
         go_home_button_user(self.window)

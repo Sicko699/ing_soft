@@ -2,6 +2,7 @@ from pathlib import Path
 import platform, json, os
 from tkinter import Tk, Canvas, Button, PhotoImage
 from datetime import datetime
+from main import multiplatform_open_read_current_user, multiplatform_open_read_data_json, multiplatform_open_read_current_prenotazione, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -26,12 +27,7 @@ class MostraPrenotazioneApp:
         self.window.geometry("862x519")
         self.window.configure(bg="#FAFFFD")
         
-        if platform.system() == "Darwin":
-            with open("current_prenotazione.json", "r") as file:
-                data = json.load(file)
-        else:
-            with open(r"build/current_prenotazione.json", "r") as file:
-                data = json.load(file)
+        data = multiplatform_open_read_current_prenotazione()
 
         tipo_camera = data["tipo_camera"]
         data_arrivo = data["arrivo"]
@@ -196,30 +192,15 @@ class MostraPrenotazioneApp:
 
     def update_data_json(self):
         # Carica i dati correnti da data.json
-        if platform.system() == "Darwin":
-            with open("data.json", "r") as file:
-                data_json = json.load(file)
-        else:
-            with open(r"build/data.json", "r") as file:
-                data_json = json.load(file)
+        data_json = multiplatform_open_read_data_json()
                 
         # Estrai i dati della prenotazione corrente da current_prenotazione.json
-        if platform.system() == "Darwin":
-            with open("current_prenotazione.json", "r") as file:
-                current_prenotazione = json.load(file)
-        else:
-            with open(r"build/current_prenotazione.json", "r") as file:
-                current_prenotazione = json.load(file)
+        current_prenotazione = multiplatform_open_read_current_prenotazione()
                 
         # Estrai i dati dell'utente da current_user.json
-        if platform.system() == "Darwin":
-            with open("current_user.json", "r") as file:
-                current_user = json.load(file)
-                username = current_user["username"]
-        else:
-            with open(r"build/current_user.json", "r") as file:
-                current_user = json.load(file)
-                username = current_user["username"]
+        current_user = multiplatform_open_read_current_user()
+        
+        username = current_user["username"]
                 
         # Trova l'utente corrispondente
         user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
@@ -298,12 +279,8 @@ class MostraPrenotazioneApp:
             return
 
         # Sovrascrivi il file data.json con i dati aggiornati
-        if platform.system() == "Darwin":
-            with open("data.json", "w") as file:
-                json.dump(data_json, file, indent=4)
-        else:
-            with open(r"build/data.json", "w") as file:
-                json.dump(data_json, file, indent=4)
+        write_data = multiplatform_open_write_data_json(data_json)
+        
         print("Dati della prenotazione aggiornati con successo.")
 
 

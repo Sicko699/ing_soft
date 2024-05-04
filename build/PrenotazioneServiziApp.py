@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_gestione_magazzino, go_back_office_button, go_front_office_button, go_gestione_servizi, go_gestione_spa, go_home_button
+from main import multiplatform_open_read_data_json, multiplatform_open_write_data_json, exit_button, go_gestione_magazzino, go_back_office_button, go_front_office_button, go_gestione_servizi, go_gestione_spa, go_home_button
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -239,23 +239,14 @@ class PrenotazioneServizi:
         }
         
         try:
-            if platform.system() == "Darwin":
-                with open("data.json", "r") as file:
-                    data = json.load(file)
-            else:
-                with open(r"build/data.json", "r") as file:
-                    data = json.load(file)    
+            data = multiplatform_open_read_data_json()   
             # Assuming you want to append 'servizio' to the 'servizi' list in the last dictionary of 'data'
             servizi = data[-1]["servizi"]
             servizi.append(servizio)
             
-            if platform.system() == "Darwin":
-                with open("data.json", "w") as file:
-                    json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary
-            else:
-                with open(r"build/data.json", "w") as file:
-                    json.dump(data, file, indent=4)        
-                print("Servizio aggiunto con successo")
+            write_data = multiplatform_open_write_data_json(data)        
+            
+            print("Servizio aggiunto con successo")
         except Exception as e:
             print("Si è verificato un errore:", e)
 
