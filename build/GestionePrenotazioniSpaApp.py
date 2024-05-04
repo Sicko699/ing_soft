@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button
+from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, go_nuova_prenotazione_spa, go_modifica_prenotazione_spa
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -176,7 +176,7 @@ class GestionePrenotazioniSpa:
             width=363.0,
             height=36.0
         )
-
+        
         self.button_images = {
             f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 24)
         }
@@ -185,6 +185,9 @@ class GestionePrenotazioniSpa:
 
         self.window.resizable(False, False)
 
+        
+        self.entry_list = []
+        
         if platform.system() == "Darwin":
             with open("data.json", "r") as json_file:
                 data = json.load(json_file)
@@ -211,6 +214,7 @@ class GestionePrenotazioniSpa:
                 height=36.0
             )
             entry.insert(0, entry_value)
+            self.entry_list.append(entry)
     
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -399,7 +403,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_15,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_15 clicked"),
+            command=lambda: (self.save_entry(0), go_modifica_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_15.place(
@@ -414,7 +418,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_16,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_16 clicked"),
+            command=lambda: (self.save_entry(3), go_nuova_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_16.place(
@@ -429,7 +433,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_17,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_17 clicked"),
+            command=lambda: (self.save_entry(2), go_nuova_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_17.place(
@@ -444,7 +448,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_18,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_18 clicked"),
+            command=lambda: (self.save_entry(1), go_nuova_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_18.place(
@@ -459,7 +463,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_19,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_19 clicked"),
+            command=lambda: (self.save_entry(4), go_nuova_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_19.place(
@@ -474,7 +478,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_20,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_20 clicked"),
+            command=lambda: (self.save_entry(5), go_nuova_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_20.place(
@@ -489,7 +493,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_21,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_21 clicked"),
+            command=lambda: (self.save_entry(6), go_nuova_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_21.place(
@@ -544,6 +548,15 @@ class GestionePrenotazioniSpa:
             height=28.398725509643555
         )
 
+    def save_entry(self, index):
+        current_entry = self.entry_list[index].get()
+        if platform.system() == "Darwin":
+                with open("current_entry.json", "w") as file:
+                    json.dump(current_entry, file)
+        else:
+            with open(r"build/current_entry.json", "w") as file:
+                json.dump(current_entry, file)
+    
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
     
@@ -555,13 +568,6 @@ class GestionePrenotazioniSpa:
             assets_path = abs_path + "/build/assets/frame11"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
-
-def go_nuova_prenotazione_spa(window):
-    from NuovaPrenotazioneSpaApp import NuovaPrenotazioneSpa
-    window.destroy()
-    root = Tk()
-    app = NuovaPrenotazioneSpa(root)
-    root.mainloop()
 
 if __name__ == "__main__":
     root = Tk()

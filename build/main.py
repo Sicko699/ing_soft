@@ -83,3 +83,17 @@ def go_modifica_profilo(window):
     root = Tk()
     app = ModificaProfilo(root)
     root.mainloop()    
+    
+def go_nuova_prenotazione_spa(window):
+    from NuovaPrenotazioneSpaApp import NuovaPrenotazioneSpa
+    window.destroy()
+    root = Tk()
+    app = NuovaPrenotazioneSpa(root)
+    root.mainloop()
+    
+def go_modifica_prenotazione_spa(window):
+    from ModificaPrenotazioneSpa import ModificaPrenotazioneSpa
+    window.destroy()
+    root = Tk()
+    app = ModificaPrenotazioneSpa(root)
+    root.mainloop()
