@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_home_button_user
+from main import go_home_button_user, multiplatform_open_read_current_user, multiplatform_open_read_data_json
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -34,119 +34,21 @@ class ListaPrenotazioni:
             fill="#FAFFFD",
             outline="")
 
-        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
-        self.entry_bg_1 = self.canvas.create_image(
-            430.5,
-            138.0,
-            image=self.entry_image_1
-        )
-        self.entry_1 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_1.place(
-            x=249.0,
-            y=119.0,
-            width=363.0,
-            height=36.0
-        )
-
-        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
-        self.entry_bg_2 = self.canvas.create_image(
-            430.5,
-            188.0,
-            image=self.entry_image_2
-        )
-        self.entry_2 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_2.place(
-            x=249.0,
-            y=169.0,
-            width=363.0,
-            height=36.0
-        )
-
-        self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
-        self.entry_bg_3 = self.canvas.create_image(
-            430.5,
-            238.0,
-            image=self.entry_image_3
-        )
-        self.entry_3 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_3.place(
-            x=249.0,
-            y=219.0,
-            width=363.0,
-            height=36.0
-        )
-
-        self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
-        self.entry_bg_4 = self.canvas.create_image(
-            430.5,
-            288.0,
-            image=self.entry_image_4
-        )
-        self.entry_4 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_4.place(
-            x=249.0,
-            y=269.0,
-            width=363.0,
-            height=36.0
-        )
-
-        self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
-        self.entry_bg_5 = self.canvas.create_image(
-            430.5,
-            338.0,
-            image=self.entry_image_5
-        )
-        self.entry_5 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_5.place(
-            x=249.0,
-            y=319.0,
-            width=363.0,
-            height=36.0
-        )
-
-        self.entry_image_6 = PhotoImage(file=self.relative_to_assets("entry_6.png"))
-        self.entry_bg_6 = self.canvas.create_image(
-            430.5,
-            388.0,
-            image=self.entry_image_6
-        )
-        self.entry_6 = Entry(
-            bd=0,
-            bg="#EAEEEC",
-            fg="#000716",
-            highlightthickness=0
-        )
-        self.entry_6.place(
-            x=249.0,
-            y=369.0,
-            width=363.0,
-            height=36.0
-        )
+        self.entries = []
+        for i in range(6):
+            entry = Entry(
+                bd=0,
+                bg="#EAEEEC",
+                fg="#000716",
+                highlightthickness=0
+            )
+            entry.place(
+                x=249.0,
+                y=119.0 + i * 50,
+                width=363.0,
+                height=36.0
+            )
+            self.entries.append(entry)    
 
         self.button_images = {
             f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 13)
@@ -154,7 +56,21 @@ class ListaPrenotazioni:
 
         self.create_buttons()
 
-        self.window.resizable(False, False)    
+        self.window.resizable(False, False)
+
+        self.show_current_user_prenotazioni()
+
+    def show_current_user_prenotazioni(self):
+        current_user = multiplatform_open_read_current_user()
+        data = multiplatform_open_read_data_json()
+        if data and current_user:
+            for user in data[0]['users']:
+                if user['username'] == current_user['username'] and user['password'] == current_user['password']:
+                    prenotazioni = user.get('prenotazioni', [])
+                    for i, prenotazione in enumerate(prenotazioni):
+                        entry_text = f"Tipo: {prenotazione['tipo_camera']}, Arrivo: {prenotazione['arrivo']}"
+                        self.entries[i].insert(0, entry_text)
+                    break
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
