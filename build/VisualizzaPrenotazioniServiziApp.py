@@ -1,15 +1,15 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, multiplatform_open_read_data_json
+from main import multiplatform_open_read_data_json, go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
 
-abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame10"
+abs = os.getcwd()
+if(platform.system() == "Darwin"):
+    ASSETS_PATH = abs + "/assets/frame17"
 else:
-    ASSETS_PATH = abs_path + "/build/assets/frame10"
-
-class GestioneOrdiniMagazzino:
+    ASSETS_PATH = abs + "/build/assets/frame17"
+    
+class GestioneServizi:
     def __init__(self,window):
         self.window = window
         self.window.geometry("862x519")
@@ -26,6 +26,7 @@ class GestioneOrdiniMagazzino:
         )
 
         self.canvas.place(x = 0, y = 0)
+        
         self.canvas.create_rectangle(
             0.0,
             0.0,
@@ -35,15 +36,6 @@ class GestioneOrdiniMagazzino:
             outline=""
         )
 
-        self.canvas.create_rectangle(
-            315.0,
-            25.0,
-            752.0,
-            494.0,
-            fill="#FAFFFD",
-            outline=""
-        )
-        
         self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
         self.entry_bg_1 = self.canvas.create_image(
             533.5,
@@ -176,25 +168,23 @@ class GestioneOrdiniMagazzino:
             width=363.0,
             height=36.0
         )
-        
+
         self.button_images = {
-            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 9)
+            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 12)
         }
 
         self.create_buttons()
 
         self.window.resizable(False, False)
-        
-        data = multiplatform_open_read_data_json()
-        
-        # Estrazione degli ordini magazzino
-        magazzino = data[-1]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
 
-        # Popolamento degli entry con gli ordini magazzino
-        for i, ordine in enumerate(magazzino[:7]):
-            articolo = ordine.get("nome_articolo", "")
-            quantita = ordine.get("quantita", "")
-            entry_value = f"Nome articolo: {articolo}, Quantità: {quantita}"
+        data = multiplatform_open_read_data_json()
+
+        servizi = data[-1]["servizi"]
+
+        for i, ordine in enumerate(servizi[:7]):
+            servizio = ordine.get("nome_servizio", "")
+            numero_camera = ordine.get("numero_camera", "")
+            entry_value = f"Servizio: {servizio}, Numero Camera: {numero_camera}"
             entry = Entry(
                 bd=0,
                 bg="#EAEEEC",
@@ -209,78 +199,64 @@ class GestioneOrdiniMagazzino:
             )
             entry.insert(0, entry_value)
 
-    def create_buttons(self):
-        self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
-        self.button_1 = Button(
-            image=self.button_image_1,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: exit_button(self.window),
-            relief="flat"
-        )
-        self.button_1.place(
-            x=46.0,
-            y=452.0,
-            width=47.0,
-            height=45.0
-        )
 
+    def create_buttons(self):
         self.button_image_2 = PhotoImage(file=self.relative_to_assets("button_2.png"))
         self.button_2 = Button(
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_home_button(self.window),
+            command=lambda: exit_button(self.window),
             relief="flat"
         )
         self.button_2.place(
-            x=116.0,
+            x=46.0,
             y=452.0,
             width=47.0,
             height=45.0
         )
-
+        
         self.button_image_3 = PhotoImage(file=self.relative_to_assets("button_3.png"))
         self.button_3 = Button(
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_front_office_button(self.window),
+            command=lambda: go_home_button(self.window),
             relief="flat"
         )
         self.button_3.place(
+            x=116.0,
+            y=452.0,
+            width=47.0,
+            height=45.0
+        )
+        
+        self.button_image_4 = PhotoImage(file=self.relative_to_assets("button_4.png"))
+        self.button_4 = Button(
+            image=self.button_image_4,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: go_front_office_button(self.window),
+            relief="flat"
+        )
+        self.button_4.place(
             x=24.0,
             y=98.0,
             width=162.0,
             height=45.0
         )
 
-        self.button_image_4 = PhotoImage(file=self.relative_to_assets("button_4.png"))
-        self.button_4 = Button(
-            image=self.button_image_4,
+        self.button_image_5 = PhotoImage(file=self.relative_to_assets("button_5.png"))
+        self.button_5 = Button(
+            image=self.button_image_5,
             borderwidth=0,
             highlightthickness=0,
             command=lambda: go_back_office_button(self.window),
             relief="flat"
         )
-        self.button_4.place(
+        self.button_5.place(
             x=24.0,
             y=158.0,
-            width=162.0,
-            height=45.0
-        )
-
-        self.button_image_6 = PhotoImage(file=self.relative_to_assets("button_6.png"))
-        self.button_6 = Button(
-            image=self.button_image_6,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: go_gestione_magazzino(self.window),
-            relief="flat"
-        )
-        self.button_6.place(
-            x=24.0,
-            y=218.0,
             width=162.0,
             height=45.0
         )
@@ -290,12 +266,12 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_gestione_servizi(self.window),
+            command=lambda: go_gestione_magazzino(self.window),
             relief="flat"
         )
         self.button_7.place(
             x=24.0,
-            y=278.0,
+            y=218.0,
             width=162.0,
             height=45.0
         )
@@ -305,12 +281,12 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_8,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_gestione_spa(self.window),
+            command=lambda: print("button_8 clicked"),
             relief="flat"
         )
         self.button_8.place(
             x=24.0,
-            y=338.0,
+            y=278.0,
             width=162.0,
             height=45.0
         )
@@ -320,36 +296,29 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_nuovo_ordine_magazzino(self.window),
+            command=lambda: go_gestione_spa(self.window),
             relief="flat"
         )
         self.button_9.place(
-            x=440.0,
-            y=418.0,
-            width=188.0,
-            height=49.0
+            x=24.0,
+            y=338.0,
+            width=162.0,
+            height=45.0
         )
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
-    
+
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
         if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame10"
+            assets_path = abs_path + "/assets/frame17"
         else:
-            assets_path = abs_path + "/build/assets/frame10"
+            assets_path = abs_path + "/build/assets/frame17"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 
-def go_nuovo_ordine_magazzino(window):
-    from NuovoOrdineMagazzinoApp import NuovoOrdineMagazzino
-    window.destroy()
-    root = Tk()
-    app = NuovoOrdineMagazzino(root)
-    root.mainloop()
-
 if __name__ == "__main__":
     root = Tk()
-    app = GestioneOrdiniMagazzino(root)
+    app = GestioneServizi(root)
     root.mainloop()
