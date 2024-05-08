@@ -1,7 +1,8 @@
 from pathlib import Path
-import os, platform, json
+import os, platform, json, re
+import tkinter.messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, go_nuova_prenotazione_spa, go_modifica_prenotazione_spa
+from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, go_nuova_prenotazione_spa, go_modifica_prenotazione_spa, multiplatform_open_read_data_json, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -215,6 +216,7 @@ class GestionePrenotazioniSpa:
             )
             entry.insert(0, entry_value)
             self.entry_list.append(entry)
+        
     
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -357,7 +359,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_12,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_12 clicked"),
+            command=lambda:(self.save_entry(0), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_12.place(
@@ -418,7 +420,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_16,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(3), go_nuova_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(3), go_modifica_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_16.place(
@@ -433,7 +435,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_17,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(2), go_nuova_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(2), go_modifica_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_17.place(
@@ -448,7 +450,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_18,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(1), go_nuova_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(1), go_modifica_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_18.place(
@@ -463,7 +465,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_19,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(4), go_nuova_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(4), go_modifica_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_19.place(
@@ -478,7 +480,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_20,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(5), go_nuova_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(5), go_modifica_prenotazione_spa(self.window)),
             relief="flat"
         )
         self.button_20.place(
@@ -557,7 +559,35 @@ class GestionePrenotazioniSpa:
             with open(r"build/current_entry.json", "w") as file:
                 json.dump(current_entry, file)
                 
-        print("ho salvato")
+    def elimina_prenotazione(self):
+        data = multiplatform_open_read_data_json()
+        
+        if platform.system() == "Darwin":
+            with open("current_entry.json", "r") as user_json:
+                current_entry = json.load(user_json)
+        else:
+            with open(r"build/current_entry.json", "r") as user_json:
+                current_entry = json.load(user_json)
+                
+        pattern = r'Tipo:\s*([^,]+),\s*Numero camera:\s*([^,]+)'
+        match = re.search(pattern, current_entry)
+        tipo = match.group(1)
+        numero_camera = match.group(2)
+        
+        print(tipo, numero_camera)
+
+        # Itera sulla lista delle prenotazioni spa
+        for prenotazione in data[-1]["spa"]:
+            # Verifica se il nome_servizio e il numero_camera corrispondono ai criteri
+            if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
+                # Rimuovi l'elemento dalla lista
+                data[-1]["spa"].remove(prenotazione)
+                break
+        
+        # Scrivi i dati aggiornati nel JSON
+        multiplatform_open_write_data_json(data)
+        tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
+        go_gestione_spa(self.window)
     
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)

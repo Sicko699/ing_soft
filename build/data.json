@@ -482,15 +482,6 @@
                 "numero_camera": "104"
             }
         ],
-        "spa": [
-            {
-                "nome_servizio": "Bucchin0",
-                "numero_camera": "101"
-            },
-            {
-                "nome_servizio": "Bucchino",
-                "numero_camera": "101"
-            }
-        ]
+        "spa": []
     }
 ]

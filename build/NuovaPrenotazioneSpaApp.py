@@ -220,7 +220,7 @@ class NuovaPrenotazioneSpa:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.invia_prenotazione(),
+            command=lambda: (self.invia_prenotazione(), go_gestione_spa(self.window)),
             relief="flat"
         )
         self.button_9.place(

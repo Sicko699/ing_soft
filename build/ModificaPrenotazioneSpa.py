@@ -121,6 +121,8 @@ class ModificaPrenotazioneSpa:
             with open(r"build/current_entry.json", "r") as user_json:
                 current_entry = json.load(user_json)
                 
+        print(current_entry, "ciao")
+                
         pattern = r'Tipo:\s*([^,]+),\s*Numero camera:\s*([^,]+)'
         match = re.search(pattern, current_entry)
         tipo = match.group(1)
@@ -156,6 +158,7 @@ class ModificaPrenotazioneSpa:
             if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
                 prenotazione["nome_servizio"] = new_tipo
                 prenotazione["numero_camera"] = new_numero_camera
+                break
                 
         write_data = multiplatform_open_write_data_json(data)
         tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
@@ -273,7 +276,7 @@ class ModificaPrenotazioneSpa:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.invia_prenotazione(), self.save_changes()),
+            command=self.save_changes,
             relief="flat"
         )
         self.button_9.place(
