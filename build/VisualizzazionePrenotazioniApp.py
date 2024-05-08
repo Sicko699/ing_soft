@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button
+from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, multiplatform_open_read_data_json
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -203,6 +203,47 @@ class VisualizzazionePrenotazioni:
         self.create_buttons()
 
         self.window.resizable(False, False)
+        
+        
+        data = multiplatform_open_read_data_json()
+
+        numero_prenotazioni = -1
+
+        for tipo_camera, prenotazioni in data[1]['camere'][0].items():
+            # Itera sulle prenotazioni della camera
+            for camera_numero, camera_prenotazioni in prenotazioni[0].items():
+                # Stampare solo i dati richiesti
+                for prenotazione in camera_prenotazioni:
+                    if prenotazione['arrivo'] and prenotazione['partenza']:
+                        arrivo = prenotazione['arrivo']
+                        partenza = prenotazione['partenza']
+                        
+                        '''
+                        print("Arrivo:", prenotazione['arrivo'])
+                        print("Partenza:", prenotazione['partenza'])
+                        print("Nome:", prenotazione['nome'])
+                        print("Cognome:", prenotazione['cognome'])
+                        print("Numero ospiti:", prenotazione['numero_ospiti'])
+                        print("Tipo camera:", prenotazione['tipo_camera'])
+                        print()
+                        '''
+                        numero_prenotazioni +=1
+                        
+                        if numero_prenotazioni <= 7:
+                            entry_value = f"Arrivo: {arrivo}, Partenza: {partenza}"
+                            entry = Entry(
+                                bd=0,
+                                bg="#EAEEEC",
+                                fg="#000716",
+                                highlightthickness=0
+                            )
+                            entry.place(
+                                x=366.0,
+                                y=63.0 + numero_prenotazioni * 50,
+                                width=275.0,
+                                height=36.0
+                            )
+                            entry.insert(0, entry_value)
         
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
