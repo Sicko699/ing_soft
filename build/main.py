@@ -11,6 +11,12 @@ def centrare_finestra(window):
     y = (schermo_altezza - altezza_finestra) // 2
     window.geometry('{}x{}+{}+{}'.format(larghezza_finestra, altezza_finestra, x, y))
 
+def go_visualizza_prenotazioni_servizi(window):
+    from VisualizzaPrenotazioniServiziApp import VisualizzaPrenotazioniServizi
+    window.destroy()
+    root = Tk()
+    app = VisualizzaPrenotazioniServizi(root)
+    root.mainloop()
 
 def exit_button(window):
     from LoginApp import LoginApp

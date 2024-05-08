@@ -9,7 +9,7 @@ if(platform.system() == "Darwin"):
 else:
     ASSETS_PATH = abs + "/build/assets/frame14"
     
-class GestioneServizi:
+class VisualizzaPrenotazioniServizi:
     def __init__(self,window):
         self.window = window
         self.window.geometry("862x519")
@@ -579,5 +579,5 @@ class GestioneServizi:
 
 if __name__ == "__main__":
     root = Tk()
-    app = GestioneServizi(root)
+    app = VisualizzaPrenotazioniServizi(root)
     root.mainloop()

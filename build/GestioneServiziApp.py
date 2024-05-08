@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
+from main import go_visualizza_prenotazioni_servizi, go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
 
 abs = os.getcwd()
 if(platform.system() == "Darwin"):
@@ -85,7 +85,7 @@ class GestioneServizi:
         )
         self.button_1.place(
             x=285.0,
-            y=276.0,
+            y=296.0,
             width=232.0,
             height=174.0
         )
@@ -96,7 +96,7 @@ class GestioneServizi:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=lambda: exit_button(self.window),
             relief="flat"
         )
         self.button_2.place(
@@ -111,7 +111,7 @@ class GestioneServizi:
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_3 clicked"),
+            command=lambda: go_home_button(self.window),
             relief="flat"
         )
         self.button_3.place(
@@ -141,7 +141,7 @@ class GestioneServizi:
             image=self.button_image_5,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_5 clicked"),
+            command=lambda: go_back_office_button(self.window),
             relief="flat"
         )
         self.button_5.place(
@@ -156,7 +156,7 @@ class GestioneServizi:
             image=self.button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_7 clicked"),
+            command=lambda: go_gestione_magazzino(self.window),
             relief="flat"
         )
         self.button_7.place(
@@ -206,7 +206,7 @@ class GestioneServizi:
         )
         self.button_10.place(
             x=285.0,
-            y=69.0,
+            y=89.0,
             width=232.0,
             height=174.0
         )
@@ -221,7 +221,7 @@ class GestioneServizi:
         )
         self.button_11.place(
             x=558.0,
-            y=69.0,
+            y=89.0,
             width=232.0,
             height=174.0
         )
@@ -236,9 +236,24 @@ class GestioneServizi:
         )
         self.button_12.place(
             x=558.0,
-            y=276.0,
+            y=296.0,
             width=232.0,
             height=174.0
+        )
+
+        self.button_image_13 = PhotoImage(file=self.relative_to_assets("button_5 copy.png"))
+        self.button_13 = Button(
+            image=self.button_image_13,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: go_visualizza_prenotazioni_servizi(self.window),
+            relief="flat"
+        )
+        self.button_13.place(
+            x=441.0,
+            y=13.0,
+            width=190.0,
+            height=67.0
         )
 
     def relative_to_assets(self,path: str) -> Path:
@@ -258,7 +273,7 @@ def button_10_click(window):
     window.destroy()
     root = Tk() 
     prenotazione_servizi = PrenotazioneServizi(root)
-    prenotazione_servizi.fill_entry("Visita guidata centro storico")  
+    prenotazione_servizi.fill_entry("Visita guidata")  
     root.mainloop()
 
 def button_1_click(window):
