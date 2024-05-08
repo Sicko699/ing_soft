@@ -189,6 +189,7 @@ def go_registrazione(window):
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("Login")
     app = LoginApp(root)
     centrare_finestra(root)
     root.mainloop()
