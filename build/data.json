@@ -43,6 +43,15 @@
                         "tipo_camera": "Camera Quadrupla",
                         "arrivo": "16-05-2024",
                         "partenza": "18-05-2024"
+                    },
+                    {
+                        "nome": "Ciao",
+                        "cognome": "Ciao",
+                        "telefono": "324432432",
+                        "numero_ospiti": 3,
+                        "tipo_camera": "Camera Tripla",
+                        "arrivo": "05-05-2024",
+                        "partenza": "06-05-2024"
                     }
                 ]
             },
@@ -131,6 +140,26 @@
                         "tipo_camera": "Camera Doppia",
                         "arrivo": "15-05-2024",
                         "partenza": "18-05-2024"
+                    }
+                ]
+            },
+            {
+                "nome": "lblb",
+                "cognome": "lb",
+                "email": "lb1313",
+                "telefono": "2423424324lb",
+                "username": "lb",
+                "password": "lb",
+                "role": "utente",
+                "prenotazioni": [
+                    {
+                        "nome": "lblb",
+                        "cognome": "lb",
+                        "telefono": "2423424324lb",
+                        "numero_ospiti": 3,
+                        "tipo_camera": "Camera Tripla",
+                        "arrivo": "08-05-2024",
+                        "partenza": "10-05-2024"
                     }
                 ]
             }
@@ -273,12 +302,28 @@
                                 "cognome": "Chiara",
                                 "numero_ospiti": 3,
                                 "tipo_camera": "Camera Tripla"
+                            },
+                            {
+                                "arrivo": "05-05-2024",
+                                "partenza": "06-05-2024",
+                                "nome": "Ciao",
+                                "cognome": "Ciao",
+                                "numero_ospiti": 3,
+                                "tipo_camera": "Camera Tripla"
                             }
                         ],
                         "302": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "08-05-2024",
+                                "partenza": "10-05-2024",
+                                "nome": "lblb",
+                                "cognome": "lb",
+                                "numero_ospiti": 3,
+                                "tipo_camera": "Camera Tripla"
                             }
                         ],
                         "303": [
@@ -418,6 +463,13 @@
                 "data": "03-05-2024",
                 "spedizione": "04-05-2024",
                 "consegna": "06-05-2024"
+            },
+            {
+                "nome_articolo": "Materasso",
+                "quantita": "10",
+                "data": "05-05-2024",
+                "spedizione": "06-05-2024",
+                "consegna": "08-05-2024"
             }
         ],
         "servizi": [
@@ -432,7 +484,11 @@
         ],
         "spa": [
             {
-                "nome_servizio": "Bucchin",
+                "nome_servizio": "Bucchin0",
+                "numero_camera": "101"
+            },
+            {
+                "nome_servizio": "Bucchino",
                 "numero_camera": "101"
             }
         ]

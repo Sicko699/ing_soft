@@ -1,7 +1,8 @@
 from pathlib import Path
 import os, platform, json, re
+import tkinter.messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button
+from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, multiplatform_open_read_data_json, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -15,7 +16,10 @@ class ModificaPrenotazioneSpa:
         self.window = window
         self.window.geometry("862x519")
         self.window.configure(bg = "#FAFFFD")
-
+        
+        self.tipo = None
+        self.numero_camera = None
+        
         self.canvas = Canvas(
             self.window,
             bg = "#FAFFFD",
@@ -109,6 +113,7 @@ class ModificaPrenotazioneSpa:
 
         self.window.resizable(False, False)
         
+        
         if platform.system() == "Darwin":
             with open("current_entry.json", "r") as user_json:
                 current_entry = json.load(user_json)
@@ -121,10 +126,42 @@ class ModificaPrenotazioneSpa:
         tipo = match.group(1)
         numero_camera = match.group(2)
         
+        print(tipo, numero_camera)
+        
         self.entry_1.insert(0, tipo)
         self.entry_2.insert(0, numero_camera)
 
-    
+    def save_changes(self):
+        data = multiplatform_open_read_data_json()
+        
+        if platform.system() == "Darwin":
+            with open("current_entry.json", "r") as user_json:
+                current_entry = json.load(user_json)
+        else:
+            with open(r"build/current_entry.json", "r") as user_json:
+                current_entry = json.load(user_json)
+                
+        pattern = r'Tipo:\s*([^,]+),\s*Numero camera:\s*([^,]+)'
+        match = re.search(pattern, current_entry)
+        tipo = match.group(1)
+        numero_camera = match.group(2)
+        
+        
+        print(tipo, numero_camera)
+        
+        new_tipo = self.entry_1.get()
+        new_numero_camera = self.entry_2.get()
+        
+        for prenotazione in data[-1]["spa"]:
+            if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
+                prenotazione["nome_servizio"] = new_tipo
+                prenotazione["numero_camera"] = new_numero_camera
+                
+        write_data = multiplatform_open_write_data_json(data)
+        tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
+        go_gestione_spa(self.window)
+        
+        
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
@@ -236,7 +273,7 @@ class ModificaPrenotazioneSpa:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.invia_prenotazione(),
+            command=lambda: (self.invia_prenotazione(), self.save_changes()),
             relief="flat"
         )
         self.button_9.place(

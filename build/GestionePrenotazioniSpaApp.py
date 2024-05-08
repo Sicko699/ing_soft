@@ -556,6 +556,8 @@ class GestionePrenotazioniSpa:
         else:
             with open(r"build/current_entry.json", "w") as file:
                 json.dump(current_entry, file)
+                
+        print("ho salvato")
     
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
