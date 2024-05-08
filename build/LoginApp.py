@@ -169,6 +169,17 @@ class LoginApp:
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 
+def centrare_finestra(window):
+    window.update_idletasks()
+    larghezza_finestra = window.winfo_width()
+    altezza_finestra = window.winfo_height()
+    schermo_larghezza = window.winfo_screenwidth()
+    schermo_altezza = window.winfo_screenheight()
+    x = (schermo_larghezza - larghezza_finestra) // 2
+    y = (schermo_altezza - altezza_finestra) // 2
+    window.geometry('{}x{}+{}+{}'.format(larghezza_finestra, altezza_finestra, x, y))
+    
+
 def go_registrazione(window):
     from RegistrazioneApp import RegistrazioneApp
     window.destroy()
@@ -179,4 +190,5 @@ def go_registrazione(window):
 if __name__ == "__main__":
     root = Tk()
     app = LoginApp(root)
+    centrare_finestra(root)
     root.mainloop()
