@@ -344,7 +344,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_11,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_11 clicked"),
+            command=lambda: (self.save_entry(1), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_11.place(
@@ -374,7 +374,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_13,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_13 clicked"),
+            command=lambda: (self.save_entry(2), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_13.place(
@@ -389,7 +389,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_14,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_14 clicked"),
+            command=lambda: (self.save_entry(5), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_14.place(
@@ -510,7 +510,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_22,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_22 clicked"),
+            command=lambda: (self.save_entry(6), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_22.place(
@@ -525,7 +525,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_23,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_23 clicked"),
+            command=lambda: (self.save_entry(3), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_23.place(
@@ -540,7 +540,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_24,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_24 clicked"),
+            command=lambda: (self.save_entry(4), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_24.place(

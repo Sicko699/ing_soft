@@ -491,11 +491,7 @@
         ],
         "servizi": [
             {
-                "nome_servizio": "Visita guidata centro storico",
-                "numero_camera": "101"
-            },
-            {
-                "nome_servizio": "Noleggio biciclette",
+                "nome_servizio": "Visita guidata",
                 "numero_camera": "104"
             }
         ],

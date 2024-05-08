@@ -184,7 +184,15 @@ def go_nuova_prenotazione_spa(window):
     app = NuovaPrenotazioneSpa(root)
     centrare_finestra(root)
     root.mainloop()
-    
+
+def go_modifica_prenotazione_servizi(window):
+    from ModificaPrenotazioniServizi import ModificaPrenotazioneServizi
+    window.destroy()
+    root = Tk()
+    app = ModificaPrenotazioneServizi(root)
+    centrare_finestra(root)
+    root.mainloop()
+
 def go_modifica_prenotazione_spa(window):
     from ModificaPrenotazioneSpa import ModificaPrenotazioneSpa
     window.destroy()

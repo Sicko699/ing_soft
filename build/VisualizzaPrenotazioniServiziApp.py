@@ -1,7 +1,8 @@
 from pathlib import Path
-import os, platform, json
+import os, platform, json, re
+import tkinter.messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_gestione_servizi, multiplatform_open_read_data_json, go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
+from main import multiplatform_open_write_data_json,go_modifica_prenotazione_servizi, go_visualizza_prenotazioni_servizi, go_gestione_servizi, multiplatform_open_read_data_json, go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
 
 abs = os.getcwd()
 if(platform.system() == "Darwin"):
@@ -196,6 +197,8 @@ class VisualizzaPrenotazioniServizi:
 
         self.window.resizable(False, False)
 
+        self.entry_list_servizi = []
+
         data = multiplatform_open_read_data_json()
 
         servizi = data[-1]["servizi"]
@@ -217,7 +220,7 @@ class VisualizzaPrenotazioniServizi:
                 height=36.0
             )
             entry.insert(0, entry_value)
-
+            self.entry_list_servizi.append(entry)
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -330,7 +333,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_9 clicked"),
+            command=lambda: (self.save_entry_servizi(0), go_modifica_prenotazione_servizi(self.window)),
             relief="flat"
         )
         self.button_9.place(
@@ -345,7 +348,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
+            command=lambda: (self.save_entry_servizi(3), go_modifica_prenotazione_servizi(self.window)),
             relief="flat"
         )
         self.button_10.place(
@@ -360,7 +363,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_11,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_11 clicked"),
+            command=lambda: (self.save_entry_servizi(2), go_modifica_prenotazione_servizi(self.window)),
             relief="flat"
         )
         self.button_11.place(
@@ -375,7 +378,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_12,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_12 clicked"),
+            command=lambda: (self.save_entry_servizi(1), go_modifica_prenotazione_servizi(self.window)),
             relief="flat"
         )
         self.button_12.place(
@@ -390,7 +393,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_13,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_13 clicked"),
+            command=lambda: (self.save_entry_servizi(4), go_modifica_prenotazione_servizi(self.window)),
             relief="flat"
         )
         self.button_13.place(
@@ -405,7 +408,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_14,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_14 clicked"),
+            command=lambda: (self.save_entry_servizi(5), go_modifica_prenotazione_servizi(self.window)),
             relief="flat"
         )
         self.button_14.place(
@@ -420,7 +423,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_15,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_15 clicked"),
+            command=lambda: (self.save_entry_servizi(7), go_modifica_prenotazione_servizi(self.window)),
             relief="flat"
         )
         self.button_15.place(
@@ -435,7 +438,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_16,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_16 clicked"),
+            command=lambda: (self.save_entry_servizi(6), go_modifica_prenotazione_servizi(self.window)),
             relief="flat"
         )
         self.button_16.place(
@@ -450,7 +453,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_17,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_17 clicked"),
+            command=lambda: (self.save_entry_servizi(0), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_17.place(
@@ -465,7 +468,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_18,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_18 clicked"),
+            command=lambda: (self.save_entry_servizi(1), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_18.place(
@@ -480,7 +483,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_19,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_19 clicked"),
+            command=lambda: (self.save_entry_servizi(2), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_19.place(
@@ -495,7 +498,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_20,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_20 clicked"),
+            command=lambda: (self.save_entry_servizi(3), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_20.place(
@@ -510,7 +513,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_21,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_21 clicked"),
+            command=lambda: (self.save_entry_servizi(4), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_21.place(
@@ -525,7 +528,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_22,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_22 clicked"),
+            command=lambda: (self.save_entry_servizi(5), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_22.place(
@@ -540,7 +543,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_23,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_23 clicked"),
+            command=lambda: (self.save_entry_servizi(6), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_23.place(
@@ -555,7 +558,7 @@ class VisualizzaPrenotazioniServizi:
             image=self.button_image_24,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_24 clicked"),
+            command=lambda: (self.save_entry_servizi(7), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_24.place(
@@ -564,6 +567,49 @@ class VisualizzaPrenotazioniServizi:
             width=28.398725509643555,
             height=28.398725509643555
         )
+
+    def save_entry_servizi(self, index):
+        current_entry_servizi = self.entry_list_servizi[index].get()
+        if platform.system() == "Darwin":
+                with open("current_entry_servizi.json", "w") as file:
+                    json.dump(current_entry_servizi, file)
+        else:
+            with open(r"build/current_entry_servizi.json", "w") as file:
+                json.dump(current_entry_servizi, file)
+
+    def elimina_prenotazione(self):
+        data = multiplatform_open_read_data_json()
+        
+        if platform.system() == "Darwin":
+            with open("current_entry_servizi.json", "r") as user_json:
+                current_entry_servizi = json.load(user_json)
+        else:
+            with open(r"build/current_entry_servizi.json", "r") as user_json:
+                current_entry_servizi = json.load(user_json)
+                
+        pattern = r'Servizio:\s*([^,]+),\s*Numero Camera:\s*([^"]+)'
+        match = re.search(pattern, current_entry_servizi)
+        
+        if match:
+            tipo = match.group(1)
+            numero_camera = match.group(2)
+            
+            print(tipo, numero_camera)
+
+            # Itera sulla lista delle prenotazioni spa
+            for prenotazione in data[-1]["servizi"]:
+                # Verifica se il nome_servizio e il numero_camera corrispondono ai criteri
+                if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
+                    # Rimuovi l'elemento dalla lista
+                    data[-1]["servizi"].remove(prenotazione)
+                    break
+                
+            # Scrivi i dati aggiornati nel JSON
+            multiplatform_open_write_data_json(data)
+            tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
+            go_visualizza_prenotazioni_servizi(self.window)
+        else:
+            tkinter.messagebox.showerror("Errore", "Nessuna corrispondenza trovata nel formato del testo.")
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
