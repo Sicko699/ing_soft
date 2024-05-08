@@ -1,5 +1,5 @@
 from pathlib import Path
-import os, platform
+import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, multiplatform_open_read_data_json
 
@@ -208,6 +208,8 @@ class VisualizzazionePrenotazioni:
         data = multiplatform_open_read_data_json()
 
         numero_prenotazioni = -1
+        
+        self.entry_list = []
 
         for tipo_camera, prenotazioni in data[1]['camere'][0].items():
             # Itera sulle prenotazioni della camera
@@ -244,6 +246,16 @@ class VisualizzazionePrenotazioni:
                                 height=36.0
                             )
                             entry.insert(0, entry_value)
+                            self.entry_list.append(entry)
+                            
+    def save_entry(self, index):
+        current_entry = self.entry_list[index].get()
+        if platform.system() == "Darwin":
+                with open("current_entry_prenotazione.json", "w") as file:
+                    json.dump(current_entry, file)
+        else:
+            with open(r"build/current_entry_prenotazione.json", "w") as file:
+                json.dump(current_entry, file)
         
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -356,7 +368,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_9 clicked"),
+            command=lambda: (self.save_entry(0)),
             relief="flat"
         )
         self.button_9.place(
@@ -371,7 +383,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
+            command=lambda: (self.save_entry(3)),
             relief="flat"
         )
         self.button_10.place(
@@ -386,7 +398,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_11,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_11 clicked"),
+            command=lambda: (self.save_entry(2)),
             relief="flat"
         )
         self.button_11.place(
@@ -401,7 +413,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_12,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_12 clicked"),
+            command=lambda: (self.save_entry(1)),
             relief="flat"
         )
         self.button_12.place(
@@ -416,7 +428,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_13,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_13 clicked"),
+            command=lambda: (self.save_entry(4)),
             relief="flat"
         )
         self.button_13.place(
@@ -431,7 +443,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_14,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_14 clicked"),
+            command=lambda: (self.save_entry(5)),
             relief="flat"
         )
         self.button_14.place(
@@ -446,7 +458,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_15,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_15 clicked"),
+            command=lambda: (self.save_entry(7)),
             relief="flat"
         )
         self.button_15.place(
@@ -461,7 +473,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_16,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_16 clicked"),
+            command=lambda: (self.save_entry(6)),
             relief="flat"
         )
         self.button_16.place(
@@ -602,8 +614,19 @@ class VisualizzazionePrenotazioni:
             assets_path = abs_path + "/build/assets/frame14"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
-    
+
+def centrare_finestra(window):
+    window.update_idletasks()
+    larghezza_finestra = window.winfo_width()
+    altezza_finestra = window.winfo_height()
+    schermo_larghezza = window.winfo_screenwidth()
+    schermo_altezza = window.winfo_screenheight()
+    x = (schermo_larghezza - larghezza_finestra) // 2
+    y = (schermo_altezza - altezza_finestra) // 2
+    window.geometry('{}x{}+{}+{}'.format(larghezza_finestra, altezza_finestra, x, y))
+
 if __name__ == "__main__":
     root = Tk()
     app = VisualizzazionePrenotazioni(root)
+    centrare_finestra(root)
     root.mainloop()
