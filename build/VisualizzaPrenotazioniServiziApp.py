@@ -586,30 +586,26 @@ class VisualizzaPrenotazioniServizi:
         else:
             with open(r"build/current_entry_servizi.json", "r") as user_json:
                 current_entry_servizi = json.load(user_json)
-                
+
         pattern = r'Servizio:\s*([^,]+),\s*Numero Camera:\s*([^"]+)'
         match = re.search(pattern, current_entry_servizi)
-        
-        if match:
-            tipo = match.group(1)
-            numero_camera = match.group(2)
+        tipo = match.group(1)
+        numero_camera = match.group(2)
             
-            print(tipo, numero_camera)
+        print(tipo, numero_camera)
 
-            # Itera sulla lista delle prenotazioni spa
-            for prenotazione in data[-1]["servizi"]:
-                # Verifica se il nome_servizio e il numero_camera corrispondono ai criteri
-                if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
-                    # Rimuovi l'elemento dalla lista
-                    data[-1]["servizi"].remove(prenotazione)
-                    break
+        # Itera sulla lista delle prenotazioni spa
+        for prenotazione in data[-1]["servizi"]:
+            # Verifica se il nome_servizio e il numero_camera corrispondono ai criteri
+            if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
+                # Rimuovi l'elemento dalla lista
+                data[-1]["servizi"].remove(prenotazione)
+                break
                 
-            # Scrivi i dati aggiornati nel JSON
-            multiplatform_open_write_data_json(data)
-            tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
-            go_visualizza_prenotazioni_servizi(self.window)
-        else:
-            tkinter.messagebox.showerror("Errore", "Nessuna corrispondenza trovata nel formato del testo.")
+        # Scrivi i dati aggiornati nel JSON
+        multiplatform_open_write_data_json(data)
+        tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
+        go_visualizza_prenotazioni_servizi(self.window)
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)

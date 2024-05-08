@@ -147,25 +147,23 @@ class ModificaPrenotazioneServizi:
                 
         pattern = r'Servizio:\s*([^,]+),\s*Numero Camera:\s*([^"]+)'
         match = re.search(pattern, current_entry_servizi)
-        
-        if match:
-            tipo = match.group(1)
-            numero_camera = match.group(2)
-        
-            print(tipo, numero_camera)
+        tipo = match.group(1)
+        numero_camera = match.group(2)
+    
+        print(tipo, numero_camera)
             
-            new_tipo = self.entry_1.get()
-            new_numero_camera = self.entry_2.get()
+        new_tipo = self.entry_1.get()
+        new_numero_camera = self.entry_2.get()
             
-            for prenotazione in data[-1]["servizi"]:
-                if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
-                    prenotazione["nome_servizio"] = new_tipo
-                    prenotazione["numero_camera"] = new_numero_camera
-                    break
+        for prenotazione in data[-1]["servizi"]:
+            if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
+                prenotazione["nome_servizio"] = new_tipo
+                prenotazione["numero_camera"] = new_numero_camera
+                break
                     
-            write_data = multiplatform_open_write_data_json(data)
-            tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
-            go_visualizza_prenotazioni_servizi(self.window)
+        write_data = multiplatform_open_write_data_json(data)
+        tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
+        go_visualizza_prenotazioni_servizi(self.window)
         
         
     def create_buttons(self):

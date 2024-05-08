@@ -489,12 +489,7 @@
                 "consegna": "08-05-2024"
             }
         ],
-        "servizi": [
-            {
-                "nome_servizio": "Visita guidata",
-                "numero_camera": "104"
-            }
-        ],
+        "servizi": [],
         "spa": []
     }
 ]
