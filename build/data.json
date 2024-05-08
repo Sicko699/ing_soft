@@ -52,6 +52,15 @@
                         "tipo_camera": "Camera Tripla",
                         "arrivo": "05-05-2024",
                         "partenza": "06-05-2024"
+                    },
+                    {
+                        "nome": "Ciao",
+                        "cognome": "Ciao",
+                        "telefono": "324432432",
+                        "numero_ospiti": 3,
+                        "tipo_camera": "Camera Tripla",
+                        "arrivo": "30-05-2024",
+                        "partenza": "31-05-2024"
                     }
                 ]
             },
@@ -306,6 +315,14 @@
                             {
                                 "arrivo": "05-05-2024",
                                 "partenza": "06-05-2024",
+                                "nome": "Ciao",
+                                "cognome": "Ciao",
+                                "numero_ospiti": 3,
+                                "tipo_camera": "Camera Tripla"
+                            },
+                            {
+                                "arrivo": "30-05-2024",
+                                "partenza": "31-05-2024",
                                 "nome": "Ciao",
                                 "cognome": "Ciao",
                                 "numero_ospiti": 3,

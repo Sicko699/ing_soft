@@ -1,11 +1,23 @@
 from tkinter import Tk
 import platform, json
 
+def centrare_finestra(window):
+    window.update_idletasks()
+    larghezza_finestra = window.winfo_width()
+    altezza_finestra = window.winfo_height()
+    schermo_larghezza = window.winfo_screenwidth()
+    schermo_altezza = window.winfo_screenheight()
+    x = (schermo_larghezza - larghezza_finestra) // 2
+    y = (schermo_altezza - altezza_finestra) // 2
+    window.geometry('{}x{}+{}+{}'.format(larghezza_finestra, altezza_finestra, x, y))
+
+
 def exit_button(window):
     from LoginApp import LoginApp
     window.destroy()
     root = Tk()
     app = LoginApp(root)
+    centrare_finestra(root)
     root.mainloop()
 
 def go_home_button(window):
@@ -13,6 +25,7 @@ def go_home_button(window):
     window.destroy()
     root = Tk()
     app = MainApp(root)
+    centrare_finestra(root)
     root.mainloop()
 
 def go_front_office_button(window):
@@ -20,6 +33,7 @@ def go_front_office_button(window):
     window.destroy()
     root = Tk()
     app = FrontOfficeApp(root)
+    centrare_finestra(root)
     root.mainloop()
 
 def go_back_office_button(window):
@@ -27,6 +41,7 @@ def go_back_office_button(window):
     window.destroy()
     root = Tk()
     app = BackOfficeApp(root)
+    centrare_finestra(root)
     root.mainloop()
     
 def go_gestione_magazzino(window):
@@ -34,6 +49,7 @@ def go_gestione_magazzino(window):
     window.destroy()
     root = Tk()
     app = GestioneOrdiniMagazzino(root)
+    centrare_finestra(root)
     root.mainloop()
     
 def go_gestione_servizi(window):
@@ -41,6 +57,7 @@ def go_gestione_servizi(window):
     window.destroy()
     root = Tk()
     app = GestioneServizi(root)
+    centrare_finestra(root)
     root.mainloop()
     
 def go_gestione_spa(window):
@@ -48,6 +65,7 @@ def go_gestione_spa(window):
     window.destroy()
     root = Tk()
     app = GestionePrenotazioniSpa(root)
+    centrare_finestra(root)
     root.mainloop()
     
 def go_home_button_user(window):
@@ -55,6 +73,7 @@ def go_home_button_user(window):
     window.destroy()
     root = Tk()
     app = CercaCamere(root)
+    centrare_finestra(root)
     root.mainloop()
 
 def go_mostra_prenotazione(window):
@@ -62,6 +81,7 @@ def go_mostra_prenotazione(window):
     window.destroy()
     root = Tk()
     app = MostraPrenotazioneApp(root)
+    centrare_finestra(root)
     root.mainloop()
     
 def go_cerca_camere(window):
@@ -69,6 +89,7 @@ def go_cerca_camere(window):
     window.destroy()
     root = Tk()
     app = CercaCamere(root)
+    centrare_finestra(root)
     root.mainloop()
     
 def go_lista_prenotazioni(window):
@@ -76,6 +97,7 @@ def go_lista_prenotazioni(window):
     window.destroy()
     root = Tk()
     app = ListaPrenotazioni(root)
+    centrare_finestra(root)
     root.mainloop()
 
 def multiplatform_open_read_data_json():
@@ -146,6 +168,7 @@ def go_modifica_profilo(window):
     window.destroy()
     root = Tk()
     app = ModificaProfilo(root)
+    centrare_finestra(root)
     root.mainloop()    
     
 def go_nuova_prenotazione_spa(window):
@@ -153,6 +176,7 @@ def go_nuova_prenotazione_spa(window):
     window.destroy()
     root = Tk()
     app = NuovaPrenotazioneSpa(root)
+    centrare_finestra(root)
     root.mainloop()
     
 def go_modifica_prenotazione_spa(window):
@@ -160,4 +184,5 @@ def go_modifica_prenotazione_spa(window):
     window.destroy()
     root = Tk()
     app = ModificaPrenotazioneSpa(root)
+    centrare_finestra(root)
     root.mainloop()

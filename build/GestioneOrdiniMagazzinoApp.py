@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, multiplatform_open_read_data_json
+from main import exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, multiplatform_open_read_data_json, centrare_finestra
 
 abs_path = os.getcwd()
 if platform.system() == "Darwin":
@@ -452,6 +452,7 @@ def go_nuovo_ordine_magazzino(window):
     window.destroy()
     root = Tk()
     app = NuovoOrdineMagazzino(root)
+    centrare_finestra(root)
     root.mainloop()
 
 if __name__ == "__main__":

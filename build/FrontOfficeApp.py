@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_home_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
+from main import exit_button, go_home_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, centrare_finestra
 
 
 abs_path = os.getcwd()
@@ -322,6 +322,7 @@ def go_inserimento_prenotazioni(window):
     window.destroy()
     root = Tk()
     app = InserimentoPrenotazione(root)
+    centrare_finestra(root)
     root.mainloop()
 
 def go_visualizzazione_prenotazioni(window):
@@ -329,6 +330,7 @@ def go_visualizzazione_prenotazioni(window):
     window.destroy()
     root = Tk()
     app = VisualizzazionePrenotazioni(root)
+    centrare_finestra(root)
     root.mainloop()
 
 if __name__ == "__main__":
