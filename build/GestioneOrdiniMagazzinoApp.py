@@ -178,7 +178,7 @@ class GestioneOrdiniMagazzino:
         )
         
         self.button_images = {
-            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 9)
+            f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 16)
         }
 
         self.create_buttons()
@@ -328,6 +328,111 @@ class GestioneOrdiniMagazzino:
             y=418.0,
             width=188.0,
             height=49.0
+        )
+
+        self.button_image_10 = PhotoImage(file=self.relative_to_assets("button_10.png"))
+        self.button_10 = Button(
+            image=self.button_image_10,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_10 clicked"),
+            relief="flat"
+        )
+        self.button_10.place(
+            x=684.0,
+            y=58.0,
+            width=28.398725509643555,
+            height=28.398725509643555
+        )
+
+        self.button_image_11 = PhotoImage(file=self.relative_to_assets("button_11.png"))
+        self.button_11 = Button(
+            image=self.button_image_11,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_11 clicked"),
+            relief="flat"
+        )
+        self.button_11.place(
+            x=684.0,
+            y=208.0,
+            width=28.398725509643555,
+            height=28.398725509643555
+        )
+
+        self.button_image_12 = PhotoImage(file=self.relative_to_assets("button_12.png"))
+        self.button_12 = Button(
+            image=self.button_image_12,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_12 clicked"),
+            relief="flat"
+        )
+        self.button_12.place(
+            x=684.0,
+            y=158.0,
+            width=28.398725509643555,
+            height=28.398725509643555
+        )
+
+        self.button_image_13 = PhotoImage(file=self.relative_to_assets("button_13.png"))
+        self.button_13 = Button(
+            image=self.button_image_13,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_13 clicked"),
+            relief="flat"
+        )
+        self.button_13.place(
+            x=684.0,
+            y=108.0,
+            width=28.398725509643555,
+            height=28.398725509643555
+        )
+
+        self.button_image_14 = PhotoImage(file=self.relative_to_assets("button_14.png"))
+        self.button_14 = Button(
+            image=self.button_image_14,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_14 clicked"),
+            relief="flat"
+        )
+        self.button_14.place(
+            x=684.0,
+            y=258.0,
+            width=28.398725509643555,
+            height=28.398725509643555
+        )
+
+        self.button_image_15 = PhotoImage(file=self.relative_to_assets("button_15.png"))
+        self.button_15 = Button(
+            image=self.button_image_15,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_15 clicked"),
+            relief="flat"
+        )
+        self.button_15.place(
+            x=684.0,
+            y=308.0,
+            width=28.398725509643555,
+            height=28.398725509643555
+        )
+
+        self.button_image_16 = PhotoImage(file=self.relative_to_assets("button_16.png"))
+        self.button_16 = Button(
+            image=self.button_image_16,
+            borderwidth=0,
+            highlightthickness=0,
+            command=lambda: print("button_16 clicked"),
+            relief="flat"
+        )
+        self.button_16.place(
+            x=684.0,
+            y=358.0,
+            width=28.398725509643555,
+            height=28.398725509643555
         )
 
     def relative_to_assets(self,path: str) -> Path:
