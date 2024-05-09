@@ -48,7 +48,7 @@ class ModificaProfilo:
             print("Utente non trovato.")
             return
             
-        print(user_data)
+        #print(user_data)
         nome = user_data.get("nome", "")
         cognome = user_data.get("cognome", "")
         email = user_data.get("email", "")
@@ -254,7 +254,12 @@ class ModificaProfilo:
         current_user = multiplatform_open_read_current_user()
         
         username = current_user["username"]
+        user_data = next((user for user in data[0]["users"] if user["username"] == username), None)
 
+        
+        
+        username_utente = user_data["username"]
+        
         for user in data[0]["users"]:
             if user["username"] == username:
                 # Aggiorna i valori dell'utente
@@ -264,6 +269,28 @@ class ModificaProfilo:
                 user["telefono"] = telefono
                 user["username"] = username
                 user["password"] = password
+        
+        for tipo_camera, prenotazioni in data[1]['camere'][0].items():
+            # Itera sulle prenotazioni della camera
+            for camera_numero, camera_prenotazioni in prenotazioni[0].items():
+                # Stampare solo i dati richiesti
+                for prenotazione in camera_prenotazioni:
+                    if prenotazione['arrivo'] and prenotazione['partenza']:
+                        if username_utente == username:
+                            prenotazione["nome"] = nome
+                            prenotazione["cognome"] = cognome
+                            prenotazione["username"] = username
+                        
+        for user in data[0]['users']:
+            if user['username'] == current_user['username'] and user['password'] == current_user['password']:
+                prenotazioni = user.get('prenotazioni', [])
+                for i, prenotazione in enumerate(prenotazioni):
+                    prenotazione["nome"] = nome
+                    prenotazione["cognome"] = cognome
+                    prenotazione["telefono"] = telefono
+                    print(prenotazione)
+                break
+        
 
         # Scrivi le modifiche nel file data.json
         write_data = multiplatform_open_write_data_json(data)

@@ -212,6 +212,9 @@ class MostraPrenotazioneApp:
         # Aggiungi il nome e il cognome alla prenotazione
         current_prenotazione["nome"] = user_data.get("nome", "")
         current_prenotazione["cognome"] = user_data.get("cognome", "")
+        current_prenotazione["username"] = user_data.get("username", "")
+        
+        print(current_prenotazione)
         
         tipo_camera = current_prenotazione["tipo_camera"]
         if(tipo_camera == "Camera Singola"):
@@ -251,6 +254,7 @@ class MostraPrenotazioneApp:
                             "partenza": current_prenotazione["partenza"],
                             "nome": current_prenotazione["nome"],
                             "cognome": current_prenotazione["cognome"],
+                            "username": current_prenotazione["username"],
                             "numero_ospiti": numero_ospiti,
                             "tipo_camera": current_prenotazione["tipo_camera"],
                         })

@@ -14,55 +14,17 @@
                 "username": "Suca",
                 "password": "Suca",
                 "role": "utente",
-                "prenotazioni": [
-                    {
-                        "nome": "Francesco",
-                        "cognome": "Mattone",
-                        "telefono": "3930519157",
-                        "numero_ospiti": 1,
-                        "tipo_camera": "Camera Singola",
-                        "arrivo": "09-05-2024",
-                        "partenza": "16-05-2024"
-                    }
-                ]
+                "prenotazioni": []
             },
             {
-                "nome": "Ciao",
+                "nome": "Ciao222",
                 "cognome": "Ciao",
                 "email": "Ciao",
                 "telefono": "324432432",
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": [
-                    {
-                        "nome": "Ciao",
-                        "cognome": "Ciao",
-                        "telefono": "324432432",
-                        "numero_ospiti": 4,
-                        "tipo_camera": "Camera Quadrupla",
-                        "arrivo": "16-05-2024",
-                        "partenza": "18-05-2024"
-                    },
-                    {
-                        "nome": "Ciao",
-                        "cognome": "Ciao",
-                        "telefono": "324432432",
-                        "numero_ospiti": 3,
-                        "tipo_camera": "Camera Tripla",
-                        "arrivo": "05-05-2024",
-                        "partenza": "06-05-2024"
-                    },
-                    {
-                        "nome": "Ciao",
-                        "cognome": "Ciao",
-                        "telefono": "324432432",
-                        "numero_ospiti": 3,
-                        "tipo_camera": "Camera Tripla",
-                        "arrivo": "30-05-2024",
-                        "partenza": "31-05-2024"
-                    }
-                ]
+                "prenotazioni": []
             },
             {
                 "nome": "Sapo",
@@ -72,17 +34,7 @@
                 "username": "Sapo",
                 "password": "Sapo",
                 "role": "utente",
-                "prenotazioni": [
-                    {
-                        "nome": "Sapo",
-                        "cognome": "sAPO",
-                        "telefono": "3535353535",
-                        "numero_ospiti": 1,
-                        "tipo_camera": "Camera Singola",
-                        "arrivo": "09-05-2024",
-                        "partenza": "17-05-2024"
-                    }
-                ]
+                "prenotazioni": []
             },
             {
                 "nome": "Sara",
@@ -102,35 +54,7 @@
                 "username": "Chia",
                 "password": "Chia",
                 "role": "utente",
-                "prenotazioni": [
-                    {
-                        "nome": "Chiara",
-                        "cognome": "Chiara",
-                        "telefono": "1231231234",
-                        "numero_ospiti": 1,
-                        "tipo_camera": "Camera Singola",
-                        "arrivo": "02-05-2024",
-                        "partenza": "03-05-2024"
-                    },
-                    {
-                        "nome": "Chiara",
-                        "cognome": "Chiara",
-                        "telefono": "1231231234",
-                        "numero_ospiti": 3,
-                        "tipo_camera": "Camera Tripla",
-                        "arrivo": "09-05-2024",
-                        "partenza": "10-05-2024"
-                    },
-                    {
-                        "nome": "Chiara",
-                        "cognome": "Chiara",
-                        "telefono": "1231231234",
-                        "numero_ospiti": 2,
-                        "tipo_camera": "Camera Doppia",
-                        "arrivo": "31-05-2024",
-                        "partenza": "07-06-2024"
-                    }
-                ]
+                "prenotazioni": []
             },
             {
                 "nome": "Francesco",
@@ -140,17 +64,7 @@
                 "username": "Francesco",
                 "password": "Francesco",
                 "role": "utente",
-                "prenotazioni": [
-                    {
-                        "nome": "Francesco",
-                        "cognome": "Simonetti",
-                        "telefono": "2828282828",
-                        "numero_ospiti": 2,
-                        "tipo_camera": "Camera Doppia",
-                        "arrivo": "15-05-2024",
-                        "partenza": "18-05-2024"
-                    }
-                ]
+                "prenotazioni": []
             },
             {
                 "nome": "lblb",
@@ -160,17 +74,7 @@
                 "username": "lb",
                 "password": "lb",
                 "role": "utente",
-                "prenotazioni": [
-                    {
-                        "nome": "lblb",
-                        "cognome": "lb",
-                        "telefono": "2423424324lb",
-                        "numero_ospiti": 3,
-                        "tipo_camera": "Camera Tripla",
-                        "arrivo": "08-05-2024",
-                        "partenza": "10-05-2024"
-                    }
-                ]
+                "prenotazioni": []
             }
         ]
     },
@@ -183,36 +87,12 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "02-05-2024",
-                                "partenza": "03-05-2024",
-                                "nome": "Chiara",
-                                "cognome": "Chiara",
-                                "numero_ospiti": 1,
-                                "tipo_camera": "Camera Singola"
-                            },
-                            {
-                                "arrivo": "09-05-2024",
-                                "partenza": "16-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "numero_ospiti": 1,
-                                "tipo_camera": "Camera Singola"
                             }
                         ],
                         "102": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "09-05-2024",
-                                "partenza": "17-05-2024",
-                                "nome": "Sapo",
-                                "cognome": "sAPO",
-                                "numero_ospiti": 1,
-                                "tipo_camera": "Camera Singola"
                             }
                         ],
                         "103": [
@@ -247,22 +127,6 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "31-05-2024",
-                                "partenza": "07-06-2024",
-                                "nome": "Chiara",
-                                "cognome": "Chiara",
-                                "numero_ospiti": 2,
-                                "tipo_camera": "Camera Doppia"
-                            },
-                            {
-                                "arrivo": "15-05-2024",
-                                "partenza": "18-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Simonetti",
-                                "numero_ospiti": 2,
-                                "tipo_camera": "Camera Doppia"
                             }
                         ],
                         "202": [
@@ -303,44 +167,12 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "09-05-2024",
-                                "partenza": "10-05-2024",
-                                "nome": "Chiara",
-                                "cognome": "Chiara",
-                                "numero_ospiti": 3,
-                                "tipo_camera": "Camera Tripla"
-                            },
-                            {
-                                "arrivo": "05-05-2024",
-                                "partenza": "06-05-2024",
-                                "nome": "Ciao",
-                                "cognome": "Ciao",
-                                "numero_ospiti": 3,
-                                "tipo_camera": "Camera Tripla"
-                            },
-                            {
-                                "arrivo": "30-05-2024",
-                                "partenza": "31-05-2024",
-                                "nome": "Ciao",
-                                "cognome": "Ciao",
-                                "numero_ospiti": 3,
-                                "tipo_camera": "Camera Tripla"
                             }
                         ],
                         "302": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "08-05-2024",
-                                "partenza": "10-05-2024",
-                                "nome": "lblb",
-                                "cognome": "lb",
-                                "numero_ospiti": 3,
-                                "tipo_camera": "Camera Tripla"
                             }
                         ],
                         "303": [
@@ -375,14 +207,6 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "16-05-2024",
-                                "partenza": "18-05-2024",
-                                "nome": "Ciao",
-                                "cognome": "Ciao",
-                                "numero_ospiti": 4,
-                                "tipo_camera": "Camera Quadrupla"
                             }
                         ],
                         "402": [
@@ -433,34 +257,6 @@
     {
         "magazzino": [
             {
-                "nome_articolo": "Materasso",
-                "quantita": "1",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Materasso",
-                "quantita": "1",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Cuscini",
-                "quantita": "2",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
-                "nome_articolo": "Cuscini",
-                "quantita": "2",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
-            },
-            {
                 "nome_articolo": "Kit di benvenuto",
                 "quantita": "2",
                 "data": "03-05-2024",
@@ -489,7 +285,16 @@
                 "consegna": "08-05-2024"
             }
         ],
-        "servizi": [],
+        "servizi": [
+            {
+                "nome_servizio": "Visita guidata",
+                "numero_camera": "104"
+            },
+            {
+                "nome_servizio": "Noleggio biciclette",
+                "numero_camera": "103"
+            }
+        ],
         "spa": []
     }
 ]
