@@ -4,10 +4,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, multiplatform_open_read_data_json, centrare_finestra
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame10"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame10"
+
+ASSETS_PATH = abs_path + "/assets/frame10"
 
 class GestioneOrdiniMagazzino:
     def __init__(self,window):
@@ -440,10 +438,8 @@ class GestioneOrdiniMagazzino:
     
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame10"
-        else:
-            assets_path = abs_path + "/build/assets/frame10"
+        
+        assets_path = abs_path + "/assets/frame10"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

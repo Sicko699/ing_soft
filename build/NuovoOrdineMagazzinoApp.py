@@ -6,10 +6,8 @@ import tkinter as tk
 from main import multiplatform_open_write_data_json, multiplatform_open_read_data_json, exit_button, go_gestione_spa, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_home_button
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame13"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame13"
+
+ASSETS_PATH = abs_path + "/assets/frame13"
 
 class NuovoOrdineMagazzino:
     def __init__(self,window):
@@ -232,10 +230,8 @@ class NuovoOrdineMagazzino:
     
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame13"
-        else:
-            assets_path = abs_path + "/build/assets/frame13"
+        
+        assets_path = abs_path + "/assets/frame13"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

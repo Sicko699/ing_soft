@@ -4,10 +4,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, multiplatform_open_read_data_json
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame14"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame14"
+
+ASSETS_PATH = abs_path + "/assets/frame14"
 
 class VisualizzazionePrenotazioni:
     def __init__(self,window):
@@ -250,12 +248,9 @@ class VisualizzazionePrenotazioni:
                             
     def save_entry(self, index):
         current_entry = self.entry_list[index].get()
-        if platform.system() == "Darwin":
-                with open("current_entry_prenotazione.json", "w") as file:
-                    json.dump(current_entry, file)
-        else:
-            with open(r"build/current_entry_prenotazione.json", "w") as file:
-                json.dump(current_entry, file)
+        
+        with open("current_entry_prenotazione.json", "w") as file:
+            json.dump(current_entry, file)
         
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -608,10 +603,8 @@ class VisualizzazionePrenotazioni:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame14"
-        else:
-            assets_path = abs_path + "/build/assets/frame14"
+        
+        assets_path = abs_path + "/assets/frame14"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

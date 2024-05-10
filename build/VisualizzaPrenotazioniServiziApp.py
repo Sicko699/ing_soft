@@ -5,10 +5,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import multiplatform_open_write_data_json,go_modifica_prenotazione_servizi, go_visualizza_prenotazioni_servizi, go_gestione_servizi, multiplatform_open_read_data_json, go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
 
 abs = os.getcwd()
-if(platform.system() == "Darwin"):
-    ASSETS_PATH = abs + "/assets/frame14"
-else:
-    ASSETS_PATH = abs + "/build/assets/frame14"
+
+ASSETS_PATH = abs + "/assets/frame14"
     
 class VisualizzaPrenotazioniServizi:
     def __init__(self,window):
@@ -570,22 +568,15 @@ class VisualizzaPrenotazioniServizi:
 
     def save_entry_servizi(self, index):
         current_entry_servizi = self.entry_list_servizi[index].get()
-        if platform.system() == "Darwin":
-                with open("current_entry_servizi.json", "w") as file:
-                    json.dump(current_entry_servizi, file)
-        else:
-            with open(r"build/current_entry_servizi.json", "w") as file:
-                json.dump(current_entry_servizi, file)
+
+        with open("current_entry_servizi.json", "w") as file:
+            json.dump(current_entry_servizi, file)
 
     def elimina_prenotazione(self):
         data = multiplatform_open_read_data_json()
         
-        if platform.system() == "Darwin":
-            with open("current_entry_servizi.json", "r") as user_json:
-                current_entry_servizi = json.load(user_json)
-        else:
-            with open(r"build/current_entry_servizi.json", "r") as user_json:
-                current_entry_servizi = json.load(user_json)
+        with open("current_entry_servizi.json", "r") as user_json:
+            current_entry_servizi = json.load(user_json)
 
         pattern = r'Servizio:\s*([^,]+),\s*Numero Camera:\s*([^"]+)'
         match = re.search(pattern, current_entry_servizi)
@@ -612,10 +603,8 @@ class VisualizzaPrenotazioniServizi:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame14"
-        else:
-            assets_path = abs_path + "/build/assets/frame14"
+        
+        assets_path = abs_path + "/assets/frame14"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

@@ -8,10 +8,8 @@ from CercaCamereApp import go_lista_prenotazioni
 from main import multiplatform_open_read_data_json, multiplatform_open_write_current_prenotazione
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame20"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame20"
+
+ASSETS_PATH = abs_path + "/assets/frame20"
 
 class ModificaPrenotazione:
     def __init__(self,window):
@@ -204,10 +202,8 @@ class ModificaPrenotazione:
     
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame20"
-        else:
-            assets_path = abs_path + "/build/assets/frame20"
+        
+        assets_path = abs_path + "/assets/frame20"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

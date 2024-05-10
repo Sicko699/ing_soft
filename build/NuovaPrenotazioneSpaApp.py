@@ -4,11 +4,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame12"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame12"
 
+ASSETS_PATH = abs_path + "/assets/frame12"
 
 class NuovaPrenotazioneSpa:
     def __init__(self,window):
@@ -240,24 +237,17 @@ class NuovaPrenotazioneSpa:
         }
         
         try:
-            if platform.system() == "Darwin":
-                with open("data.json", "r") as file:
-                    data = json.load(file)
-            else:
-                with open(r"build/data.json", "r") as file:
-                    data = json.load(file)
+            
+            with open("data.json", "r") as file:
+                data = json.load(file)
 
             # Assuming you want to append 'servizio' to the 'servizi' list in the last dictionary of 'data'
             servizi = data[-1]["spa"]
             servizi.append(servizio)
             
-            if platform.system() == "Darwin":
-                with open("data.json", "w") as file:
-                    json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary
-            else:
-                with open(r"build/data.json", "w") as file:
-                    json.dump(data, file, indent=4)        
-                print("Servizio spa aggiunto con successo")
+            with open("data.json", "w") as file:
+                json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary        
+            print("Servizio spa aggiunto con successo")
         except Exception as e:
             print("Si è verificato un errore:", e)
 
@@ -266,10 +256,8 @@ class NuovaPrenotazioneSpa:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame12"
-        else:
-            assets_path = abs_path + "/build/assets/frame12"
+
+        assets_path = abs_path + "/assets/frame12"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
     

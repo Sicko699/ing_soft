@@ -3,13 +3,9 @@ import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_home_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, centrare_finestra
 
-
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame7"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame7"
 
+ASSETS_PATH = abs_path + "/assets/frame7"
 
 class FrontOfficeApp:
     def __init__(self, window):
@@ -310,11 +306,9 @@ class FrontOfficeApp:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame7"
-        else:
-            assets_path = abs_path + "/build/assets/frame7"
-
+        
+        assets_path = abs_path + "/assets/frame7"
+        
         return PhotoImage(file=Path(assets_path) / Path(image_path))
         
 def go_inserimento_prenotazioni(window):

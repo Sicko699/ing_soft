@@ -3,12 +3,10 @@ import os, platform
 from tkinter import Tk, ttk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_home_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
 import tkinter as tk
-abs = os.getcwd()
-if(platform.system() == "Darwin"):
-    ASSETS_PATH = abs + "/assets/frame15"
-else:
-    ASSETS_PATH = abs + "/build/assets/frame15"
 
+abs = os.getcwd()
+
+ASSETS_PATH = abs + "/assets/frame15"
 
 class InserimentoPrenotazione:
     def __init__(self,window):
@@ -367,10 +365,8 @@ class InserimentoPrenotazione:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame15"
-        else:
-            assets_path = abs_path + "/build/assets/frame15"
+
+        assets_path = abs_path + "/assets/frame15"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

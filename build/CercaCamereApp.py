@@ -7,10 +7,8 @@ from datetime import datetime
 from main import exit_button, go_mostra_prenotazione, go_lista_prenotazioni, go_modifica_profilo, multiplatform_open_read_data_json, multiplatform_open_write_current_prenotazione
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame19"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame19"
+
+ASSETS_PATH = abs_path + "/assets/frame19"
 
 class CercaCamere:
     def __init__(self, window):
@@ -229,10 +227,8 @@ class CercaCamere:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame5"
-        else:
-            assets_path = abs_path + "/build/assets/frame5"
+
+        assets_path = abs_path + "/assets/frame5"
 
         return tk.PhotoImage(file=Path(assets_path) / Path(image_path))
     

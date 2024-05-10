@@ -4,10 +4,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import go_home_button, multiplatform_open_write_data_json, multiplatform_open_write_current_user, multiplatform_open_read_data_json
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame4"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame4"
+
+ASSETS_PATH = abs_path + "/assets/frame4"
 
 class RegistrazioneApp:
     def __init__(self, window):
@@ -233,10 +231,8 @@ class RegistrazioneApp:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame4"
-        else:
-            assets_path = abs_path + "/build/assets/frame4"
+        
+        assets_path = abs_path + "/assets/frame4"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
     

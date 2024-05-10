@@ -4,10 +4,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import go_home_button_user, multiplatform_open_read_current_user, multiplatform_open_read_data_json
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame21"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame21"
+
+ASSETS_PATH = abs_path + "/assets/frame21"
 
 class ListaPrenotazioni:
     def __init__(self,window):
@@ -273,10 +271,8 @@ class ListaPrenotazioni:
     
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame21"
-        else:
-            assets_path = abs_path + "/build/assets/frame21"
+
+        assets_path = abs_path + "/assets/frame21"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

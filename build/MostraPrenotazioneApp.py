@@ -5,10 +5,8 @@ from datetime import datetime
 from main import multiplatform_open_read_current_user, multiplatform_open_read_data_json, multiplatform_open_read_current_prenotazione, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame6"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame6"
+
+ASSETS_PATH = abs_path + "/assets/frame6"
 
 data_prezzi = {
     "prezzi": [
@@ -183,10 +181,8 @@ class MostraPrenotazioneApp:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame6"
-        else:
-            assets_path = abs_path + "/build/assets/frame6"
+        
+        assets_path = abs_path + "/assets/frame6"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

@@ -4,10 +4,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import go_visualizza_prenotazioni_servizi, go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
 
 abs = os.getcwd()
-if(platform.system() == "Darwin"):
-    ASSETS_PATH = abs + "/assets/frame17"
-else:
-    ASSETS_PATH = abs + "/build/assets/frame17"
+
+ASSETS_PATH = abs + "/assets/frame17"
     
 class GestioneServizi:
     def __init__(self,window):
@@ -261,10 +259,8 @@ class GestioneServizi:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame17"
-        else:
-            assets_path = abs_path + "/build/assets/frame17"
+        
+        assets_path = abs_path + "/assets/frame17"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

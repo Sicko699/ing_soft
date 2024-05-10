@@ -5,10 +5,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import go_home_button_user, multiplatform_open_write_data_json, multiplatform_open_read_data_json, multiplatform_open_read_current_user
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame18"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame18"
+
+ASSETS_PATH = abs_path + "/assets/frame18"
 
 class ModificaProfilo:
     def __init__(self,window):
@@ -334,10 +332,8 @@ class ModificaProfilo:
     
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame18"
-        else:
-            assets_path = abs_path + "/build/assets/frame18"
+        
+        assets_path = abs_path + "/assets/frame18"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

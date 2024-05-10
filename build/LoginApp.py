@@ -11,10 +11,8 @@ import verify_login
 from main import go_home_button, go_cerca_camere, multiplatform_open_write_current_user
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame3"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame3"
+
+ASSETS_PATH = abs_path + "/assets/frame3"
 
 class LoginApp:
     def __init__(self, window):
@@ -162,10 +160,8 @@ class LoginApp:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame3"
-        else:
-            assets_path = abs_path + "/build/assets/frame3"
+        
+        assets_path = abs_path + "/assets/frame3"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

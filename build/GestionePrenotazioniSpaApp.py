@@ -5,10 +5,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, go_nuova_prenotazione_spa, go_modifica_prenotazione_spa, multiplatform_open_read_data_json, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame11"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame11"
+
+ASSETS_PATH = abs_path + "/assets/frame11"
 
 class GestionePrenotazioniSpa:
     def __init__(self,window):
@@ -185,16 +183,11 @@ class GestionePrenotazioniSpa:
         self.create_buttons()
 
         self.window.resizable(False, False)
-
-        
+    
         self.entry_list = []
         
-        if platform.system() == "Darwin":
-            with open("data.json", "r") as json_file:
-                data = json.load(json_file)
-        else:
-            with open(r"build/data.json", "r") as json_file:
-                data = json.load(json_file)
+        with open("data.json", "r") as json_file:
+            data = json.load(json_file)
 
         prenotazioni = data[-1]["spa"]
         
@@ -552,22 +545,15 @@ class GestionePrenotazioniSpa:
 
     def save_entry(self, index):
         current_entry = self.entry_list[index].get()
-        if platform.system() == "Darwin":
-                with open("current_entry.json", "w") as file:
-                    json.dump(current_entry, file)
-        else:
-            with open(r"build/current_entry.json", "w") as file:
-                json.dump(current_entry, file)
+        
+        with open("current_entry.json", "w") as file:
+            json.dump(current_entry, file)
                 
     def elimina_prenotazione(self):
         data = multiplatform_open_read_data_json()
-        
-        if platform.system() == "Darwin":
-            with open("current_entry.json", "r") as user_json:
-                current_entry = json.load(user_json)
-        else:
-            with open(r"build/current_entry.json", "r") as user_json:
-                current_entry = json.load(user_json)
+                
+        with open("current_entry.json", "r") as user_json:
+            current_entry = json.load(user_json)
                 
         pattern = r'Tipo:\s*([^,]+),\s*Numero camera:\s*([^,]+)'
         match = re.search(pattern, current_entry)
@@ -594,10 +580,8 @@ class GestionePrenotazioniSpa:
     
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame11"
-        else:
-            assets_path = abs_path + "/build/assets/frame11"
+        
+        assets_path = abs_path + "/assets/frame11"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 

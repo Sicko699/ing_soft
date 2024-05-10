@@ -4,10 +4,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import multiplatform_open_read_data_json, multiplatform_open_write_data_json, exit_button, go_gestione_magazzino, go_back_office_button, go_front_office_button, go_gestione_servizi, go_gestione_spa, go_home_button
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame16"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame16"
+
+ASSETS_PATH = abs_path + "/assets/frame16"
 
 class PrenotazioneServizi:
     def __init__(self,window):
@@ -257,10 +255,8 @@ class PrenotazioneServizi:
     
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame16"
-        else:
-            assets_path = abs_path + "/build/assets/frame16"
+        
+        assets_path = abs_path + "/assets/frame16"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
     

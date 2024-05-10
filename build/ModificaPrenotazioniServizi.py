@@ -5,11 +5,8 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import go_visualizza_prenotazioni_servizi, exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, multiplatform_open_read_data_json, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
-if platform.system() == "Darwin":
-    ASSETS_PATH = abs_path + "/assets/frame12"
-else:
-    ASSETS_PATH = abs_path + "/build/assets/frame12"
 
+ASSETS_PATH = abs_path + "/assets/frame12"
 
 class ModificaPrenotazioneServizi:
     def __init__(self,window):
@@ -113,13 +110,8 @@ class ModificaPrenotazioneServizi:
 
         self.window.resizable(False, False)
         
-        
-        if platform.system() == "Darwin":
-            with open("current_entry_servizi.json", "r") as user_json:
-                current_entry_servizi = json.load(user_json)
-        else:
-            with open(r"build/current_entry_servizi.json", "r") as user_json:
-                current_entry_servizi = json.load(user_json)
+        with open("current_entry_servizi.json", "r") as user_json:
+            current_entry_servizi = json.load(user_json)
                 
         print(current_entry_servizi, "ciao")
                 
@@ -138,12 +130,8 @@ class ModificaPrenotazioneServizi:
     def save_changes(self):
         data = multiplatform_open_read_data_json()
         
-        if platform.system() == "Darwin":
-            with open("current_entry_servizi.json", "r") as user_json:
-                current_entry_servizi = json.load(user_json)
-        else:
-            with open(r"build/current_entry_servizi.json", "r") as user_json:
-                current_entry_servizi = json.load(user_json)
+        with open("current_entry_servizi.json", "r") as user_json:
+            current_entry_servizi = json.load(user_json)
                 
         pattern = r'Servizio:\s*([^,]+),\s*Numero Camera:\s*([^"]+)'
         match = re.search(pattern, current_entry_servizi)
@@ -297,24 +285,16 @@ class ModificaPrenotazioneServizi:
         }
         
         try:
-            if platform.system() == "Darwin":
-                with open("data.json", "r") as file:
-                    data = json.load(file)
-            else:
-                with open(r"build/data.json", "r") as file:
-                    data = json.load(file)
+            with open("data.json", "r") as file:
+                data = json.load(file)
 
             # Assuming you want to append 'servizio' to the 'servizi' list in the last dictionary of 'data'
             servizi = data[-1]["servizi"]
             servizi.append(servizio)
             
-            if platform.system() == "Darwin":
-                with open("data.json", "w") as file:
-                    json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary
-            else:
-                with open(r"build/data.json", "w") as file:
-                    json.dump(data, file, indent=4)        
-                print("Servizio aggiunto con successo")
+            with open("data.json", "w") as file:
+                json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary        
+            print("Servizio aggiunto con successo")
         except Exception as e:
             print("Si è verificato un errore:", e)
 
@@ -323,10 +303,8 @@ class ModificaPrenotazioneServizi:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        if platform.system() == "Darwin":
-            assets_path = abs_path + "/assets/frame12"
-        else:
-            assets_path = abs_path + "/build/assets/frame12"
+
+        assets_path = abs_path + "/assets/frame12"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
     
