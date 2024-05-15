@@ -1,5 +1,5 @@
 from pathlib import Path
-import os, platform, json
+import os, platform, json, re
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import go_home_button_user, multiplatform_open_read_current_user, multiplatform_open_read_data_json
 
@@ -32,33 +32,132 @@ class ListaPrenotazioni:
             fill="#FAFFFD",
             outline="")
 
-        self.entries = []
-        for i in range(6):
-            entry = Entry(
-                bd=0,
-                bg="#EAEEEC",
-                fg="#000716",
-                highlightthickness=0
-            )
-            entry.place(
-                x=249.0,
-                y=119.0 + i * 50,
-                width=363.0,
-                height=36.0
-            )
-            self.entries.append(entry)    
+        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
+        self.entry_bg_1 = self.canvas.create_image(
+            430.0,
+            137.0,
+            image=self.entry_image_1
+        )
+        self.entry_1 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_1.place(
+            x=249.0,
+            y=119.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
+        self.entry_bg_2 = self.canvas.create_image(
+            430.0,
+            187.0,
+            image=self.entry_image_2
+        )
+        self.entry_2 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_2.place(
+            x=249.0,
+            y=169.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
+        self.entry_bg_3 = self.canvas.create_image(
+            430.0,
+            237.0,
+            image=self.entry_image_3
+        )
+        self.entry_3 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_3.place(
+            x=249.0,
+            y=219.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
+        self.entry_bg_4 = self.canvas.create_image(
+            430.0,
+            287.0,
+            image=self.entry_image_4
+        )
+        self.entry_4 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_4.place(
+            x=249.0,
+            y=269.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
+        self.entry_bg_5 = self.canvas.create_image(
+            430.0,
+            337.0,
+            image=self.entry_image_5
+        )
+        self.entry_5 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_5.place(
+            x=249.0,
+            y=319.0,
+            width=363.0,
+            height=36.0
+        )
+
+        self.entry_image_6 = PhotoImage(file=self.relative_to_assets("entry_6.png"))
+        self.entry_bg_6 = self.canvas.create_image(
+            430.0,
+            387.0,
+            image=self.entry_image_6
+        )
+        self.entry_6 = Entry(
+            bd=0,
+            bg="#EAEEEC",
+            fg="#000716",
+            highlightthickness=0
+        )
+        self.entry_6.place(
+            x=249.0,
+            y=369.0,
+            width=363.0,
+            height=36.0
+        )    
 
         self.button_images = {
             f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 13)
         }
 
-        self.create_buttons()
-
         self.window.resizable(False, False)
 
-        self.show_current_user_prenotazioni()
+        self.show_prenotazioni()
 
-    def show_current_user_prenotazioni(self):
+        self.create_buttons()
+
+    def show_prenotazioni(self):
+        self.entry_list = []
         current_user = multiplatform_open_read_current_user()
         data = multiplatform_open_read_data_json()
         if data and current_user:
@@ -67,8 +166,20 @@ class ListaPrenotazioni:
                     prenotazioni = user.get('prenotazioni', [])
                     for i, prenotazione in enumerate(prenotazioni):
                         entry_text = f"Tipo: {prenotazione['tipo_camera']}, Arrivo: {prenotazione['arrivo']}"
-                        self.entries[i].insert(0, entry_text)
-                    break
+                        entry = Entry(
+                            bd=0,
+                            bg="#EAEEEC",
+                            fg="#000716",
+                            highlightthickness=0
+                        )
+                        entry.place(
+                            x=249.0,
+                            y=119.0 + i * 50,
+                            width=363.0,
+                            height=36.0
+                        )
+                        entry.insert(0, entry_text)
+                        self.entry_list.append(entry)
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -166,7 +277,7 @@ class ListaPrenotazioni:
             image=self.button_image_7,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_7 clicked"),
+            command=lambda: (self.save_entry(0), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_7.place(
@@ -181,7 +292,7 @@ class ListaPrenotazioni:
             image=self.button_image_8,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_8 clicked"),
+            command=lambda: self.save_entry(1),
             relief="flat"
         )
         self.button_8.place(
@@ -196,7 +307,7 @@ class ListaPrenotazioni:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_9 clicked"),
+            command=lambda: self.save_entry(2),
             relief="flat"
         )
         self.button_9.place(
@@ -211,7 +322,7 @@ class ListaPrenotazioni:
             image=self.button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
+            command=lambda: self.save_entry(3),
             relief="flat"
         )
         self.button_10.place(
@@ -226,7 +337,7 @@ class ListaPrenotazioni:
             image=self.button_image_11,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_11 clicked"),
+            command=lambda: self.save_entry(4),
             relief="flat"
         )
         self.button_11.place(
@@ -241,7 +352,7 @@ class ListaPrenotazioni:
             image=self.button_image_12,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_12 clicked"),
+            command=lambda: self.save_entry(5),
             relief="flat"
         )
         self.button_12.place(
@@ -265,6 +376,35 @@ class ListaPrenotazioni:
             width=47.0,
             height=45.0
         )
+
+    def save_entry(self, index):
+        current_entry_user = self.entry_list[index].get()
+
+        with open("current_entry_prenotazione_user.json", "w") as file:
+            json.dump(current_entry_user, file)
+
+    def elimina_prenotazione(self):
+        data = multiplatform_open_read_data_json()
+        current_user = multiplatform_open_read_current_user()
+
+        with open("current_entry_prenotazione_user.json", "r") as user_json:
+            current_entry_user = json.load(user_json)
+        
+        pattern = r'Tipo:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
+        match = re.search(pattern, current_entry_user)
+        tipo = match.group(1)
+        arrivo = match.group(2)
+
+        print(tipo, arrivo)
+
+        if data and current_user:
+            for user in data[0]['users']:
+                if user['username'] == current_user['username'] and user['password'] == current_user['password']:
+                    prenotazioni = user.get('prenotazioni', [])
+                    for prenotazione in enumerate(prenotazioni[:6]):
+                        if prenotazione['tipo_camera'] == tipo and prenotazione['arrivo'] == arrivo:
+                            print("Eliminato con successo")
+                            break
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)

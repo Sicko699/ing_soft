@@ -8,7 +8,7 @@ import os
 import platform
 import faulthandler; faulthandler.enable()
 import verify_login
-from main import go_home_button, go_cerca_camere, multiplatform_open_write_current_user
+from main import go_front_office_button, go_home_button, go_cerca_camere, multiplatform_open_write_current_user
 
 abs_path = os.getcwd()
 
@@ -145,7 +145,7 @@ class LoginApp:
 
         if verify_login.verify_login(username, password) == "admin":
             print("Accesso consentito come admin")
-            go_home_button(self.window)
+            go_front_office_button(self.window)
             
         elif verify_login.verify_login(username, password) == "utente":
             print("Accesso consentito come utente")

@@ -34,7 +34,26 @@
                 "username": "Sapo",
                 "password": "Sapo",
                 "role": "utente",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "nome": "Sapo",
+                        "cognome": "sAPO",
+                        "telefono": "3535353535",
+                        "numero_ospiti": 1,
+                        "tipo_camera": "Camera Singola",
+                        "arrivo": "16-05-2024",
+                        "partenza": "22-05-2024"
+                    },
+                    {
+                        "nome": "Sapo",
+                        "cognome": "sAPO",
+                        "telefono": "3535353535",
+                        "numero_ospiti": 2,
+                        "tipo_camera": "Camera Doppia",
+                        "arrivo": "24-05-2024",
+                        "partenza": "28-05-2024"
+                    }
+                ]
             },
             {
                 "nome": "Sara",
@@ -116,6 +135,15 @@
                                 "username": "Sarafra",
                                 "numero_ospiti": 1,
                                 "tipo_camera": "Camera Singola"
+                            },
+                            {
+                                "arrivo": "16-05-2024",
+                                "partenza": "22-05-2024",
+                                "nome": "Sapo",
+                                "cognome": "sAPO",
+                                "username": "Sapo",
+                                "numero_ospiti": 1,
+                                "tipo_camera": "Camera Singola"
                             }
                         ],
                         "102": [
@@ -156,6 +184,15 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "24-05-2024",
+                                "partenza": "28-05-2024",
+                                "nome": "Sapo",
+                                "cognome": "sAPO",
+                                "username": "Sapo",
+                                "numero_ospiti": 2,
+                                "tipo_camera": "Camera Doppia"
                             }
                         ],
                         "202": [
