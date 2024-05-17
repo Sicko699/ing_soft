@@ -4,7 +4,7 @@ from tkcalendar import Calendar
 from pathlib import Path
 import platform, json, os
 from datetime import datetime
-from main import exit_button, go_mostra_prenotazione, go_lista_prenotazioni, go_modifica_profilo, multiplatform_open_read_data_json, multiplatform_open_write_current_prenotazione
+from main import centrare_finestra, exit_button, go_mostra_prenotazione, go_lista_prenotazioni, go_modifica_profilo, multiplatform_open_read_data_json, multiplatform_open_write_current_prenotazione
 
 abs_path = os.getcwd()
 
@@ -273,5 +273,7 @@ class CercaCamere:
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("CercaCamere")
     app = CercaCamere(root)
+    centrare_finestra(root)
     root.mainloop()

@@ -5,7 +5,7 @@ from pathlib import Path
 import platform, json, os
 from datetime import datetime
 from CercaCamereApp import go_lista_prenotazioni
-from main import multiplatform_open_read_data_json, multiplatform_open_write_current_prenotazione
+from main import centrare_finestra, multiplatform_open_read_data_json, multiplatform_open_write_current_prenotazione
 
 abs_path = os.getcwd()
 
@@ -252,5 +252,7 @@ class ModificaPrenotazione:
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("Modifica Prenotazione")
     app = ModificaPrenotazione(root)
+    centrare_finestra(root)
     root.mainloop()

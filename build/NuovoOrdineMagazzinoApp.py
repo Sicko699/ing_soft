@@ -3,7 +3,7 @@ import os, platform, json
 from datetime import datetime, timedelta
 from tkinter import ttk, Tk, Canvas, Entry, Text, Button, PhotoImage
 import tkinter as tk
-from main import multiplatform_open_write_data_json, multiplatform_open_read_data_json, exit_button, go_gestione_spa, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_home_button
+from main import centrare_finestra, multiplatform_open_write_data_json, multiplatform_open_read_data_json, exit_button, go_gestione_spa, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_home_button
 
 abs_path = os.getcwd()
 
@@ -215,7 +215,7 @@ class NuovoOrdineMagazzino:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.invia_ordine(),
+            command=lambda: (self.invia_ordine(), go_gestione_magazzino(root)),
             relief="flat"
         )
         self.button_9.place(
@@ -271,5 +271,7 @@ class NuovoOrdineMagazzino:
             
 if __name__ == "__main__":
     root = Tk()
+    root.title("Nuovo Ordine Magazzino")
     app = NuovoOrdineMagazzino(root)
+    centrare_finestra(root)
     root.mainloop()

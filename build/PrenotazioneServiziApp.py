@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import multiplatform_open_read_data_json, multiplatform_open_write_data_json, exit_button, go_gestione_magazzino, go_back_office_button, go_front_office_button, go_gestione_servizi, go_gestione_spa, go_home_button
+from main import centrare_finestra, multiplatform_open_read_data_json, multiplatform_open_write_data_json, exit_button, go_gestione_magazzino, go_back_office_button, go_front_office_button, go_gestione_servizi, go_gestione_spa, go_home_button
 
 abs_path = os.getcwd()
 
@@ -245,6 +245,7 @@ class PrenotazioneServizi:
             write_data = multiplatform_open_write_data_json(data)        
             
             print("Servizio aggiunto con successo")
+            go_gestione_servizi(root)
         except Exception as e:
             print("Si è verificato un errore:", e)
 
@@ -262,5 +263,7 @@ class PrenotazioneServizi:
     
 if __name__ == "__main__":        
     root = Tk()
+    root.title("Prenotazione Servizi")
     app = PrenotazioneServizi(root)
+    centrare_finestra(root)
     root.mainloop()

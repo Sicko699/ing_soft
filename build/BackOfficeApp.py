@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_home_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
+from main import centrare_finestra, exit_button, go_home_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
 
 abs_path = os.getcwd()
 
@@ -512,5 +512,7 @@ class BackOfficeApp:
     
 if __name__ == "__main__":
     root = Tk()
+    root.title("BackOffice")
     app = BackOfficeApp(root)
+    centrare_finestra(root)
     root.mainloop()

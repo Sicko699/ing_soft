@@ -2,7 +2,7 @@ import os, platform, json
 import tkinter.messagebox
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_home_button_user, multiplatform_open_write_data_json, multiplatform_open_read_data_json, multiplatform_open_read_current_user
+from main import centrare_finestra, go_home_button_user, multiplatform_open_write_data_json, multiplatform_open_read_data_json, multiplatform_open_read_current_user
 
 abs_path = os.getcwd()
 
@@ -339,5 +339,7 @@ class ModificaProfilo:
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("Modifica Profilo Utente")
     app = ModificaProfilo(root)
+    centrare_finestra(root)
     root.mainloop()

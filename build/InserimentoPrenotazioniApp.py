@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, ttk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_home_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
+from main import centrare_finestra, exit_button, go_home_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
 import tkinter as tk
 
 abs = os.getcwd()
@@ -376,5 +376,7 @@ class InserimentoPrenotazione:
     
 if __name__ == "__main__":
     root = Tk()
+    root.title("Inserimento Prenotazioni")
     app = InserimentoPrenotazione(root)
+    centrare_finestra(root)
     root.mainloop()

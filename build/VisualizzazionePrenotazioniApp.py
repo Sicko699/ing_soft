@@ -620,6 +620,7 @@ def centrare_finestra(window):
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("Visualizzazione Prenotazioni")
     app = VisualizzazionePrenotazioni(root)
     centrare_finestra(root)
     root.mainloop()

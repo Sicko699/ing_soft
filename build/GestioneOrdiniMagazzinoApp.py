@@ -447,11 +447,14 @@ def go_nuovo_ordine_magazzino(window):
     from NuovoOrdineMagazzinoApp import NuovoOrdineMagazzino
     window.destroy()
     root = Tk()
+    root.title("Nuovo Ordine Magazzino")
     app = NuovoOrdineMagazzino(root)
     centrare_finestra(root)
     root.mainloop()
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("Gestione Ordini Magazzino")
     app = GestioneOrdiniMagazzino(root)
+    centrare_finestra(root)
     root.mainloop()

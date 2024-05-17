@@ -180,7 +180,9 @@ def go_registrazione(window):
     from RegistrazioneApp import RegistrazioneApp
     window.destroy()
     root = Tk()
+    root.title("Registrazione")
     app = RegistrazioneApp(root)
+    centrare_finestra(root)
     root.mainloop()
 
 if __name__ == "__main__":

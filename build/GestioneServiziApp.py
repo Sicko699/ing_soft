@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_visualizza_prenotazioni_servizi, go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
+from main import centrare_finestra, go_visualizza_prenotazioni_servizi, go_front_office_button, go_back_office_button, exit_button, go_home_button, go_gestione_magazzino, go_gestione_spa
 
 abs = os.getcwd()
 
@@ -268,36 +268,46 @@ def button_10_click(window):
     from PrenotazioneServiziApp import PrenotazioneServizi
     window.destroy()
     root = Tk() 
+    root.title("Prenotazione Servizi")
     prenotazione_servizi = PrenotazioneServizi(root)
-    prenotazione_servizi.fill_entry("Visita guidata")  
+    prenotazione_servizi.fill_entry("Visita guidata")
+    centrare_finestra(root) 
     root.mainloop()
 
 def button_1_click(window):
     from PrenotazioneServiziApp import PrenotazioneServizi
     window.destroy()
-    root = Tk() 
+    root = Tk()
+    root.title("Prenotazione Servizi")
     prenotazione_servizi = PrenotazioneServizi(root)
-    prenotazione_servizi.fill_entry("Giro in barca")  
+    prenotazione_servizi.fill_entry("Giro in barca")
+    centrare_finestra(root)
     root.mainloop()
     
 def button_11_click(window):
     from PrenotazioneServiziApp import PrenotazioneServizi
     window.destroy()
-    root = Tk() 
+    root = Tk()
+    root.title("Prenotazione Servizi") 
     prenotazione_servizi = PrenotazioneServizi(root)
-    prenotazione_servizi.fill_entry("Noleggio biciclette")  
+    prenotazione_servizi.fill_entry("Noleggio biciclette")
+    centrare_finestra(root) 
     root.mainloop()
     
 def button_12_click(window):
     from PrenotazioneServiziApp import PrenotazioneServizi
     window.destroy()
-    root = Tk() 
+    root = Tk()
+    root.title("Prenotazione Servizi")
     prenotazione_servizi = PrenotazioneServizi(root)
-    prenotazione_servizi.fill_entry("Piscina privata")  
+    prenotazione_servizi.fill_entry("Piscina privata")
+    centrare_finestra(root)
     root.mainloop()
 
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("Gestione Servizi")
     app = GestioneServizi(root)
+    centrare_finestra(root)
     root.mainloop()

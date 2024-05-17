@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_home_button, multiplatform_open_write_data_json, multiplatform_open_write_current_user, multiplatform_open_read_data_json
+from main import centrare_finestra, go_home_button, multiplatform_open_write_data_json, multiplatform_open_write_current_user, multiplatform_open_read_data_json
 
 abs_path = os.getcwd()
 
@@ -289,10 +289,14 @@ def go_cerca_camere(window):
     from CercaCamereApp import CercaCamere
     window.destroy()
     root = Tk()
+    root.title("Cerca Camere")
     app = CercaCamere(root)
+    centrare_finestra(root)
     root.mainloop()
         
 if __name__ == '__main__':    
     root = Tk()
+    root.title("Registrazione App")
     app = RegistrazioneApp(root)
+    centrare_finestra(root)
     root.mainloop()

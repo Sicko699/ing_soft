@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button
+from main import centrare_finestra, exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button
 
 abs_path = os.getcwd()
 
@@ -263,5 +263,7 @@ class NuovaPrenotazioneSpa:
     
 if __name__ == "__main__":
     root = Tk()
+    root.title("Nuova Prenotazione Spa")
     app = NuovaPrenotazioneSpa(root)
+    centrare_finestra(root)
     root.mainloop()

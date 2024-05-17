@@ -15,13 +15,16 @@ def go_visualizza_prenotazioni_servizi(window):
     from VisualizzaPrenotazioniServiziApp import VisualizzaPrenotazioniServizi
     window.destroy()
     root = Tk()
+    root.title("Lista Prenotazioni Servizi")
     app = VisualizzaPrenotazioniServizi(root)
+    centrare_finestra(root)
     root.mainloop()
 
 def exit_button(window):
     from LoginApp import LoginApp
     window.destroy()
     root = Tk()
+    root.title("Login App")
     app = LoginApp(root)
     centrare_finestra(root)
     root.mainloop()
@@ -30,6 +33,7 @@ def go_home_button(window):
     from MainApp import MainApp
     window.destroy()
     root = Tk()
+    root.title("Main App")
     app = MainApp(root)
     centrare_finestra(root)
     root.mainloop()
@@ -38,6 +42,7 @@ def go_front_office_button(window):
     from FrontOfficeApp import FrontOfficeApp
     window.destroy()
     root = Tk()
+    root.title("Front Office")
     app = FrontOfficeApp(root)
     centrare_finestra(root)
     root.mainloop()
@@ -46,6 +51,7 @@ def go_back_office_button(window):
     from BackOfficeApp import BackOfficeApp
     window.destroy()
     root = Tk()
+    root.title("Back Office")
     app = BackOfficeApp(root)
     centrare_finestra(root)
     root.mainloop()
@@ -54,6 +60,7 @@ def go_gestione_magazzino(window):
     from GestioneOrdiniMagazzinoApp import GestioneOrdiniMagazzino
     window.destroy()
     root = Tk()
+    root.title("Gestione Ordini Magazzino")
     app = GestioneOrdiniMagazzino(root)
     centrare_finestra(root)
     root.mainloop()
@@ -62,6 +69,7 @@ def go_gestione_servizi(window):
     from GestioneServiziApp import GestioneServizi
     window.destroy()
     root = Tk()
+    root.title("Gestione Servizi")
     app = GestioneServizi(root)
     centrare_finestra(root)
     root.mainloop()
@@ -70,6 +78,7 @@ def go_gestione_spa(window):
     from GestionePrenotazioniSpaApp import GestionePrenotazioniSpa
     window.destroy()
     root = Tk()
+    root.title("Gestione Prenotazioni Spa")
     app = GestionePrenotazioniSpa(root)
     centrare_finestra(root)
     root.mainloop()
@@ -78,6 +87,7 @@ def go_home_button_user(window):
     from CercaCamereApp import CercaCamere
     window.destroy()
     root = Tk()
+    root.title("Cerca Camere")
     app = CercaCamere(root)
     centrare_finestra(root)
     root.mainloop()
@@ -86,6 +96,7 @@ def go_mostra_prenotazione(window):
     from MostraPrenotazioneApp import MostraPrenotazioneApp
     window.destroy()
     root = Tk()
+    root.title("Mostra Prenotazione")
     app = MostraPrenotazioneApp(root)
     centrare_finestra(root)
     root.mainloop()
@@ -94,6 +105,7 @@ def go_cerca_camere(window):
     from CercaCamereApp import CercaCamere
     window.destroy()
     root = Tk()
+    root.title("Cerca Camere")
     app = CercaCamere(root)
     centrare_finestra(root)
     root.mainloop()
@@ -102,6 +114,7 @@ def go_lista_prenotazioni(window):
     from ListaPrenotazioni import ListaPrenotazioni
     window.destroy()
     root = Tk()
+    root.title("Lista Prenotazioni Utente")
     app = ListaPrenotazioni(root)
     centrare_finestra(root)
     root.mainloop()
@@ -145,6 +158,7 @@ def go_modifica_profilo(window):
     from ModificaProfilo import ModificaProfilo
     window.destroy()
     root = Tk()
+    root.title("Modifica Profilo")
     app = ModificaProfilo(root)
     centrare_finestra(root)
     root.mainloop()    
@@ -153,6 +167,7 @@ def go_nuova_prenotazione_spa(window):
     from NuovaPrenotazioneSpaApp import NuovaPrenotazioneSpa
     window.destroy()
     root = Tk()
+    root.title("Nuova Prenotazione Spa")
     app = NuovaPrenotazioneSpa(root)
     centrare_finestra(root)
     root.mainloop()
@@ -161,6 +176,7 @@ def go_modifica_prenotazione_servizi(window):
     from ModificaPrenotazioniServizi import ModificaPrenotazioneServizi
     window.destroy()
     root = Tk()
+    root.title("Modifica Prenotazione Servizi")
     app = ModificaPrenotazioneServizi(root)
     centrare_finestra(root)
     root.mainloop()
@@ -169,6 +185,7 @@ def go_modifica_prenotazione_spa(window):
     from ModificaPrenotazioneSpa import ModificaPrenotazioneSpa
     window.destroy()
     root = Tk()
+    root.title("Modifica Prenotazione Spa")
     app = ModificaPrenotazioneSpa(root)
     centrare_finestra(root)
     root.mainloop()

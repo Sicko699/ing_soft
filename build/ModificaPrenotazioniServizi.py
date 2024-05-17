@@ -2,7 +2,7 @@ from pathlib import Path
 import os, platform, json, re
 import tkinter.messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_visualizza_prenotazioni_servizi, exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, multiplatform_open_read_data_json, multiplatform_open_write_data_json
+from main import centrare_finestra, go_visualizza_prenotazioni_servizi, exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, multiplatform_open_read_data_json, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
 
@@ -310,5 +310,7 @@ class ModificaPrenotazioneServizi:
     
 if __name__ == "__main__":
     root = Tk()
+    root.title("Modifica Prenotazione Servizi")
     app = ModificaPrenotazioneServizi(root)
+    centrare_finestra(root)
     root.mainloop()

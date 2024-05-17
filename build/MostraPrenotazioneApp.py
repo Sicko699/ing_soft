@@ -2,7 +2,7 @@ from pathlib import Path
 import platform, json, os
 from tkinter import Tk, Canvas, Button, PhotoImage
 from datetime import datetime
-from main import multiplatform_open_read_current_user, multiplatform_open_read_data_json, multiplatform_open_read_current_prenotazione, multiplatform_open_write_data_json
+from main import go_cerca_camere, centrare_finestra, multiplatform_open_read_current_user, multiplatform_open_read_data_json, multiplatform_open_read_current_prenotazione, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
 
@@ -151,7 +151,7 @@ class MostraPrenotazioneApp:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: go_cerca_camere(self.window),
             relief="flat"
         )
         self.button_1.place(
@@ -287,5 +287,7 @@ class MostraPrenotazioneApp:
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("Mosta Prenotazione")
     app = MostraPrenotazioneApp(root)
+    centrare_finestra(root)
     root.mainloop()

@@ -315,6 +315,7 @@ def go_inserimento_prenotazioni(window):
     from InserimentoPrenotazioniApp import InserimentoPrenotazione
     window.destroy()
     root = Tk()
+    root.title("Inserimento Prenotazione")
     app = InserimentoPrenotazione(root)
     centrare_finestra(root)
     root.mainloop()
@@ -323,11 +324,14 @@ def go_visualizzazione_prenotazioni(window):
     from VisualizzazionePrenotazioniApp import VisualizzazionePrenotazioni
     window.destroy()
     root = Tk()
+    root.title("Visualizzazione Prenotazioni")
     app = VisualizzazionePrenotazioni(root)
     centrare_finestra(root)
     root.mainloop()
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("FrontOffice")
     app = FrontOfficeApp(root)
+    centrare_finestra(root)
     root.mainloop()
