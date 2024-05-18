@@ -1,7 +1,8 @@
 from pathlib import Path
 import os, platform, json, re
+import tkinter.messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import centrare_finestra, go_home_button_user, multiplatform_open_read_current_user, multiplatform_open_read_data_json
+from main import centrare_finestra, go_home_button_user, multiplatform_open_read_current_user, multiplatform_open_read_data_json, go_lista_prenotazioni
 
 abs_path = os.getcwd()
 
@@ -292,7 +293,7 @@ class ListaPrenotazioni:
             image=self.button_image_8,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.save_entry(1),
+            command=lambda: (self.save_entry(1), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_8.place(
@@ -307,7 +308,7 @@ class ListaPrenotazioni:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.save_entry(2),
+            command=lambda: (self.save_entry(2), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_9.place(
@@ -322,7 +323,7 @@ class ListaPrenotazioni:
             image=self.button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.save_entry(3),
+            command=lambda: (self.save_entry(3), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_10.place(
@@ -337,7 +338,7 @@ class ListaPrenotazioni:
             image=self.button_image_11,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.save_entry(4),
+            command=lambda: (self.save_entry(4), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_11.place(
@@ -352,7 +353,7 @@ class ListaPrenotazioni:
             image=self.button_image_12,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.save_entry(5),
+            command=lambda: (self.save_entry(5), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_12.place(
@@ -392,19 +393,26 @@ class ListaPrenotazioni:
         
         pattern = r'Tipo:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
         match = re.search(pattern, current_entry_user)
-        tipo = match.group(1)
-        arrivo = match.group(2)
+        if match:
+            tipo = match.group(1)
+            arrivo = match.group(2)
 
-        print(tipo, arrivo)
+            print(tipo, arrivo)
 
-        if data and current_user:
-            for user in data[0]['users']:
-                if user['username'] == current_user['username'] and user['password'] == current_user['password']:
-                    prenotazioni = user.get('prenotazioni', [])
-                    for prenotazione in enumerate(prenotazioni[:6]):
-                        if prenotazione['tipo_camera'] == tipo and prenotazione['arrivo'] == arrivo:
-                            print("Eliminato con successo")
-                            break
+            if data and current_user:
+                for user in data[0]['users']:
+                    if user['username'] == current_user['username'] and user['password'] == current_user['password']:
+                        prenotazioni = user.get('prenotazioni', [])
+                        for prenotazione in prenotazioni:
+                            if prenotazione['tipo_camera'] == tipo and prenotazione['arrivo'] == arrivo:
+                                prenotazioni.remove(prenotazione)
+                                print("Eliminato con successo")
+                                # Salva i dati aggiornati nel file JSON se necessario
+                                with open('data.json', 'w') as file:
+                                    json.dump(data, file, indent=4)
+                                break
+                        tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
+                        go_lista_prenotazioni(self.window)
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)

@@ -50,8 +50,8 @@
                         "telefono": "3535353535",
                         "numero_ospiti": 2,
                         "tipo_camera": "Camera Doppia",
-                        "arrivo": "24-05-2024",
-                        "partenza": "28-05-2024"
+                        "arrivo": "09-06-2024",
+                        "partenza": "12-06-2024"
                     }
                 ]
             },
@@ -193,6 +193,15 @@
                                 "username": "Sapo",
                                 "numero_ospiti": 2,
                                 "tipo_camera": "Camera Doppia"
+                            },
+                            {
+                                "arrivo": "09-06-2024",
+                                "partenza": "12-06-2024",
+                                "nome": "Sapo",
+                                "cognome": "sAPO",
+                                "username": "Sapo",
+                                "numero_ospiti": 2,
+                                "tipo_camera": "Camera Doppia"
                             }
                         ],
                         "202": [
@@ -273,6 +282,15 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "31-05-2024",
+                                "partenza": "06-06-2024",
+                                "nome": "Sapo",
+                                "cognome": "sAPO",
+                                "username": "Sapo",
+                                "numero_ospiti": 4,
+                                "tipo_camera": "Camera Quadrupla"
                             }
                         ],
                         "402": [
@@ -323,32 +341,32 @@
     {
         "magazzino": [
             {
-                "nome_articolo": "Kit di benvenuto",
-                "quantita": "2",
-                "data": "03-05-2024",
-                "spedizione": "04-05-2024",
-                "consegna": "06-05-2024"
+                "nome_articolo": "Carta igienica",
+                "quantita": "8",
+                "data": "18-05-2024",
+                "spedizione": "19-05-2024",
+                "consegna": "21-05-2024"
             },
             {
-                "nome_articolo": "Materasso",
-                "quantita": "1",
-                "data": "02-05-2024",
-                "spedizione": "03-05-2024",
-                "consegna": "05-05-2024"
+                "nome_articolo": "Spazzolini",
+                "quantita": "56",
+                "data": "18-05-2024",
+                "spedizione": "19-05-2024",
+                "consegna": "21-05-2024"
             },
             {
-                "nome_articolo": "Materasso",
-                "quantita": "10",
-                "data": "03-05-2024",
-                "spedizione": "04-05-2024",
-                "consegna": "06-05-2024"
+                "nome_articolo": "Asciugamani",
+                "quantita": "101",
+                "data": "18-05-2024",
+                "spedizione": "19-05-2024",
+                "consegna": "21-05-2024"
             },
             {
-                "nome_articolo": "Materasso",
-                "quantita": "10",
-                "data": "05-05-2024",
-                "spedizione": "06-05-2024",
-                "consegna": "08-05-2024"
+                "nome_articolo": "Topper",
+                "quantita": "1078",
+                "data": "18-05-2024",
+                "spedizione": "19-05-2024",
+                "consegna": "21-05-2024"
             },
             {
                 "nome_articolo": "Materasso",

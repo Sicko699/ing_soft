@@ -189,3 +189,12 @@ def go_modifica_prenotazione_spa(window):
     app = ModificaPrenotazioneSpa(root)
     centrare_finestra(root)
     root.mainloop()
+
+def go_modifica_ordine_magazzino(window):
+    from ModificaOrdineMagazzinoApp import ModificaOrdineMagazzino
+    window.destroy()
+    root = Tk()
+    root.title("Modifica Ordine Magazzino")
+    app = ModificaOrdineMagazzino(root)
+    centrare_finestra(root)
+    root.mainloop

@@ -1,7 +1,7 @@
 from pathlib import Path
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, multiplatform_open_read_data_json, centrare_finestra
+from main import go_modifica_ordine_magazzino, exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, multiplatform_open_read_data_json, centrare_finestra
 
 abs_path = os.getcwd()
 
@@ -183,6 +183,8 @@ class GestioneOrdiniMagazzino:
 
         self.window.resizable(False, False)
         
+        self.entry_list = []
+
         data = multiplatform_open_read_data_json()
         
         # Estrazione degli ordini magazzino
@@ -192,7 +194,8 @@ class GestioneOrdiniMagazzino:
         for i, ordine in enumerate(magazzino[:7]):
             articolo = ordine.get("nome_articolo", "")
             quantita = ordine.get("quantita", "")
-            entry_value = f"Nome articolo: {articolo}, Quantità: {quantita}"
+            data_ordine = ordine.get("data", "")
+            entry_value = f"{articolo}, Quantità: {quantita}, Data: {data_ordine}"
             entry = Entry(
                 bd=0,
                 bg="#EAEEEC",
@@ -206,6 +209,7 @@ class GestioneOrdiniMagazzino:
                 height=36.0
             )
             entry.insert(0, entry_value)
+            self.entry_list.append(entry)
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -333,7 +337,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_10 clicked"),
+            command=lambda: (self.save_entry(0), go_modifica_ordine_magazzino(self.window)),
             relief="flat"
         )
         self.button_10.place(
@@ -348,7 +352,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_11,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_11 clicked"),
+            command=lambda: (self.save_entry(3), go_modifica_ordine_magazzino(self.window)),
             relief="flat"
         )
         self.button_11.place(
@@ -363,7 +367,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_12,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_12 clicked"),
+            command=lambda: (self.save_entry(2), go_modifica_ordine_magazzino(self.window)),
             relief="flat"
         )
         self.button_12.place(
@@ -378,7 +382,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_13,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_13 clicked"),
+            command=lambda: (self.save_entry(1), go_modifica_ordine_magazzino(self.window)),
             relief="flat"
         )
         self.button_13.place(
@@ -393,7 +397,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_14,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_14 clicked"),
+            command=lambda: (self.save_entry(4), go_modifica_ordine_magazzino(self.window)),
             relief="flat"
         )
         self.button_14.place(
@@ -408,7 +412,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_15,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_15 clicked"),
+            command=lambda: (self.save_entry(5), go_modifica_ordine_magazzino(self.window)),
             relief="flat"
         )
         self.button_15.place(
@@ -423,7 +427,7 @@ class GestioneOrdiniMagazzino:
             image=self.button_image_16,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_16 clicked"),
+            command=lambda: (self.save_entry(6), go_modifica_ordine_magazzino(self.window)),
             relief="flat"
         )
         self.button_16.place(
@@ -433,6 +437,12 @@ class GestioneOrdiniMagazzino:
             height=28.398725509643555
         )
 
+    def save_entry(self, index):
+        current_entry = self.entry_list[index].get()
+
+        with open("current_entry_ordine.json", "w") as file:
+            json.dump(current_entry, file)
+    
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
     
