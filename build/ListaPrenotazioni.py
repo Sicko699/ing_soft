@@ -406,11 +406,25 @@ class ListaPrenotazioni:
                         for prenotazione in prenotazioni:
                             if prenotazione['tipo_camera'] == tipo and prenotazione['arrivo'] == arrivo:
                                 prenotazioni.remove(prenotazione)
-                                print("Eliminato con successo")
                                 # Salva i dati aggiornati nel file JSON se necessario
                                 with open('data.json', 'w') as file:
                                     json.dump(data, file, indent=4)
                                 break
+            
+            if data and current_user:
+                for camera in data[1]['camere']:
+                    if tipo in camera:
+                        prenotazioni_camera = camera[tipo]
+                        for numero_camera, prenotazioni in prenotazioni_camera[0].items():
+                            for prenotazione in prenotazioni:
+                                if prenotazione["arrivo"] == "":
+                                    continue
+                                elif prenotazione["arrivo"] == arrivo and prenotazione["username"] == current_user["username"]:
+                                    prenotazioni.remove(prenotazione)
+                                    print("Eliminato con successo!")
+                                    with open("data.json", "w") as file:
+                                        json.dump(data, file, indent=4)
+                                    break
                         tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
                         go_lista_prenotazioni(self.window)
 
