@@ -1,5 +1,6 @@
 from pathlib import Path
-import os, platform
+import os, platform, json
+from datetime import datetime
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_home_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, centrare_finestra
 
@@ -13,6 +14,41 @@ class FrontOfficeApp:
         self.window.geometry("862x519")
         self.window.configure(bg = "#FAFFFD")
         
+        # Inizializzazione delle variabili
+        prenotazione_singola = 0
+        prenotazione_doppia = 0
+        prenotazione_tripla = 0
+        prenotazione_quadrupla = 0
+
+        # Lettura del file JSON
+        try:
+            with open("data.json", "r") as file:
+                data = json.load(file)
+        except Exception as e:
+            print(f"Errore nella lettura del file JSON: {e}")
+            data = []
+
+        # Ottenere la data odierna
+        oggi = datetime.now().date()
+        oggi_date = oggi.strftime("%d-%m-%Y")
+
+        # Controllare le prenotazioni
+        for camera in data[1].get('camere', []):
+            for tipo, prenotazioni_camera in camera.items():
+                for numero_camera, prenotazioni in prenotazioni_camera[0].items():
+                    for prenotazione in prenotazioni:
+                        if prenotazione["arrivo"] == "":
+                            continue
+                        elif prenotazione["arrivo"] <= oggi_date and prenotazione["partenza"] >= oggi_date:
+                            if tipo == "Camera Singola":
+                                prenotazione_singola += 1
+                            elif tipo == "Camera Doppia":
+                                prenotazione_doppia += 1
+                            elif tipo == "Camera Tripla":
+                                prenotazione_tripla += 1
+                            elif tipo == "Camera Quadrupla":
+                                prenotazione_quadrupla += 1
+
         self.canvas = Canvas(
             self.window,
             bg = "#FAFFFD",
@@ -126,37 +162,37 @@ class FrontOfficeApp:
         )
 
         self.canvas.create_text(
-            410.0,
+            420.0,
             262.29998779296875,
             anchor="nw",
-            text="19 / 20",
+            text=f"{prenotazione_singola} / 6",
             fill="#000000",
             font=("Quicksand Medium", 16 * -1)
         )
 
         self.canvas.create_text(
-            412.0,
+            420.0,
             357.29998779296875,
             anchor="nw",
-            text="9 / 20",
+            text=f"{prenotazione_tripla} / 6",
             fill="#000000",
             font=("Quicksand Medium", 16 * -1)
         )
 
         self.canvas.create_text(
-            610.0,
+            620.0,
             262.0,
             anchor="nw",
-            text="14 / 20",
+            text=f"{prenotazione_doppia} / 6",
             fill="#000000",
             font=("Quicksand Medium", 16 * -1)
         )
 
         self.canvas.create_text(
-            610.0,
+            620.0,
             357.29998779296875,
             anchor="nw",
-            text="11 / 20",
+            text=f"{prenotazione_quadrupla} / 6",
             fill="#000000",
             font=("Quicksand Medium", 16 * -1)
         )

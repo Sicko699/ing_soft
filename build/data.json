@@ -34,7 +34,26 @@
                 "username": "Sapo",
                 "password": "Sapo",
                 "role": "utente",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "nome": "Sapo",
+                        "cognome": "sAPO",
+                        "telefono": "3535353535",
+                        "numero_ospiti": 1,
+                        "tipo_camera": "Camera Singola",
+                        "arrivo": "22-05-2024",
+                        "partenza": "24-05-2024"
+                    },
+                    {
+                        "nome": "Sapo",
+                        "cognome": "sAPO",
+                        "telefono": "3535353535",
+                        "numero_ospiti": 1,
+                        "tipo_camera": "Camera Singola",
+                        "arrivo": "22-05-2024",
+                        "partenza": "26-05-2024"
+                    }
+                ]
             },
             {
                 "nome": "Sara",
@@ -54,7 +73,26 @@
                 "username": "Chia",
                 "password": "Chia",
                 "role": "utente",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "nome": "Chiara",
+                        "cognome": "Chiara",
+                        "telefono": "1231231234",
+                        "numero_ospiti": 2,
+                        "tipo_camera": "Camera Doppia",
+                        "arrivo": "22-05-2024",
+                        "partenza": "24-05-2024"
+                    },
+                    {
+                        "nome": "Chiara",
+                        "cognome": "Chiara",
+                        "telefono": "1231231234",
+                        "numero_ospiti": 1,
+                        "tipo_camera": "Camera Singola",
+                        "arrivo": "25-05-2024",
+                        "partenza": "26-05-2024"
+                    }
+                ]
             },
             {
                 "nome": "Francesco",
@@ -97,12 +135,39 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "22-05-2024",
+                                "partenza": "24-05-2024",
+                                "nome": "Sapo",
+                                "cognome": "sAPO",
+                                "username": "Sapo",
+                                "numero_ospiti": 1,
+                                "tipo_camera": "Camera Singola"
+                            },
+                            {
+                                "arrivo": "25-05-2024",
+                                "partenza": "26-05-2024",
+                                "nome": "Chiara",
+                                "cognome": "Chiara",
+                                "username": "Chia",
+                                "numero_ospiti": 1,
+                                "tipo_camera": "Camera Singola"
                             }
                         ],
                         "102": [
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "22-05-2024",
+                                "partenza": "26-05-2024",
+                                "nome": "Sapo",
+                                "cognome": "sAPO",
+                                "username": "Sapo",
+                                "numero_ospiti": 1,
+                                "tipo_camera": "Camera Singola"
                             }
                         ],
                         "103": [
@@ -137,6 +202,15 @@
                             {
                                 "arrivo": "",
                                 "partenza": ""
+                            },
+                            {
+                                "arrivo": "22-05-2024",
+                                "partenza": "24-05-2024",
+                                "nome": "Chiara",
+                                "cognome": "Chiara",
+                                "username": "Chia",
+                                "numero_ospiti": 2,
+                                "tipo_camera": "Camera Doppia"
                             }
                         ],
                         "202": [
