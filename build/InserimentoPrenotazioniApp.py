@@ -1,5 +1,7 @@
 from pathlib import Path
-import os, platform
+import os, platform, json
+from tkcalendar import Calendar
+from datetime import datetime
 from tkinter import Tk, ttk, Canvas, Entry, Text, Button, PhotoImage
 from main import centrare_finestra, exit_button, go_home_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
 import tkinter as tk
@@ -113,43 +115,31 @@ class InserimentoPrenotazione:
         )
         self.combo.place(x=430.0, y=283.0, width=225, height=25)
         
-        self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
-        self.entry_bg_5 = self.canvas.create_image(
-            541.5,
-            349.0,
-            image=self.entry_image_5
-        )
-        self.entry_5 = Entry(
-            bd=0,
-            bg="#EAEEEC",
+        self.arrival_button = Button(
+            self.canvas,
+            text="Seleziona data di arrivo",
+            command=lambda: self.open_arrival_calendar(),
+            bg="#FAFFFD",
             fg="#000716",
-            highlightthickness=0
+            borderwidth=0,
+            highlightthickness=0,
+            relief="flat",
+            font=("Inter Bold", 12)
         )
-        self.entry_5.place(
-            x=437.0,
-            y=335.0,
-            width=209.0,
-            height=26.0
-        )
+        self.arrival_button.place(x=437.0, y=335.0, width=233, height=30)
 
-        self.entry_image_6 = PhotoImage(file=self.relative_to_assets("entry_6.png"))
-        self.entry_bg_6 = self.canvas.create_image(
-            541.5,
-            402.0,
-            image=self.entry_image_6
-        )
-        self.entry_6 = Entry(
-            bd=0,
-            bg="#EAEEEC",
+        self.departure_button = Button(
+            self.canvas,
+            text="Seleziona data di partenza",
+            command=lambda: self.open_departure_calendar(),
+            bg="#FAFFFD",
             fg="#000716",
-            highlightthickness=0
+            borderwidth=0,
+            highlightthickness=0,
+            relief="flat",
+            font=("Inter Bold", 12)
         )
-        self.entry_6.place(
-            x=437.0,
-            y=388.0,
-            width=209.0,
-            height=26.0
-        )
+        self.departure_button.place(x=437.0, y=388.0, width=233, height=30)
 
         self.canvas.create_text(
             431.0,
@@ -173,7 +163,7 @@ class InserimentoPrenotazione:
             431.0,
             213.0,
             anchor="nw",
-            text="Numero ospiti",
+            text="Email",
             fill="#000000",
             font=("Quicksand Medium", 14 * -1)
         )
@@ -240,6 +230,59 @@ class InserimentoPrenotazione:
         self.create_buttons()
 
         self.window.resizable(False, False)
+
+    def open_arrival_calendar(self):
+        if platform.system() == "Darwin":
+            self.arrival_calendar = ttk.Frame(self.window)
+            self.arrival_calendar.pack(padx=10, pady=10)
+
+            self.cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
+            self.cal_arrival.grid(row=0, column=0, padx=10, pady=10)
+
+            self.confirm_button = ttk.Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
+            self.confirm_button.grid(row=1, column=0, pady=10)
+        else:
+            self.arrival_calendar = tk.Toplevel(self.window)
+            self.arrival_calendar.geometry("390x300")
+            self.arrival_calendar.title("Seleziona data di arrivo")
+        
+            cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
+            cal_arrival.grid(row=0, column=0, padx=10, pady=10)
+            
+            confirm_button = Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
+            confirm_button.grid(row=1, column=0, pady=10)
+
+    def confirm_arrival_date(self):
+        selected_date = self.arrival_calendar.winfo_children()[0].get_date()
+        self.arrival_button.config(text=selected_date)
+        self.arrival_calendar.destroy()
+        
+    def open_departure_calendar(self):
+        if platform.system() == "Darwin":
+            self.departure_calendar = ttk.Frame(self.window)
+            self.departure_calendar.pack(padx=10, pady=10)
+
+            self.cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
+            self.cal_departure.grid(row=0, column=0, padx=10, pady=10)
+
+            self.confirm_button = ttk.Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
+            self.confirm_button.grid(row=1, column=0, pady=10)
+        else:
+            self.departure_calendar = tk.Toplevel(self.window)
+            self.departure_calendar.geometry("390x300")
+            self.departure_calendar.title("Seleziona data di partenza")
+            
+            cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", 
+                                    font="Quicksand 14", cursor="hand1")
+            cal_departure.grid(row=0, column=0, padx=10, pady=10)
+            
+            confirm_button = Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
+            confirm_button.grid(row=1, column=0, pady=10)
+
+    def confirm_departure_date(self):
+        selected_date = self.departure_calendar.winfo_children()[0].get_date()
+        self.departure_button.config(text=selected_date)
+        self.departure_calendar.destroy()
 
         
     def create_buttons(self):
@@ -353,7 +396,7 @@ class InserimentoPrenotazione:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: go_front_office_button(self.window),
+            command=lambda: (self.update_data_json(), self.check_availability(), go_front_office_button(self.window)),
             relief="flat"
         )
         self.button_9.place(
@@ -362,6 +405,97 @@ class InserimentoPrenotazione:
             width=111.9908447265625,
             height=34.65187454223633
         )
+
+    def check_availability(self):
+
+        tipo_camera = self.combo_var.get()
+
+        data_arrivo = datetime.strptime(self.arrival_button.cget("text"), "%d-%m-%Y")
+        data_partenza = datetime.strptime(self.departure_button.cget("text"), "%d-%m-%Y")
+
+        with open("data.json", "r") as file:
+            data = json.load(file)
+
+        for categoria_camera in data[1]['camere']:
+            for tipo, camere in categoria_camera.items():
+                if tipo == tipo_camera:
+                    for camera in camere:
+                        for numero_camera, prenotazioni in camera.items():
+                            for prenotazione in prenotazioni:
+                                if prenotazione["arrivo"] == "" and prenotazione["partenza"] == "":
+                                    print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato")
+                                    current_prenotazione_admin = {
+                                        "arrivo": data_arrivo.strftime("%d-%m-%Y"),
+                                        "partenza": data_partenza.strftime("%d-%m-%Y"),
+                                        "tipo_camera": tipo_camera
+                                    }
+                                    
+                                    with open("current_prenotazione_admin.json", "w") as file:
+                                        write_current_prenotazione = json.dump(current_prenotazione_admin, file)
+                                        return write_current_prenotazione
+                                    return
+                                if prenotazione["arrivo"] and prenotazione["partenza"]:
+                                    arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
+                                    partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
+                    print("Tutte le camere disponibili nell'intervallo selezionato.")
+                    return
+        print("Nessuna camera disponibile nell'intervallo selezionato")
+
+    def update_data_json(self):
+        
+        with open("data.json", "r") as file:
+            data_json = json.load(file)
+        
+        with open("current_prenotazione_admin.json", "r") as file:
+            current_prenotazione = json.load(file)
+
+        tipo_camera = current_prenotazione["tipo_camera"]
+        if(tipo_camera == "Camera Singola"):
+            numero_ospiti = 1
+        elif(tipo_camera == "Camera Doppia"):
+            numero_ospiti = 2
+        elif(tipo_camera == "Camera Tripla"):
+            numero_ospiti = 3
+        elif(tipo_camera == "Camera Quadrupla"):
+            numero_ospiti = 4
+        else:
+            numero_ospiti = None
+
+        camera_disponibile = False
+        for camera in data_json[1]['camere']:
+            if current_prenotazione["tipo_camera"] in camera:
+                prenotazioni_camera = camera[current_prenotazione["tipo_camera"]]
+                for numero_camera, prenotazioni in prenotazioni_camera[0].items():
+                    camera_disponibile = True
+                    for prenotazione in prenotazioni:
+                        if prenotazione["arrivo"] == "" and prenotazione["partenza"] == "":
+                            continue
+                        elif(current_prenotazione["arrivo"] >= prenotazione["partenza"] or
+                             current_prenotazione["partenza"] <= prenotazione["arrivo"]):
+                            continue
+                        else:
+                            camera_disponibile = False
+                            break
+                    if camera_disponibile:
+                        prenotazioni.append({
+                            "arrivo": current_prenotazione["arrivo"],
+                            "partenza": current_prenotazione["partenza"]
+                        })
+
+                        camera_disponibile = True
+                        break
+                else:
+                    continue
+                break
+        
+        if not camera_disponibile:
+            print("Non ci sono camere disponibili per la prenotazione")
+            return
+
+        with open("data.json", "w") as file:
+            write_data = json.dump(data_json, file, indent=4)
+        
+        print("Dari della prenotazione aggiornati con successo")
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
