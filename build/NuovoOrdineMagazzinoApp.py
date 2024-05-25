@@ -215,7 +215,7 @@ class NuovoOrdineMagazzino:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.invia_ordine(), go_gestione_magazzino(root)),
+            command=lambda: (self.invia_ordine(), go_gestione_magazzino(self.window)),
             relief="flat"
         )
         self.button_9.place(

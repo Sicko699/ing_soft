@@ -245,7 +245,7 @@ class PrenotazioneServizi:
             write_data = multiplatform_open_write_data_json(data)        
             
             print("Servizio aggiunto con successo")
-            go_gestione_servizi(root)
+            go_gestione_servizi(self.window)
         except Exception as e:
             print("Si è verificato un errore:", e)
 

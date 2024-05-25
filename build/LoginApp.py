@@ -1,4 +1,5 @@
 import sys
+
 sys.dont_write_bytecode = True
 
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox
@@ -6,13 +7,16 @@ from pathlib import Path
 import json, tempfile
 import os
 import platform
-import faulthandler; faulthandler.enable()
+import faulthandler;
+
+faulthandler.enable()
 import verify_login
 from main import go_front_office_button, go_home_button, go_cerca_camere, multiplatform_open_write_current_user
 
 abs_path = os.getcwd()
 
 ASSETS_PATH = abs_path + "/assets/frame3"
+
 
 class LoginApp:
     def __init__(self, window):
@@ -146,7 +150,7 @@ class LoginApp:
         if verify_login.verify_login(username, password) == "admin":
             print("Accesso consentito come admin")
             go_front_office_button(self.window)
-            
+
         elif verify_login.verify_login(username, password) == "utente":
             print("Accesso consentito come utente")
             current_user = {"username": username, "password": password}
@@ -160,10 +164,11 @@ class LoginApp:
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        
+
         assets_path = abs_path + "/assets/frame3"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
+
 
 def centrare_finestra(window):
     window.update_idletasks()
@@ -174,7 +179,7 @@ def centrare_finestra(window):
     x = (schermo_larghezza - larghezza_finestra) // 2
     y = (schermo_altezza - altezza_finestra) // 2
     window.geometry('{}x{}+{}+{}'.format(larghezza_finestra, altezza_finestra, x, y))
-    
+
 
 def go_registrazione(window):
     from RegistrazioneApp import RegistrazioneApp
@@ -184,6 +189,7 @@ def go_registrazione(window):
     app = RegistrazioneApp(root)
     centrare_finestra(root)
     root.mainloop()
+
 
 if __name__ == "__main__":
     root = Tk()
