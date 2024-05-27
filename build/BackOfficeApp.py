@@ -325,7 +325,7 @@ class BackOfficeApp:
                 for month in range(start_month, end_month + 1):
                     days_in_month = (datetime(current_year, month + 1, 1) - datetime(current_year, month,
                                                                                      1)).days if month < 12 else 31
-                    total_days += days_in_month
+                    total_days += days_in_month *24
 
                     # Itera su tutte le camere e le relative prenotazioni
                     for tipo_camera in camere_data:
