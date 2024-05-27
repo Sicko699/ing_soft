@@ -1,29 +1,43 @@
 from pathlib import Path
-import os, platform, json
+import os
+import platform
+import json
+from datetime import datetime  # Importato per gestire le date
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import go_modifica_ordine_magazzino, exit_button, go_home_button, go_front_office_button, go_back_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, multiplatform_open_read_data_json, centrare_finestra
+from main import (
+    go_modifica_ordine_magazzino,
+    exit_button,
+    go_home_button,
+    go_front_office_button,
+    go_back_office_button,
+    go_gestione_magazzino,
+    go_gestione_servizi,
+    go_gestione_spa,
+    multiplatform_open_read_data_json,
+    centrare_finestra
+)
 
 abs_path = os.getcwd()
-
 ASSETS_PATH = abs_path + "/assets/frame10"
 
+
 class GestioneOrdiniMagazzino:
-    def __init__(self,window):
+    def __init__(self, window):
         self.window = window
         self.window.geometry("862x519")
-        self.window.configure(bg = "#FAFFFD")
+        self.window.configure(bg="#FAFFFD")
 
         self.canvas = Canvas(
             self.window,
-            bg = "#FAFFFD",
-            height = 519,
-            width = 862,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
+            bg="#FAFFFD",
+            height=519,
+            width=862,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
         )
 
-        self.canvas.place(x = 0, y = 0)
+        self.canvas.place(x=0, y=0)
         self.canvas.create_rectangle(
             0.0,
             0.0,
@@ -41,7 +55,7 @@ class GestioneOrdiniMagazzino:
             fill="#FAFFFD",
             outline=""
         )
-        
+
         self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
         self.entry_bg_1 = self.canvas.create_image(
             533.5,
@@ -174,7 +188,7 @@ class GestioneOrdiniMagazzino:
             width=363.0,
             height=36.0
         )
-        
+
         self.button_images = {
             f"button_{i}": self.load_button_image(f"button_{i}.png") for i in range(1, 16)
         }
@@ -182,20 +196,22 @@ class GestioneOrdiniMagazzino:
         self.create_buttons()
 
         self.window.resizable(False, False)
-        
+
         self.entry_list = []
 
         data = multiplatform_open_read_data_json()
-        
-        # Estrazione degli ordini magazzino
-        magazzino = data[-1]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
+
+        # Filtrare gli ordini di magazzino in base alla data odierna
+        today = datetime.today().date()
+        magazzino = [ordine for ordine in data[-1]["magazzino"] if
+                     datetime.strptime(ordine.get("consegna", ""), "%d-%m-%Y").date() >= today]
 
         # Popolamento degli entry con gli ordini magazzino
         for i, ordine in enumerate(magazzino[:7]):
             articolo = ordine.get("nome_articolo", "")
             quantita = ordine.get("quantita", "")
-            data_ordine = ordine.get("data", "")
-            entry_value = f"{articolo}, Quantità: {quantita}, Data: {data_ordine}"
+            data_ordine = ordine.get("consegna", "")
+            entry_value = f"{articolo}, Quantità: {quantita}, Arrivo: {data_ordine}"
             entry = Entry(
                 bd=0,
                 bg="#EAEEEC",
@@ -442,16 +458,15 @@ class GestioneOrdiniMagazzino:
 
         with open("current_entry_ordine.json", "w") as file:
             json.dump(current_entry, file)
-    
-    def relative_to_assets(self,path: str) -> Path:
+
+    def relative_to_assets(self, path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
-    
+
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        
         assets_path = abs_path + "/assets/frame10"
-
         return PhotoImage(file=Path(assets_path) / Path(image_path))
+
 
 def go_nuovo_ordine_magazzino(window):
     from NuovoOrdineMagazzinoApp import NuovoOrdineMagazzino
@@ -461,6 +476,7 @@ def go_nuovo_ordine_magazzino(window):
     app = NuovoOrdineMagazzino(root)
     centrare_finestra(root)
     root.mainloop()
+
 
 if __name__ == "__main__":
     root = Tk()
