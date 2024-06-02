@@ -1,5 +1,5 @@
 from tkinter import Tk
-import platform, json
+import platform, json, os
 
 def centrare_finestra(window):
     window.update_idletasks()
@@ -64,6 +64,15 @@ def go_gestione_magazzino(window):
     app = GestioneOrdiniMagazzino(root)
     centrare_finestra(root)
     root.mainloop()
+
+def go_modifica_prenotazione(window):
+    from ModificaPrenotazione import ModificaPrenotazione
+    window.destroy()
+    root = Tk()
+    root.title("Gestione Ordini Magazzino")
+    app = ModificaPrenotazione(root)
+    centrare_finestra(root)
+    root.mainloop()
     
 def go_gestione_servizi(window):
     from GestioneServiziApp import GestioneServizi
@@ -119,10 +128,19 @@ def go_lista_prenotazioni(window):
     centrare_finestra(root)
     root.mainloop()
 
-def multiplatform_open_read_data_json():    
-    with open("data.json", "r") as json_file:
-        data_json = json.load(json_file)
-    return data_json
+def multiplatform_open_read_data_json():
+    file_path = 'data.json'  # Inserisci il percorso corretto al file JSON
+
+    if not os.path.exists(file_path):
+        return [{"users": []}]  # Restituisce una lista con un dizionario vuoto se il file non esiste
+
+    try:
+        with open(file_path, 'r', encoding='utf-8') as json_file:
+            data_json = json.load(json_file)
+            return data_json
+    except json.JSONDecodeError:
+        return [{"users": []}]  # Restituisce una lista con un dizionario vuoto se il file è vuoto o malformato
+
 
 def multiplatform_open_read_current_user():
     with open("current_user.json", "r") as user_file:

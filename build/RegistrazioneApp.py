@@ -1,4 +1,5 @@
 from pathlib import Path
+import uuid
 import os, platform, json
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import centrare_finestra, go_home_button, multiplatform_open_write_data_json, multiplatform_open_write_current_user, multiplatform_open_read_data_json
@@ -238,6 +239,7 @@ class RegistrazioneApp:
     
     def registrazione(self):
         # Raccogli i dati inseriti dall'utente
+        id_cliente = uuid.uuid4()
         nome = self.entry_1.get()
         cognome = self.entry_2.get()
         email = self.entry_3.get()
@@ -249,6 +251,7 @@ class RegistrazioneApp:
 
         # Crea un dizionario con i dati dell'utente
         utente = {
+            "id_utente": str(id_cliente),
             "nome": nome,
             "cognome": cognome,
             "email": email,

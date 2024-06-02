@@ -8,130 +8,21 @@
                 "prenotazioni": []
             },
             {
-                "nome": "Francesco",
-                "cognome": "Mattone",
-                "email": "sicko@gmail.com",
-                "telefono": "3930519157",
-                "username": "Suca",
-                "password": "Suca",
-                "role": "utente",
-                "prenotazioni": [
-                    {
-                        "nome": "Francesco",
-                        "cognome": "Mattone",
-                        "telefono": "3930519157",
-                        "numero_ospiti": 2,
-                        "tipo_camera": "Camera Doppia",
-                        "arrivo": "27-05-2024",
-                        "partenza": "30-05-2024"
-                    },
-                    {
-                        "nome": "Francesco",
-                        "cognome": "Mattone",
-                        "telefono": "3930519157",
-                        "numero_ospiti": 3,
-                        "tipo_camera": "Camera Tripla",
-                        "arrivo": "12-06-2024",
-                        "partenza": "18-06-2024"
-                    },
-                    {
-                        "nome": "Francesco",
-                        "cognome": "Mattone",
-                        "telefono": "3930519157",
-                        "numero_ospiti": 3,
-                        "tipo_camera": "Camera Tripla",
-                        "arrivo": "27-05-2024",
-                        "partenza": "31-05-2024"
-                    },
-                    {
-                        "nome": "Francesco",
-                        "cognome": "Mattone",
-                        "telefono": "3930519157",
-                        "numero_ospiti": 4,
-                        "tipo_camera": "Camera Quadrupla",
-                        "arrivo": "29-05-2024",
-                        "partenza": "02-06-2024"
-                    },
-                    {
-                        "nome": "Francesco",
-                        "cognome": "Mattone",
-                        "telefono": "3930519157",
-                        "numero_ospiti": 3,
-                        "tipo_camera": "Camera Tripla",
-                        "arrivo": "27-05-2024",
-                        "partenza": "30-05-2024"
-                    }
-                ]
-            },
-            {
-                "nome": "Ciao222",
+                "id_utente": "c7070c04-4461-4a31-8ecb-aea8b89fbc5f",
+                "nome": "Ciao",
                 "cognome": "Ciao",
                 "email": "Ciao",
-                "telefono": "324432432",
+                "telefono": "Ciao",
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": []
-            },
-            {
-                "nome": "Sapo",
-                "cognome": "sAPO",
-                "email": "sapo@outl.iy",
-                "telefono": "3535353535",
-                "username": "Sapo",
-                "password": "Sapo",
-                "role": "utente",
-                "prenotazioni": []
-            },
-            {
-                "nome": "Sara",
-                "cognome": "Sara",
-                "email": "sara@outlook.it",
-                "telefono": "3535353535",
-                "username": "Sara",
-                "password": "Sara",
-                "role": "utente",
-                "prenotazioni": []
-            },
-            {
-                "nome": "Chiara",
-                "cognome": "Chiara",
-                "email": "chia@gmail.com",
-                "telefono": "1231231234",
-                "username": "Chia",
-                "password": "Chia",
-                "role": "utente",
-                "prenotazioni": []
-            },
-            {
-                "nome": "Francesco",
-                "cognome": "Simonetti",
-                "email": "fra@outlook.it",
-                "telefono": "0808080808",
-                "username": "Francesco",
-                "password": "Francesco",
-                "role": "utente",
-                "prenotazioni": []
-            },
-            {
-                "nome": "lblb",
-                "cognome": "lb",
-                "email": "lb1313",
-                "telefono": "2423424324lb",
-                "username": "lb",
-                "password": "lb",
-                "role": "utente",
-                "prenotazioni": []
-            },
-            {
-                "nome": "Sara",
-                "cognome": "Francesco",
-                "email": "sarafra@outlook.it",
-                "telefono": "6767676767",
-                "username": "Sarafra",
-                "password": "Sarafra",
-                "role": "utente",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "arrivo": "27-05-2024",
+                        "partenza": "30-05-2024",
+                        "id_prenotazione": "7dd7d167-e543-4016-a2da-933b86c33891"
+                    }
+                ]
             }
         ]
     },
@@ -142,36 +33,42 @@
                     {
                         "101": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "102": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "103": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "104": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "105": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "106": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
@@ -182,45 +79,42 @@
                     {
                         "201": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "27-05-2024",
-                                "partenza": "30-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "username": "Suca",
-                                "numero_ospiti": 2,
-                                "tipo_camera": "Camera Doppia"
                             }
                         ],
                         "202": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "203": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "204": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "205": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "206": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
@@ -231,63 +125,47 @@
                     {
                         "301": [
                             {
-                                "arrivo": "",
-                                "partenza": ""
-                            },
-                            {
-                                "arrivo": "12-06-2024",
-                                "partenza": "18-06-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "username": "Suca",
-                                "numero_ospiti": 3,
-                                "tipo_camera": "Camera Tripla"
-                            },
-                            {
-                                "arrivo": "27-05-2024",
-                                "partenza": "31-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "username": "Suca",
-                                "numero_ospiti": 3,
-                                "tipo_camera": "Camera Tripla"
-                            }
-                        ],
-                        "302": [
-                            {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             },
                             {
                                 "arrivo": "27-05-2024",
                                 "partenza": "30-05-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "username": "Suca",
-                                "numero_ospiti": 3,
-                                "tipo_camera": "Camera Tripla"
+                                "id_prenotazione": "7dd7d167-e543-4016-a2da-933b86c33891"
+                            }
+                        ],
+                        "302": [
+                            {
+                                "codice_prenotazione": "",
+                                "arrivo": "",
+                                "partenza": ""
                             }
                         ],
                         "303": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "304": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "305": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "306": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
@@ -298,45 +176,42 @@
                     {
                         "401": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
-                            },
-                            {
-                                "arrivo": "29-05-2024",
-                                "partenza": "02-06-2024",
-                                "nome": "Francesco",
-                                "cognome": "Mattone",
-                                "username": "Suca",
-                                "numero_ospiti": 4,
-                                "tipo_camera": "Camera Quadrupla"
                             }
                         ],
                         "402": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "403": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "404": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "405": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
                         ],
                         "406": [
                             {
+                                "codice_prenotazione": "",
                                 "arrivo": "",
                                 "partenza": ""
                             }
@@ -357,90 +232,8 @@
         ]
     },
     {
-        "magazzino": [
-            {
-                "nome_articolo": "Carta igienica",
-                "quantita": "8",
-                "data": "18-05-2024",
-                "spedizione": "19-05-2024",
-                "consegna": "21-05-2024"
-            },
-            {
-                "nome_articolo": "Spazzolini",
-                "quantita": "56",
-                "data": "18-05-2024",
-                "spedizione": "19-05-2024",
-                "consegna": "21-05-2024"
-            },
-            {
-                "nome_articolo": "Asciugamani",
-                "quantita": "101",
-                "data": "18-05-2024",
-                "spedizione": "19-05-2024",
-                "consegna": "21-05-2024"
-            },
-            {
-                "nome_articolo": "Topper",
-                "quantita": "1078",
-                "data": "25-05-2024",
-                "spedizione": "26-05-2024",
-                "consegna": "28-05-2024"
-            },
-            {
-                "nome_articolo": "Materasso",
-                "quantita": "4",
-                "data": "10-05-2024",
-                "spedizione": "11-05-2024",
-                "consegna": "13-05-2024"
-            },
-            {
-                "nome_articolo": "Materasso",
-                "quantita": "2",
-                "data": "25-05-2024",
-                "spedizione": "26-05-2024",
-                "consegna": "28-05-2024"
-            },
-            {
-                "nome_articolo": "Cuscini",
-                "quantita": "2",
-                "data": "25-05-2024",
-                "spedizione": "26-05-2024",
-                "consegna": "28-05-2024"
-            },
-            {
-                "nome_articolo": "Asciugamani",
-                "quantita": "2",
-                "data": "25-05-2024",
-                "spedizione": "26-05-2024",
-                "consegna": "28-05-2024"
-            },
-            {
-                "nome_articolo": "Materasso",
-                "quantita": "2",
-                "data": "27-05-2024",
-                "spedizione": "28-05-2024",
-                "consegna": "30-05-2024"
-            }
-        ],
-        "servizi": [
-            {
-                "nome_servizio": "Noleggio biciclette",
-                "numero_camera": "103"
-            },
-            {
-                "nome_servizio": "Giro in barca",
-                "numero_camera": "202"
-            },
-            {
-                "nome_servizio": "Visita guidata",
-                "numero_camera": "103"
-            }
-        ],
-        "spa": [
-            {
-                "nome_servizio": "Non so",
-                "numero_camera": "102"
-            }
-        ]
+        "magazzino": [],
+        "servizi": [],
+        "spa": []
     }
 ]

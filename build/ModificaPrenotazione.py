@@ -1,3 +1,4 @@
+import re
 import tkinter as tk
 from tkinter import Tk, Button, ttk, PhotoImage
 from tkcalendar import Calendar
@@ -5,7 +6,8 @@ from pathlib import Path
 import platform, json, os
 from datetime import datetime
 from CercaCamereApp import go_lista_prenotazioni
-from main import centrare_finestra, multiplatform_open_read_data_json, multiplatform_open_write_current_prenotazione
+from main import centrare_finestra, multiplatform_open_read_data_json, multiplatform_open_write_current_prenotazione, \
+    multiplatform_open_read_current_user
 
 abs_path = os.getcwd()
 
@@ -15,19 +17,45 @@ class ModificaPrenotazione:
     def __init__(self,window):
         self.window = window
         self.window.geometry("862x519")
-        self.window.configure(bg = "#FAFFFD")
+        self.window.configure(bg="#FAFFFD")
+
+        self.arrival_calendar = None
+        self.departure_calendar = None
+
+        data = multiplatform_open_read_data_json()
+        current_user = multiplatform_open_read_current_user()
+        with open("current_entry_prenotazione_user.json", "r") as prenotazione_json:
+            current_prenotazione = json.load(prenotazione_json)
+
+        pattern = r'Tipo:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
+        match = re.search(pattern, current_prenotazione)
+        if match:
+            tipo = match.group(1)
+            self.arrivo = match.group(2)
+            print(self.arrivo)
+
+            if data and current_user:
+                for user in data[0]['users']:
+                    if user['username'] == current_user['username'] and user['password'] == current_user['password']:
+                        prenotazioni = user.get('prenotazioni', [])
+                        for prenotazione in prenotazioni:
+                            if prenotazione['tipo_camera'] == tipo and prenotazione['arrivo'] == self.arrivo:
+                                prenotazione_modificare = prenotazione
+                                print("prenotazione", prenotazione_modificare)
+                                self.partenza = prenotazione_modificare['partenza']
+                                self.tipo_camera = prenotazione_modificare['tipo_camera']
 
         self.canvas = tk.Canvas(
             self.window,
-            bg = "#FAFFFD",
-            height = 519,
-            width = 862,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
+            bg="#FAFFFD",
+            height=519,
+            width=862,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
         )
 
-        self.canvas.place(x = 0, y = 0)
+        self.canvas.place(x=0, y=0)
         self.canvas.create_rectangle(
             262.0,
             91.0,
@@ -35,10 +63,10 @@ class ModificaPrenotazione:
             399.0,
             fill="#56AAFF",
             outline="")
-        
+
         self.arrival_button = Button(
             self.canvas,
-            text="Seleziona data di arrivo",
+            text=self.arrivo,
             command=self.open_arrival_calendar,
             bg="#FAFFFD",
             fg="#000716",
@@ -51,7 +79,7 @@ class ModificaPrenotazione:
 
         self.departure_button = Button(
             self.canvas,
-            text="Seleziona data di partenza",
+            text=self.partenza,
             command=self.open_departure_calendar,
             bg="#FAFFFD",
             fg="#000716",
@@ -107,7 +135,6 @@ class ModificaPrenotazione:
         }
 
         self.create_buttons()
-
         self.window.resizable(False, False)
 
     def create_buttons(self):
@@ -143,23 +170,24 @@ class ModificaPrenotazione:
 
     def open_arrival_calendar(self):
         if platform.system() == "Darwin":
-            self.arrival_calendar = tk.Toplevel(self.window)
-            self.arrival_calendar.geometry("330x270")
-            self.arrival_calendar.title("Seleziona data di arrivo")
-        
-            cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
-            cal_arrival.grid(row=0, column=0, padx=10, pady=10)
-            
-            confirm_button = Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
-            confirm_button.grid(row=1, column=0, pady=10)
+            self.arrival_calendar = ttk.Frame(self.window)
+            self.arrival_calendar.pack(padx=10, pady=10)
+
+            self.cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy",
+                                        font="Quicksand 14", cursor="hand1")
+            self.cal_arrival.grid(row=0, column=0, padx=10, pady=10)
+
+            self.confirm_button = ttk.Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
+            self.confirm_button.grid(row=1, column=0, pady=10)
         else:
             self.arrival_calendar = tk.Toplevel(self.window)
             self.arrival_calendar.geometry("390x300")
             self.arrival_calendar.title("Seleziona data di arrivo")
-        
-            cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy", font="Quicksand 14", cursor="hand1")
+
+            cal_arrival = Calendar(self.arrival_calendar, selectmode="day", date_pattern="dd-mm-yyyy",
+                                   font="Quicksand 14", cursor="hand1")
             cal_arrival.grid(row=0, column=0, padx=10, pady=10)
-            
+
             confirm_button = Button(self.arrival_calendar, text="Conferma", command=self.confirm_arrival_date)
             confirm_button.grid(row=1, column=0, pady=10)
 
@@ -167,48 +195,47 @@ class ModificaPrenotazione:
         selected_date = self.arrival_calendar.winfo_children()[0].get_date()
         self.arrival_button.config(text=selected_date)
         self.arrival_calendar.destroy()
-        
+
     def open_departure_calendar(self):
         if platform.system() == "Darwin":
-            self.departure_calendar = tk.Toplevel(self.window)
-            self.departure_calendar.geometry("330x270")
-            self.departure_calendar.title("Seleziona data di partenza")
-            
-            cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", 
-                                    font="Quicksand 14", cursor="hand1")
-            cal_departure.grid(row=0, column=0, padx=10, pady=10)
-            
-            confirm_button = Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
-            confirm_button.grid(row=1, column=0, pady=10)
+            self.departure_calendar = ttk.Frame(self.window)
+            self.departure_calendar.pack(padx=10, pady=10)
+
+            self.cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy",
+                                          font="Quicksand 14", cursor="hand1")
+            self.cal_departure.grid(row=0, column=0, padx=10, pady=10)
+
+            self.confirm_button = ttk.Button(self.departure_calendar, text="Conferma",
+                                             command=self.confirm_departure_date)
+            self.confirm_button.grid(row=1, column=0, pady=10)
         else:
             self.departure_calendar = tk.Toplevel(self.window)
             self.departure_calendar.geometry("390x300")
             self.departure_calendar.title("Seleziona data di partenza")
-            
-            cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy", 
-                                    font="Quicksand 14", cursor="hand1")
+
+            cal_departure = Calendar(self.departure_calendar, selectmode="day", date_pattern="dd-mm-yyyy",
+                                     font="Quicksand 14", cursor="hand1")
             cal_departure.grid(row=0, column=0, padx=10, pady=10)
-            
+
             confirm_button = Button(self.departure_calendar, text="Conferma", command=self.confirm_departure_date)
             confirm_button.grid(row=1, column=0, pady=10)
 
     def confirm_departure_date(self):
         selected_date = self.departure_calendar.winfo_children()[0].get_date()
         self.departure_button.config(text=selected_date)
-        self.departure_calendar.destroy()    
+        self.departure_calendar.destroy()
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
-    
+
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        
+
         assets_path = abs_path + "/assets/frame20"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 
     def check_availability(self):
-    # Ottieni il tipo di camera selezionato
         tipo_camera = self.combo_var.get()
 
         # Ottieni le date di arrivo e partenza

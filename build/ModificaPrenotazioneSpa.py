@@ -113,7 +113,7 @@ class ModificaPrenotazioneSpa:
         with open("current_entry.json", "r") as user_json:
             current_entry = json.load(user_json)
                 
-        print(current_entry, "ciao")
+        print(current_entry)
                 
         pattern = r'Tipo:\s*([^,]+),\s*Numero camera:\s*([^,]+)'
         match = re.search(pattern, current_entry)
@@ -287,12 +287,11 @@ class ModificaPrenotazioneSpa:
             with open("data.json", "r") as file:
                 data = json.load(file)
 
-            # Assuming you want to append 'servizio' to the 'servizi' list in the last dictionary of 'data'
             servizi = data[-1]["spa"]
             servizi.append(servizio)
             
             with open("data.json", "w") as file:
-                json.dump(data, file, indent=4)  # Writing back the entire 'data' dictionary        
+                json.dump(data, file, indent=4)
             print("Servizio spa aggiunto con successo")
         except Exception as e:
             print("Si è verificato un errore:", e)

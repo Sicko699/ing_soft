@@ -2,7 +2,7 @@ from pathlib import Path
 import os, platform, json, re
 import tkinter.messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from main import centrare_finestra, go_home_button_user, multiplatform_open_read_current_user, multiplatform_open_read_data_json, go_lista_prenotazioni
+from main import centrare_finestra, go_home_button_user, multiplatform_open_read_current_user, multiplatform_open_read_data_json, go_lista_prenotazioni, go_modifica_prenotazione
 
 abs_path = os.getcwd()
 
@@ -188,7 +188,7 @@ class ListaPrenotazioni:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: (self.save_entry(0), go_modifica_prenotazione(self.window)),
             relief="flat"
         )
         self.button_1.place(
@@ -203,7 +203,7 @@ class ListaPrenotazioni:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            command=lambda: (self.save_entry(3), go_modifica_prenotazione(self.window)),
             relief="flat"
         )
         self.button_2.place(
@@ -218,7 +218,7 @@ class ListaPrenotazioni:
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_3 clicked"),
+            command=lambda: (self.save_entry(2), go_modifica_prenotazione(self.window)),
             relief="flat"
         )
         self.button_3.place(
@@ -233,7 +233,7 @@ class ListaPrenotazioni:
             image=self.button_image_4,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_4 clicked"),
+            command=lambda: (self.save_entry(1), go_modifica_prenotazione(self.window)),
             relief="flat"
         )
         self.button_4.place(
@@ -248,7 +248,7 @@ class ListaPrenotazioni:
             image=self.button_image_5,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_5 clicked"),
+            command=lambda: (self.save_entry(4), go_modifica_prenotazione(self.window)),
             relief="flat"
         )
         self.button_5.place(
@@ -263,7 +263,7 @@ class ListaPrenotazioni:
             image=self.button_image_6,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_6 clicked"),
+            command=lambda: (self.save_entry(5), go_modifica_prenotazione(self.window)),
             relief="flat"
         )
         self.button_6.place(

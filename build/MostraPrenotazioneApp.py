@@ -1,3 +1,4 @@
+import uuid
 from pathlib import Path
 import platform, json, os
 from tkinter import Tk, Canvas, Button, PhotoImage
@@ -30,7 +31,8 @@ class MostraPrenotazioneApp:
         tipo_camera = data["tipo_camera"]
         data_arrivo = data["arrivo"]
         data_partenza = data["partenza"]
-        
+
+
         arrivo = datetime.strptime(data_arrivo, "%d-%m-%Y")
         partenza = datetime.strptime(data_partenza, "%d-%m-%Y")
 
@@ -202,10 +204,12 @@ class MostraPrenotazioneApp:
         user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
 
         if user_data is None:
+            print(user_data, username)
             print("Utente non trovato.")
             return
 
         # Aggiungi il nome e il cognome alla prenotazione
+        current_prenotazione["id_utente"] = user_data.get("id_utente", "")
         current_prenotazione["nome"] = user_data.get("nome", "")
         current_prenotazione["cognome"] = user_data.get("cognome", "")
         current_prenotazione["username"] = user_data.get("username", "")
@@ -244,26 +248,19 @@ class MostraPrenotazioneApp:
                             cella_disponibile = False
                             break  # La cella è occupata, esci dal ciclo
                     if cella_disponibile:
+                        id_prenotazione = uuid.uuid4()
                         # Aggiorna le date di arrivo e partenza
                         prenotazioni.append({
                             "arrivo": current_prenotazione["arrivo"],
                             "partenza": current_prenotazione["partenza"],
-                            "nome": current_prenotazione["nome"],
-                            "cognome": current_prenotazione["cognome"],
-                            "username": current_prenotazione["username"],
-                            "numero_ospiti": numero_ospiti,
-                            "tipo_camera": current_prenotazione["tipo_camera"],
+                            "id_prenotazione": str(id_prenotazione)
                         })
                         
                         print(f"Prenotazione inserita nella camera {current_prenotazione['tipo_camera']} {numero_camera}")
                         prenotazione_utente = {
-                            "nome": current_prenotazione["nome"],
-                            "cognome": current_prenotazione["cognome"],
-                            "telefono": user_data["telefono"],
-                            "numero_ospiti": numero_ospiti,
-                            "tipo_camera": current_prenotazione["tipo_camera"],
                             "arrivo": current_prenotazione["arrivo"],
-                            "partenza": current_prenotazione["partenza"]
+                            "partenza": current_prenotazione["partenza"],
+                            "id_prenotazione": str(id_prenotazione)
                         }
 
                         user_data["prenotazioni"].append(prenotazione_utente)
