@@ -33,19 +33,19 @@ class ModificaProfilo:
             494.0,
             fill="#56AAFF",
             outline="")
-        
+
         data_json = multiplatform_open_read_data_json()
 
         current_user = multiplatform_open_read_current_user()
-        
+
         username = current_user["username"]
-        
+
         user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
 
         if user_data is None:
             print("Utente non trovato.")
             return
-            
+
         #print(user_data)
         nome = user_data.get("nome", "")
         cognome = user_data.get("cognome", "")
@@ -235,7 +235,7 @@ class ModificaProfilo:
         self.create_buttons()
 
         self.window.resizable(False, False)
-        
+
     def save_changes(self):
         # Leggi i valori dalle Entry
         nome = self.entry_1.get()
@@ -247,19 +247,19 @@ class ModificaProfilo:
 
         # Leggi il file data.json
         data = multiplatform_open_read_data_json()
-    
+
         # Trova l'utente corrispondente
         current_user = multiplatform_open_read_current_user()
-        
-        username = current_user["username"]
-        user_data = next((user for user in data[0]["users"] if user["username"] == username), None)
 
-        
-        
+        username_check = current_user["username"]
+        user_data = next((user for user in data[0]["users"] if user["username"] == username_check), None)
+
+
+
         username_utente = user_data["username"]
-        
+
         for user in data[0]["users"]:
-            if user["username"] == username:
+            if user["username"] == username_check:
                 # Aggiorna i valori dell'utente
                 user["nome"] = nome
                 user["cognome"] = cognome
@@ -267,32 +267,11 @@ class ModificaProfilo:
                 user["telefono"] = telefono
                 user["username"] = username
                 user["password"] = password
-        
-        for tipo_camera, prenotazioni in data[1]['camere'][0].items():
-            # Itera sulle prenotazioni della camera
-            for camera_numero, camera_prenotazioni in prenotazioni[0].items():
-                # Stampare solo i dati richiesti
-                for prenotazione in camera_prenotazioni:
-                    if prenotazione['arrivo'] and prenotazione['partenza']:
-                        if username_utente == username:
-                            prenotazione["nome"] = nome
-                            prenotazione["cognome"] = cognome
-                            prenotazione["username"] = username
-                        
-        for user in data[0]['users']:
-            if user['username'] == current_user['username'] and user['password'] == current_user['password']:
-                prenotazioni = user.get('prenotazioni', [])
-                for i, prenotazione in enumerate(prenotazioni):
-                    prenotazione["nome"] = nome
-                    prenotazione["cognome"] = cognome
-                    prenotazione["telefono"] = telefono
-                    print(prenotazione)
-                break
-        
+
 
         # Scrivi le modifiche nel file data.json
-        write_data = multiplatform_open_write_data_json(data)
-                    
+        multiplatform_open_write_data_json(data)
+
         tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
         go_home_button_user(self.window)
 
@@ -329,10 +308,10 @@ class ModificaProfilo:
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
-    
+
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        
+
         assets_path = abs_path + "/assets/frame18"
 
         return PhotoImage(file=Path(assets_path) / Path(image_path))

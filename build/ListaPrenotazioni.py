@@ -162,25 +162,43 @@ class ListaPrenotazioni:
         current_user = multiplatform_open_read_current_user()
         data = multiplatform_open_read_data_json()
         if data and current_user:
-            for user in data[0]['users']:
+            users = data[0]['users']
+            camere = data[1]['camere']
+            for user in users:
                 if user['username'] == current_user['username'] and user['password'] == current_user['password']:
-                    prenotazioni = user.get('prenotazioni', [])
-                    for i, prenotazione in enumerate(prenotazioni):
-                        entry_text = f"Tipo: {prenotazione['tipo_camera']}, Arrivo: {prenotazione['arrivo']}"
-                        entry = Entry(
-                            bd=0,
-                            bg="#EAEEEC",
-                            fg="#000716",
-                            highlightthickness=0
-                        )
-                        entry.place(
-                            x=249.0,
-                            y=119.0 + i * 50,
-                            width=363.0,
-                            height=36.0
-                        )
-                        entry.insert(0, entry_text)
-                        self.entry_list.append(entry)
+                    codici_prenotazioni = user.get('prenotazioni', [])
+                    for prenotazione in codici_prenotazioni:
+                        id_prenotazione = prenotazione['id_prenotazione']
+                        found = False
+                        for tipo_camera in camere:
+                            for tipo, camere_tipo in tipo_camera.items():
+                                for camera in camere_tipo:
+                                    for numero_camera, dettagli in camera.items():
+                                        for dettaglio in dettagli:
+                                            if dettaglio.get('id_prenotazione') == id_prenotazione:
+                                                entry_text = f"Arrivo: {dettaglio['arrivo']}, Partenza: {dettaglio['partenza']}"
+                                                entry = Entry(
+                                                    bd=0,
+                                                    bg="#EAEEEC",
+                                                    fg="#000716",
+                                                    highlightthickness=0
+                                                )
+                                                entry.place(
+                                                    x=249.0,
+                                                    y=119.0 + len(self.entry_list) * 50,
+                                                    width=363.0,
+                                                    height=36.0
+                                                )
+                                                entry.insert(0, entry_text)
+                                                self.entry_list.append(entry)
+                                                found = True
+                                                break
+                                        if found:
+                                            break
+                                    if found:
+                                        break
+                            if found:
+                                break
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -390,44 +408,43 @@ class ListaPrenotazioni:
 
         with open("current_entry_prenotazione_user.json", "r") as user_json:
             current_entry_user = json.load(user_json)
-        
-        pattern = r'Tipo:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
+
+        pattern = r'Camera\s+([^,]+),\s*Arrivo:\s*([^,]+),\s*Partenza:\s*([^,]+)'
         match = re.search(pattern, current_entry_user)
         if match:
-            tipo = match.group(1)
+            tipo_camera = match.group(1)
             arrivo = match.group(2)
-
-            print(tipo, arrivo)
+            partenza = match.group(3)
 
             if data and current_user:
+                # Elimina la prenotazione dalla lista delle prenotazioni dell'utente
                 for user in data[0]['users']:
                     if user['username'] == current_user['username'] and user['password'] == current_user['password']:
                         prenotazioni = user.get('prenotazioni', [])
                         for prenotazione in prenotazioni:
-                            if prenotazione['tipo_camera'] == tipo and prenotazione['arrivo'] == arrivo:
+                            if prenotazione['arrivo'] == arrivo and prenotazione['partenza'] == partenza:
                                 prenotazioni.remove(prenotazione)
-                                # Salva i dati aggiornati nel file JSON se necessario
                                 with open('data.json', 'w') as file:
                                     json.dump(data, file, indent=4)
                                 break
-            
-            if data and current_user:
-                for camera in data[1]['camere']:
-                    if tipo in camera:
-                        prenotazioni_camera = camera[tipo]
-                        for numero_camera, prenotazioni in prenotazioni_camera[0].items():
-                            for prenotazione in prenotazioni:
-                                if prenotazione["arrivo"] == "":
-                                    continue
-                                elif prenotazione["arrivo"] == arrivo and prenotazione["username"] == current_user["username"]:
-                                    prenotazioni.remove(prenotazione)
-                                    print("Eliminato con successo!")
-                                    with open("data.json", "w") as file:
-                                        json.dump(data, file, indent=4)
-                                    break
-                        tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
-                        go_lista_prenotazioni(self.window)
 
+                # Elimina la prenotazione dalla lista delle prenotazioni delle camere
+                for tipo_camera_data in data[1]['camere']:
+                    if tipo_camera in tipo_camera_data:
+                        camere = tipo_camera_data[tipo_camera]
+                        for camera in camere:
+                            for numero_camera, dettagli in camera.items():
+                                for dettaglio in dettagli:
+                                    if dettaglio['arrivo'] == arrivo and dettaglio['partenza'] == partenza and \
+                                            current_user['username'] == current_user['username']:
+                                        dettagli.remove(dettaglio)
+                                        with open("data.json", "w") as file:
+                                            json.dump(data, file, indent=4)
+                                        tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
+                                        go_lista_prenotazioni(self.window)
+                                        return
+
+        tkinter.messagebox.showwarning("Errore", "Prenotazione non trovata!")
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
     
