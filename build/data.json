@@ -16,18 +16,7 @@
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": [
-                    {
-                        "arrivo": "27-05-2024",
-                        "partenza": "30-05-2024",
-                        "id_prenotazione": "7dd7d167-e543-4016-a2da-933b86c33891"
-                    },
-                    {
-                        "arrivo": "11-06-2024",
-                        "partenza": "14-06-2024",
-                        "id_prenotazione": "99c41046-7913-48da-a1ee-90c531f91640"
-                    }
-                ]
+                "prenotazioni": []
             }
         ]
     },
@@ -36,196 +25,42 @@
             {
                 "Camera Singola": [
                     {
-                        "101": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "102": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "103": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "104": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "105": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "106": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ]
+                        "101": [],
+                        "102": [],
+                        "103": [],
+                        "104": [],
+                        "105": [],
+                        "106": []
                     }
                 ],
                 "Camera Doppia": [
                     {
-                        "201": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "202": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "203": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "204": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "205": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "206": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ]
+                        "201": [],
+                        "202": [],
+                        "203": [],
+                        "204": [],
+                        "205": [],
+                        "206": []
                     }
                 ],
                 "Camera Tripla": [
                     {
-                        "301": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            },
-                            {
-                                "arrivo": "27-05-2024",
-                                "partenza": "30-05-2024",
-                                "id_prenotazione": "7dd7d167-e543-4016-a2da-933b86c33891"
-                            },
-                            {
-                                "arrivo": "11-06-2024",
-                                "partenza": "14-06-2024",
-                                "id_prenotazione": "99c41046-7913-48da-a1ee-90c531f91640"
-                            }
-                        ],
-                        "302": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "303": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "304": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "305": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "306": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ]
+                        "301": [],
+                        "302": [],
+                        "303": [],
+                        "304": [],
+                        "305": [],
+                        "306": []
                     }
                 ],
                 "Camera Quadrupla": [
                     {
-                        "401": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "402": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "403": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "404": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "405": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ],
-                        "406": [
-                            {
-                                "codice_prenotazione": "",
-                                "arrivo": "",
-                                "partenza": ""
-                            }
-                        ]
+                        "401": [],
+                        "402": [],
+                        "403": [],
+                        "404": [],
+                        "405": [],
+                        "406": []
                     }
                 ]
             }

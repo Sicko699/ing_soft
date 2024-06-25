@@ -253,6 +253,7 @@ class MostraPrenotazioneApp:
                         prenotazioni.append({
                             "arrivo": current_prenotazione["arrivo"],
                             "partenza": current_prenotazione["partenza"],
+                            "tipo": current_prenotazione["tipo_camera"],
                             "id_prenotazione": str(id_prenotazione)
                         })
                         
@@ -260,6 +261,7 @@ class MostraPrenotazioneApp:
                         prenotazione_utente = {
                             "arrivo": current_prenotazione["arrivo"],
                             "partenza": current_prenotazione["partenza"],
+                            "tipo": current_prenotazione["tipo_camera"],
                             "id_prenotazione": str(id_prenotazione)
                         }
 

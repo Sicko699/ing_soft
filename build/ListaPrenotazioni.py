@@ -176,7 +176,7 @@ class ListaPrenotazioni:
                                     for numero_camera, dettagli in camera.items():
                                         for dettaglio in dettagli:
                                             if dettaglio.get('id_prenotazione') == id_prenotazione:
-                                                entry_text = f"Arrivo: {dettaglio['arrivo']}, Partenza: {dettaglio['partenza']}"
+                                                entry_text = f"{dettaglio['arrivo']}, {dettaglio['partenza']}, {dettaglio['tipo']}"
                                                 entry = Entry(
                                                     bd=0,
                                                     bg="#EAEEEC",
@@ -409,12 +409,15 @@ class ListaPrenotazioni:
         with open("current_entry_prenotazione_user.json", "r") as user_json:
             current_entry_user = json.load(user_json)
 
-        pattern = r'Camera\s+([^,]+),\s*Arrivo:\s*([^,]+),\s*Partenza:\s*([^,]+)'
+        # Definizione del pattern regex
+        pattern = r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
+
+        # Ricerca della corrispondenza
         match = re.search(pattern, current_entry_user)
         if match:
-            tipo_camera = match.group(1)
-            arrivo = match.group(2)
-            partenza = match.group(3)
+            arrivo = match.group(1)
+            partenza = match.group(2)
+            tipo_camera = match.group(3)
 
             if data and current_user:
                 # Elimina la prenotazione dalla lista delle prenotazioni dell'utente

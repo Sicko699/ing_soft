@@ -31,24 +31,28 @@ class ModificaPrenotazione:
         # Initialize attributes to default values
         self.arrivo = ""
         self.partenza = ""
+        self.tipo_camera = ""
 
-        pattern = r"Arrivo:\s*(\d{2}-\d{2}-\d{4}),\s*Partenza:\s*(\d{2}-\d{2}-\d{4})"
+        # Definizione del pattern regex
+        pattern = r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
 
+        # Ricerca della corrispondenza
         match = re.search(pattern, current_prenotazione)
         if match:
-            arrivo = match.group(1)
-            partenza = match.group(2)
-            print(f"Arrivo: {arrivo}, Partenza: {partenza}")
+            self.arrivo = match.group(1)
+            self.partenza = match.group(2)
+            self.tipo_camera = match.group(3)
             if data and current_user:
                 for user in data[0]['users']:
                     if user['username'] == current_user['username'] and user['password'] == current_user['password']:
                         prenotazioni = user.get('prenotazioni', [])
                         for prenotazione in prenotazioni:
-                            if prenotazione['tipo_camera'] == tipo and prenotazione['arrivo'] == self.arrivo:
+                            if  prenotazione['arrivo'] == self.arrivo:
                                 prenotazione_modificare = prenotazione
                                 print("prenotazione", prenotazione_modificare)
+                                self.arrivo = prenotazione_modificare['arrivo']
                                 self.partenza = prenotazione_modificare['partenza']
-                                self.tipo_camera = prenotazione_modificare['tipo_camera']
+                                self.tipo_camera = prenotazione_modificare['tipo']
 
         self.canvas = tk.Canvas(
             self.window,
@@ -123,7 +127,7 @@ class ModificaPrenotazione:
         )
 
         self.combo_var = tk.StringVar()
-        self.combo_var.set("Camera Singola")
+        self.combo_var.set(self.tipo_camera)
         self.combo = ttk.Combobox(
             self.canvas,
             textvariable=self.combo_var,
@@ -148,7 +152,7 @@ class ModificaPrenotazione:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: (self.check_availability(), self.modifica_prenotazione()),
             relief="flat"
         )
         self.button_1.place(
@@ -187,8 +191,10 @@ class ModificaPrenotazione:
             cal = Calendar(calendar_frame, selectmode="day", date_pattern="dd-mm-yyyy",
                            font="Quicksand 14", cursor="hand1")
             cal.grid(row=0, column=0, padx=10, pady=10)
+            # Rimuovi l'uso di cal.set_date()
+            # Set the initial date if provided
             if initial_date:
-                cal.set_date(initial_date)
+                cal.selection_set(datetime.strptime(initial_date, "%d-%m-%Y"))
 
             confirm_button = ttk.Button(calendar_frame, text="Conferma", command=lambda: confirm_command(cal.get_date(), calendar_frame))
             confirm_button.grid(row=1, column=0, pady=10)
@@ -200,8 +206,10 @@ class ModificaPrenotazione:
             cal = Calendar(calendar_top, selectmode="day", date_pattern="dd-mm-yyyy",
                            font="Quicksand 14", cursor="hand1")
             cal.grid(row=0, column=0, padx=10, pady=10)
+            # Rimuovi l'uso di cal.set_date()
+            # Set the initial date if provided
             if initial_date:
-                cal.set_date(initial_date)
+                cal.selection_set(datetime.strptime(initial_date, "%d-%m-%Y"))
 
             confirm_button = Button(calendar_top, text="Conferma", command=lambda: confirm_command(cal.get_date(), calendar_top))
             confirm_button.grid(row=1, column=0, pady=10)
@@ -265,6 +273,100 @@ class ModificaPrenotazione:
                     print("Tutte le camere sono disponibili nell'intervallo selezionato.")
                     return
         print("Nessuna camera disponibile nell'intervallo selezionato.")
+    
+    def modifica_prenotazione(self):
+        data = multiplatform_open_read_data_json()
+        current_user = multiplatform_open_read_current_user()
+
+        with open("current_entry_prenotazione_user.json", "r") as user_json:
+            current_entry_user = json.load(user_json)
+
+        # Definizione del pattern regex
+        pattern = r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
+
+        # Ricerca della corrispondenza
+        match = re.search(pattern, current_entry_user)
+        if match:
+            arrivo = match.group(1)
+            partenza = match.group(2)
+            tipo_camera = match.group(3)
+
+        if data and current_user:
+            
+            for user in data[0]['users']:
+                if user['username'] == current_user['username'] and user['password'] == current_user['password']:
+                    prenotazioni = user.get('prenotazioni', [])
+                    for prenotazione in prenotazioni:
+                        if prenotazione['arrivo'] == arrivo and prenotazione['partenza'] == partenza and prenotazione['tipo'] == tipo_camera:
+                            # Aggiorna la prenotazione con i nuovi valori
+                            prenotazione['arrivo'] = self.arrival_button.cget("text")
+                            prenotazione['partenza'] = self.departure_button.cget("text")
+                            prenotazione['tipo'] = self.combo_var.get()
+                            print("Prenotazione aggiornata:", prenotazione)
+
+                        with open("data.json", "w") as file:
+                            json.dump(data, file, indent=4)
+
+            # Aggiorna anche le informazioni nella struttura dati delle camere
+            for categoria_camera in data[1]["camere"]:
+                for tipo, camere in categoria_camera.items():
+                    if tipo == tipo_camera:
+                        for camera in camere:
+                            for numero_camera, dettagli in camera.items():
+                                for dettaglio in dettagli:
+                                    if dettaglio['arrivo'] == arrivo and dettaglio['partenza'] == partenza and \
+                                            dettaglio['tipo'] == tipo_camera and \
+                                            current_user['username'] == current_user['username']:
+                                        dettaglio['arrivo'] = self.arrival_button.cget("text")
+                                        dettaglio['partenza'] = self.departure_button.cget("text")
+                                        dettaglio['tipo'] = self.combo_var.get()
+                                        
+                                        # Rimuovi l'elemento modificato dalla lista
+                                        dettagli.remove(dettaglio)
+
+                                        # Calcola il numero di ospiti in base al tipo di camera
+                                        if dettaglio['tipo'] == "Camera Singola":
+                                            numero_ospiti = 1
+                                        elif dettaglio['tipo'] == "Camera Doppia":
+                                            numero_ospiti = 2
+                                        elif dettaglio['tipo'] == "Camera Tripla":
+                                            numero_ospiti = 3
+                                        elif dettaglio['tipo'] == "Camera Quadrupla":
+                                            numero_ospiti = 4
+                                        else:
+                                            numero_ospiti = None
+
+                                        # Trova una camera disponibile per la nuova prenotazione
+                                        camera_disponibile = False
+                                        for camera_tipo in data[1]["camere"]:
+                                            if dettaglio["tipo"] in camera_tipo:
+                                                prenotazioni_camera = camera_tipo[dettaglio["tipo"]]
+                                                for numero_camera, prenotazioni in prenotazioni_camera[0].items():
+                                                    cella_disponibile = True
+                                                    for prenotazione in prenotazioni:
+                                                        if prenotazione["arrivo"] == "" and prenotazione["partenza"] == "":
+                                                            continue  # La cella è libera, continua con la prossima camera
+                                                        elif (datetime.strptime(dettaglio["arrivo"], "%d-%m-%Y") >= datetime.strptime(prenotazione["partenza"], "%d-%m-%Y") or
+                                                            datetime.strptime(dettaglio["partenza"], "%d-%m-%Y") <= datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")):
+                                                            continue  # Le date della prenotazione non si sovrappongono, continua con la prossima camera
+                                                        else:
+                                                            cella_disponibile = False
+                                                            break  # La cella è occupata, esci dal ciclo
+                                                    if cella_disponibile:
+                                                        prenotazioni.append({
+                                                            "arrivo": dettaglio["arrivo"],
+                                                            "partenza": dettaglio["partenza"],
+                                                            "tipo": dettaglio["tipo"],
+                                                            "id_prenotazione": dettaglio['id_prenotazione']
+                                                        })
+                                                        break  # Esce dal ciclo delle camere disponibili
+
+                                        # Salva le modifiche nel file JSON
+                                        with open("data.json", "w") as file:
+                                            json.dump(data, file, indent=4)
+                                        return  # Esce dal ciclo delle camere disponibili
+
+            print("Nessuna corrispondenza trovata per aggiornare le prenotazioni delle camere.")
 
 if __name__ == "__main__":
     root = Tk()

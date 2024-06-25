@@ -69,7 +69,7 @@ def go_modifica_prenotazione(window):
     from ModificaPrenotazione import ModificaPrenotazione
     window.destroy()
     root = Tk()
-    root.title("Gestione Ordini Magazzino")
+    root.title("Modifica Prenotazione")
     app = ModificaPrenotazione(root)
     centrare_finestra(root)
     root.mainloop()
