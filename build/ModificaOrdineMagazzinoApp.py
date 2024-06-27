@@ -111,7 +111,7 @@ class ModificaOrdineMagazzino:
 
         print(current_entry, "ciao")
 
-        pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Data:\s*([^,]+)'
+        pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
         match = re.search(pattern, current_entry)
         nome_articolo = match.group(1)
         quantita = match.group(2)
@@ -121,42 +121,6 @@ class ModificaOrdineMagazzino:
 
         self.combo_var.set(nome_articolo)
         self.entry_2.insert(0, quantita)
-    
-    def save_changes(self):
-        data = multiplatform_open_read_data_json()
-
-        with open("current_entry_ordine.json", "r") as user_json:
-            current_entry = json.load(user_json)
-
-        pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Data:\s*([^,]+)'
-        match = re.search(pattern, current_entry)
-        if match:
-            nome_articolo = match.group(1)
-            quantita = match.group(2)
-            data_ordine_vecchio = match.group(3)
-
-            print(nome_articolo, quantita, data_ordine_vecchio)
-
-            new_nome_articolo = self.combo_var.get()
-            new_quantita = self.entry_2.get()
-            new_data_ordine = datetime.now().date()
-            new_data_spedizione = new_data_ordine + timedelta(days=1)
-            new_data_consegna = new_data_ordine + timedelta(days=3)
-
-            for prenotazione in data[-1]['magazzino']:
-                if prenotazione["nome_articolo"] == nome_articolo and prenotazione["quantita"] == quantita and prenotazione["data"] == data_ordine_vecchio:
-                    prenotazione["nome_articolo"] = new_nome_articolo
-                    prenotazione["quantita"] = new_quantita
-                    prenotazione["data"] = new_data_ordine.strftime("%d-%m-%Y")
-                    prenotazione["spedizione"] = new_data_spedizione.strftime("%d-%m-%Y")
-                    prenotazione["consegna"] = new_data_consegna.strftime("%d-%m-%Y")
-                    break
-            
-            print(prenotazione)
-            
-            write_data = multiplatform_open_write_data_json(data)
-            tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
-            go_gestione_magazzino(self.window)
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -278,6 +242,42 @@ class ModificaOrdineMagazzino:
             width=149.4329833984375,
             height=49.16864776611328
         )
+
+    def save_changes(self):
+        with open("data.json", "r") as user_file:
+            data = json.load(user_file)
+
+        with open("current_entry_ordine.json", "r") as user_json:
+            current_entry = json.load(user_json)
+        
+        print(current_entry)
+
+        pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
+        match = re.search(pattern, current_entry)
+
+        if match:
+            nome_articolo_vecchio = match.group(1)
+            quantita_vecchia = match.group(2)
+            data_ordine_vecchio = match.group(3)
+
+            new_nome_articolo = self.combo_var.get()
+            new_quantita = self.entry_2.get()
+            new_data_ordine = datetime.now().date()
+            new_data_spedizione = new_data_ordine + timedelta(days=1)
+            new_data_consegna = new_data_ordine + timedelta(days=3)
+
+            print(new_nome_articolo, new_quantita, new_data_ordine, new_data_spedizione, new_data_consegna)
+
+            nuova_prenotazione = {
+                "nome_articolo": new_nome_articolo,
+                "quantita": new_quantita,
+                "data": new_data_ordine.strftime("%d-%m-%Y"),
+                "spedizione": new_data_spedizione.strftime("%d-%m-%Y"),
+                "consegna": new_data_ordine.strftime("%d-%m-%Y")
+            }
+            data[-1]["magazzino"].append(nuova_prenotazione)
+            print("Aggiunta nuova prenotazione!")
+            print(data[-1]["magazzino"], "\n")
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
