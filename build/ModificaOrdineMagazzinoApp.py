@@ -109,7 +109,8 @@ class ModificaOrdineMagazzino:
         with open("current_entry_ordine.json", "r") as user_json:
             current_entry = json.load(user_json)
 
-        print(current_entry, "ciao")
+        #print(current_entry, "ciao")
+
 
         pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
         match = re.search(pattern, current_entry)
@@ -117,7 +118,7 @@ class ModificaOrdineMagazzino:
         quantita = match.group(2)
         data_ordine_vecchio = match.group(3)
         
-        print(nome_articolo, quantita, data_ordine_vecchio, "hola")
+        print(nome_articolo, quantita, data_ordine_vecchio, "init")
 
         self.combo_var.set(nome_articolo)
         self.entry_2.insert(0, quantita)
@@ -243,6 +244,7 @@ class ModificaOrdineMagazzino:
             height=49.16864776611328
         )
 
+    '''
     def save_changes(self):
         with open("data.json", "r") as user_file:
             data = json.load(user_file)
@@ -250,7 +252,7 @@ class ModificaOrdineMagazzino:
         with open("current_entry_ordine.json", "r") as user_json:
             current_entry = json.load(user_json)
         
-        print(current_entry)
+        print("current entry", current_entry)
 
         pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
         match = re.search(pattern, current_entry)
@@ -260,24 +262,91 @@ class ModificaOrdineMagazzino:
             quantita_vecchia = match.group(2)
             data_ordine_vecchio = match.group(3)
 
+            print("suca", nome_articolo_vecchio, quantita_vecchia, data_ordine_vecchio)
+
             new_nome_articolo = self.combo_var.get()
             new_quantita = self.entry_2.get()
             new_data_ordine = datetime.now().date()
             new_data_spedizione = new_data_ordine + timedelta(days=1)
             new_data_consegna = new_data_ordine + timedelta(days=3)
 
-            print(new_nome_articolo, new_quantita, new_data_ordine, new_data_spedizione, new_data_consegna)
+            #print(new_nome_articolo, new_quantita, new_data_ordine, new_data_spedizione, new_data_consegna)
 
             nuova_prenotazione = {
                 "nome_articolo": new_nome_articolo,
                 "quantita": new_quantita,
                 "data": new_data_ordine.strftime("%d-%m-%Y"),
                 "spedizione": new_data_spedizione.strftime("%d-%m-%Y"),
-                "consegna": new_data_ordine.strftime("%d-%m-%Y")
+                "consegna": new_data_consegna.strftime("%d-%m-%Y")
             }
             data[-1]["magazzino"].append(nuova_prenotazione)
-            print("Aggiunta nuova prenotazione!")
-            print(data[-1]["magazzino"], "\n")
+            #print("Aggiunta nuova prenotazione!")
+            #print(data[-1]["magazzino"], "\n")
+    '''
+
+    def agg_giorni(self, date, days):
+        giorni = {
+            1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
+            7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31
+        }
+
+        def bisestile(year):
+            return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+        if bisestile(date.year):
+            giorni[2] = 29
+
+        new_day = date.day + days
+        new_month = date.month
+        new_year = date.year
+
+        while new_day > giorni[new_month]:
+            new_day -= giorni[new_month]
+            new_month += 1
+            if new_month > 12:
+                new_month = 1
+                new_year += 1
+                if bisestile(new_year):
+                    giorni[2] = 29
+                else:
+                    giorni[2] = 28
+
+        return datetime(new_year, new_month, new_day)
+
+    def save_changes(self):
+        data = multiplatform_open_read_data_json()
+
+        with open("current_entry_ordine.json", "r") as user_json:
+            current_entry = json.load(user_json)
+
+        pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
+        match = re.search(pattern, current_entry)
+        nome_articolo_vecchio = match.group(1)
+        quantita_vecchia = match.group(2)
+        data_consegna_vecchia = match.group(3)
+
+        print(nome_articolo_vecchio, quantita_vecchia, data_consegna_vecchia)
+
+        new_nome_articolo = self.combo_var.get()
+        new_quantita_articolo = self.entry_2.get()
+        new_data_ordine = datetime.strptime("26-06-2024", "%d-%m-%Y")
+        new_data_spedizione = self.agg_giorni(new_data_ordine, 1)
+        new_data_consegna = self.agg_giorni(new_data_ordine, 3)
+
+        for ordine in data[-1]["magazzino"]:
+            if ordine["nome_articolo"] == nome_articolo_vecchio and ordine["quantita"] == quantita_vecchia and ordine["consegna"] == data_consegna_vecchia:
+                print("OK")
+
+                ordine["nome_articolo"] = new_nome_articolo
+                ordine["quantita"] = new_quantita_articolo
+                ordine["data"] = new_data_ordine.strftime("%d-%m-%Y")
+                ordine["spedizione"] = new_data_spedizione.strftime("%d-%m-%Y")
+                ordine["consegna"] = new_data_consegna.strftime("%d-%m-%Y")
+                break
+
+        multiplatform_open_write_data_json(data)
+        tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
+        go_gestione_magazzino(self.window)
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)

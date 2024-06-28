@@ -1,4 +1,5 @@
 from pathlib import Path
+import uuid
 import os, platform, json
 from tkcalendar import Calendar
 from datetime import datetime
@@ -396,7 +397,7 @@ class InserimentoPrenotazione:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.update_data_json(), self.check_availability(), go_front_office_button(self.window)),
+            command=lambda: (self.check_availability(), self.update_data_json(), go_front_office_button(self.window)),
             relief="flat"
         )
         self.button_9.place(
@@ -407,95 +408,106 @@ class InserimentoPrenotazione:
         )
 
     def check_availability(self):
-
         tipo_camera = self.combo_var.get()
-
         data_arrivo = datetime.strptime(self.arrival_button.cget("text"), "%d-%m-%Y")
         data_partenza = datetime.strptime(self.departure_button.cget("text"), "%d-%m-%Y")
 
         with open("data.json", "r") as file:
             data = json.load(file)
 
+        camera_trovata = False  # Flag to indicate if a camera was found
         for categoria_camera in data[1]['camere']:
-            for tipo, camere in categoria_camera.items():
-                if tipo == tipo_camera:
-                    for camera in camere:
+            if tipo_camera in categoria_camera:
+                for camera in categoria_camera[tipo_camera]:
+                    for numero_camera, prenotazioni in camera.items():
+                        camera_disponibile = True
+                        for prenotazione in prenotazioni:
+                            if prenotazione["arrivo"] and prenotazione["partenza"]:
+                                arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
+                                partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
+                                if not (data_arrivo >= partenza_prenotazione or data_partenza <= arrivo_prenotazione):
+                                    camera_disponibile = False
+                                    break
+                        if camera_disponibile:
+                            print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato")
+                            id_prenotazione = uuid.uuid4()
+                            current_prenotazione_admin = {
+                                "arrivo": data_arrivo.strftime("%d-%m-%Y"),
+                                "partenza": data_partenza.strftime("%d-%m-%Y"),
+                                "tipo_camera": tipo_camera,
+                                "id_prenotazione": str(id_prenotazione)
+                            }
+                            with open("current_prenotazione_admin.json", "w") as file:
+                                json.dump(current_prenotazione_admin, file, indent=4)
+                            print("current_prenotazione_admin.json aggiornato con successo")
+                            camera_trovata = True
+
+                            prenotazione_admin = {
+                                "nome": self.entry_1.get(),
+                                "cognome": self.entry_2.get(),
+                                "cellulare": self.entry_7.get(),
+                                "email": self.entry_3.get(),
+                                "tipo_camera": self.combo_var.get(),
+                                "check-in": self.arrival_button.cget("text"),
+                                "check-out": self.departure_button.cget("text"),
+                                "id_prenotazione": str(uuid.uuid4())
+                            }
+                            for user in data[0]["users"]:
+                                if user["role"] == "admin":
+                                    user["prenotazioni"].append(prenotazione_admin)
+                                    break  # Esci dal ciclo una volta trovato l'utente admin
+
+                                # Salva le modifiche a data.json
+                            with open("data.json", "w") as file:
+                                json.dump(data, file, indent=4)
+
+                            print("Prenotazione aggiunta con successo per l'utente admin.")
+                            break
+
+                    if camera_trovata:
+                        break  # Exit the loop since we found an available camera
+            if camera_trovata:
+                break  # Exit the loop since we found an available camera
+
+        if not camera_trovata:
+            print("Nessuna camera disponibile nell'intervallo selezionato")
+
+    def update_data_json(self):
+        try:
+            with open("current_prenotazione_admin.json", "r") as file:
+                current_prenotazione = json.load(file)
+            print("current_prenotazione letto con successo:", current_prenotazione)
+
+            # Example of updating data.json
+            with open("data.json", "r") as file:
+                data = json.load(file)
+
+            tipo_camera = current_prenotazione["tipo_camera"]
+            for categoria_camera in data[1]['camere']:
+                if tipo_camera in categoria_camera:
+                    for camera in categoria_camera[tipo_camera]:
                         for numero_camera, prenotazioni in camera.items():
+                            camera_disponibile = True
                             for prenotazione in prenotazioni:
-                                if prenotazione["arrivo"] == "" and prenotazione["partenza"] == "":
-                                    print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato")
-                                    current_prenotazione_admin = {
-                                        "arrivo": data_arrivo.strftime("%d-%m-%Y"),
-                                        "partenza": data_partenza.strftime("%d-%m-%Y"),
-                                        "tipo_camera": tipo_camera
-                                    }
-                                    
-                                    with open("current_prenotazione_admin.json", "w") as file:
-                                        write_current_prenotazione = json.dump(current_prenotazione_admin, file)
-                                        return write_current_prenotazione
-                                    return
                                 if prenotazione["arrivo"] and prenotazione["partenza"]:
                                     arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
                                     partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
-                    print("Tutte le camere disponibili nell'intervallo selezionato.")
-                    return
-        print("Nessuna camera disponibile nell'intervallo selezionato")
+                                    if not (datetime.strptime(current_prenotazione["arrivo"], "%d-%m-%Y") >= partenza_prenotazione or datetime.strptime(current_prenotazione["partenza"], "%d-%m-%Y") <= arrivo_prenotazione):
+                                        camera_disponibile = False
+                                        break
+                            if camera_disponibile:
+                                prenotazioni.append(current_prenotazione)
+                                break
 
-    def update_data_json(self):
-        
-        with open("data.json", "r") as file:
-            data_json = json.load(file)
-        
-        with open("current_prenotazione_admin.json", "r") as file:
-            current_prenotazione = json.load(file)
+            with open("data.json", "w") as file:
+                json.dump(data, file, indent=4)  # Add indent=4 for pretty-printing
+            print("data.json aggiornato con successo")
 
-        tipo_camera = current_prenotazione["tipo_camera"]
-        if(tipo_camera == "Camera Singola"):
-            numero_ospiti = 1
-        elif(tipo_camera == "Camera Doppia"):
-            numero_ospiti = 2
-        elif(tipo_camera == "Camera Tripla"):
-            numero_ospiti = 3
-        elif(tipo_camera == "Camera Quadrupla"):
-            numero_ospiti = 4
-        else:
-            numero_ospiti = None
+        except KeyError as e:
+            print(f"Errore: chiave mancante {e}")
+        except Exception as e:
+            print(f"Errore durante l'aggiornamento di data.json: {e}")
 
-        camera_disponibile = False
-        for camera in data_json[1]['camere']:
-            if current_prenotazione["tipo_camera"] in camera:
-                prenotazioni_camera = camera[current_prenotazione["tipo_camera"]]
-                for numero_camera, prenotazioni in prenotazioni_camera[0].items():
-                    camera_disponibile = True
-                    for prenotazione in prenotazioni:
-                        if prenotazione["arrivo"] == "" and prenotazione["partenza"] == "":
-                            continue
-                        elif(current_prenotazione["arrivo"] >= prenotazione["partenza"] or
-                             current_prenotazione["partenza"] <= prenotazione["arrivo"]):
-                            continue
-                        else:
-                            camera_disponibile = False
-                            break
-                    if camera_disponibile:
-                        prenotazioni.append({
-                            "arrivo": current_prenotazione["arrivo"],
-                            "partenza": current_prenotazione["partenza"]
-                        })
-
-                        camera_disponibile = True
-                        break
-                else:
-                    continue
-                break
-        
-        if not camera_disponibile:
-            print("Non ci sono camere disponibili per la prenotazione")
-            return
-
-        with open("data.json", "w") as file:
-            write_data = json.dump(data_json, file, indent=4)
-        
-        print("Dari della prenotazione aggiornati con successo")
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
@@ -507,7 +519,7 @@ class InserimentoPrenotazione:
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
-    
+
 if __name__ == "__main__":
     root = Tk()
     root.title("Inserimento Prenotazioni")
