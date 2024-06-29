@@ -39,33 +39,7 @@ class ModificaPrenotazioneAdmin:
             self.tipo_camera = match.group(3)
             print(self.arrivo, self.partenza, self.tipo_camera)
             i = 0
-            if data:
-                for user in data[0]["users"]:
-                    admin = False
-                    if (user["role"] == "admin"):
-                        admin = True
-                        prenotazioni = user.get('prenotazioni', [])
-                        for prenotazione in prenotazioni:
-                            print(user)
-                            arrivo_utente = prenotazione["arrivo"]
-                            partenza_utente = prenotazione["partenza"]
-                            tipo_camera = prenotazione["tipo_camera"]
 
-                            if (arrivo_utente == self.arrivo and partenza_utente == self.partenza and tipo_camera == self.tipo_camera):
-                                print("prenotazione trovata")
-                                nome = prenotazione["nome"]
-                                cognome = prenotazione["cognome"]
-                                cellulare = prenotazione["cellulare"]
-                                email = prenotazione["email"]          
-
-                        print("--------------------------------------")
-                    else:
-                        print(user)
-
-                    '''prenotazioni = user.get('prenotazioni', [])
-                    for prenotazione in prenotazioni:
-                        if prenotazione['arrivo'] == self.arrivo and prenotazione['partenza'] == self.partenza and prenotazione['tipo_camera'] == self.tipo_camera:
-                            print(prenotazione)'''
                       
         self.canvas = Canvas(
             self.window,
@@ -282,12 +256,40 @@ class ModificaPrenotazioneAdmin:
 
         self.window.resizable(False, False)
 
-        if admin:
-            self.entry_1.insert(0, nome)
-            self.entry_2.insert(0, cognome)
-            self.entry_3.insert(0, email)
-            self.entry_7.insert(0, cellulare)
+        '''if admin:
+            '''
+        if data:
+            for user in data[0]["users"]:
+                admin = False
+                if (user["role"] == "admin"):
+                    admin = True
+                    prenotazioni = user.get('prenotazioni', [])
+                    for prenotazione in prenotazioni:
+                        print(user)
+                        arrivo_utente = prenotazione["arrivo"]
+                        partenza_utente = prenotazione["partenza"]
+                        tipo_camera = prenotazione["tipo_camera"]
 
+                        if (arrivo_utente == self.arrivo and partenza_utente == self.partenza and tipo_camera == self.tipo_camera):
+                            print("prenotazione trovata")
+                            nome = prenotazione["nome"]
+                            cognome = prenotazione["cognome"]
+                            cellulare = prenotazione["cellulare"]
+                            email = prenotazione["email"]
+
+                            self.entry_1.insert(0, nome)
+                            self.entry_2.insert(0, cognome)
+                            self.entry_3.insert(0, email)
+                            self.entry_7.insert(0, cellulare)
+
+                    print("--------------------------------------")
+                else:
+                    print(user)
+
+                '''prenotazioni = user.get('prenotazioni', [])
+                for prenotazione in prenotazioni:
+                    if prenotazione['arrivo'] == self.arrivo and prenotazione['partenza'] == self.partenza and prenotazione['tipo_camera'] == self.tipo_camera:
+                        print(prenotazione)'''
 
     def open_arrival_calendar(self):
         if platform.system() == "Darwin":
