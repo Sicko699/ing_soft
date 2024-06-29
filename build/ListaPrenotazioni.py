@@ -67,7 +67,7 @@ class ListaPrenotazioni:
             id_prenotazione = prenotazione['id_prenotazione']
             dettaglio = self.prenotazione.get_prenotazione_details(id_prenotazione)
             if dettaglio:
-                entry_text = f"{dettaglio['arrivo']}, {dettaglio['partenza']}, {dettaglio['tipo']}"
+                entry_text = f"{dettaglio['arrivo']}, {dettaglio['partenza']}, {dettaglio['tipo_camera']}"
                 entry = Entry(
                     bd=0,
                     bg="#EAEEEC",

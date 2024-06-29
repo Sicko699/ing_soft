@@ -1,5 +1,5 @@
 from pathlib import Path
-import os, platform, json
+import os, platform, json, re
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, multiplatform_open_read_data_json
 
@@ -597,6 +597,46 @@ class VisualizzazionePrenotazioni:
             width=28.398725509643555,
             height=28.398725509643555
         )
+
+    def elimina_prenotazione(self):
+        data = multiplatform_open_read_data_json()
+
+        with open("current_entry_prenotazione.json", "r") as prenotazione_json:
+            current_prenotazione = json.load(prenotazione_json)
+            print(current_prenotazione)
+
+        self.arrivo = ""
+        self.partenza = ""
+        self.tipo_camera = ""
+
+        pattern = r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
+        match = re.search(pattern, current_prenotazione)
+        if match:
+            self.arrivo = match.group(1)
+            self.partenza = match.group(2)
+            self.tipo_camera = match.group(3)
+
+            if data:
+                for user in data[0]["users"]:
+                    if (user["role"] == "admin"):
+                        prenotazioni = user.get('prenotazioni', [])
+                        for prenotazione in prenotazioni:
+                            print(user)
+                            arrivo_utente = prenotazione["arrivo"]
+                            partenza_utente = prenotazione["partenza"]
+                            tipo_camera = prenotazione["tipo_camera"]
+
+                            if (arrivo_utente == self.arrivo and partenza_utente == self.partenza and tipo_camera == self.tipo_camera):
+
+                                print("--------------------------------------")
+                    else:
+                        prenotazioni = user.get('prenotazioni', [])
+                        for prenotazione in prenotazioni:
+                            print(user)
+                            arrivo_utente = prenotazione["arrivo"]
+                            partenza_utente = prenotazione["partenza"]
+                            tipo_camera = prenotazione["tipo_camera"]
+
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
