@@ -111,7 +111,7 @@ class CercaCamere:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.check_availability(), go_mostra_prenotazione(self.window)),
+            command=lambda: (self.check_availability_2(), go_mostra_prenotazione(self.window)),
             relief="flat"
         )
 
@@ -232,7 +232,7 @@ class CercaCamere:
 
         return tk.PhotoImage(file=Path(assets_path) / Path(image_path))
     
-    def check_availability(self):
+    def check_availability_2(self):
     # Ottieni il tipo di camera selezionato
         tipo_camera = self.combo_var.get()
 
@@ -249,23 +249,33 @@ class CercaCamere:
                 if tipo == tipo_camera:
                     for camera in camere:
                         for numero_camera, prenotazioni in camera.items():
+                            camera_disponibile = True
                             for prenotazione in prenotazioni:
-                                # Se la prenotazione è vuota, la camera è libera
-                                if  prenotazione["arrivo"] == "" and prenotazione["partenza"]=="":
-                                    print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato.")
-                                    current_prenotazione = {
-                                        "arrivo": data_arrivo.strftime("%d-%m-%Y"),
-                                        "partenza": data_partenza.strftime("%d-%m-%Y"),
-                                        "tipo_camera": tipo_camera
-                                        }
+                                if prenotazione["arrivo"] and prenotazione["partenza"]:
+                                    print(prenotazione)
+                                    # Se la prenotazione è vuota, la camera è libera
+                                    arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
+                                    partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
+                                    if not (data_arrivo >= partenza_prenotazione or data_partenza <= arrivo_prenotazione):
+                                        camera_disponibile = False
+                                        break
 
-                                    # Scrivi i dettagli dell'utente nel file current_user.json
-                                    current_prenotazione = multiplatform_open_write_current_prenotazione(current_prenotazione)
-                                    return
+                            if camera_disponibile:
+                                print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato.")
+                                current_prenotazione = {
+                                    "arrivo": data_arrivo.strftime("%d-%m-%Y"),
+                                    "partenza": data_partenza.strftime("%d-%m-%Y"),
+                                    "tipo_camera": tipo_camera
+                                    }
+                                #Scrivi i dettagli dell'utente nel file current_user.json
+                                multiplatform_open_write_current_prenotazione(current_prenotazione)
+                                return
+                                '''
                                 if prenotazione["arrivo"] and prenotazione["partenza"]:
                                     arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
                                     partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
 
+                                '''
                     print("Tutte le camere sono disponibili nell'intervallo selezionato.")
                     return
         print("Nessuna camera disponibile nell'intervallo selezionato.")

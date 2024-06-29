@@ -16,7 +16,32 @@
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "arrivo": "29-06-2024",
+                        "partenza": "30-06-2024",
+                        "tipo": "Camera Singola",
+                        "id_prenotazione": "6c596829-24ef-4d54-bc61-848a45aa9dd1"
+                    },
+                    {
+                        "arrivo": "29-06-2024",
+                        "partenza": "02-07-2024",
+                        "tipo": "Camera Singola",
+                        "id_prenotazione": "fb071d1f-dfe1-4851-9cda-7d7234edf14f"
+                    },
+                    {
+                        "arrivo": "29-06-2024",
+                        "partenza": "02-07-2024",
+                        "tipo": "Camera Doppia",
+                        "id_prenotazione": "22418821-4fd1-4d6a-8c54-f4f67b797071"
+                    },
+                    {
+                        "arrivo": "30-06-2024",
+                        "partenza": "02-07-2024",
+                        "tipo": "Camera Doppia",
+                        "id_prenotazione": "3c71a74b-eadd-41be-b149-7192f7664cb9"
+                    }
+                ]
             }
         ]
     },
@@ -31,6 +56,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "29-06-2024",
+                                "partenza": "30-06-2024",
+                                "tipo": "Camera Singola",
+                                "id_prenotazione": "6c596829-24ef-4d54-bc61-848a45aa9dd1"
                             }
                         ],
                         "102": [
@@ -39,6 +70,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "29-06-2024",
+                                "partenza": "02-07-2024",
+                                "tipo": "Camera Singola",
+                                "id_prenotazione": "fb071d1f-dfe1-4851-9cda-7d7234edf14f"
                             }
                         ],
                         "103": [
@@ -83,6 +120,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "29-06-2024",
+                                "partenza": "02-07-2024",
+                                "tipo": "Camera Doppia",
+                                "id_prenotazione": "22418821-4fd1-4d6a-8c54-f4f67b797071"
                             }
                         ],
                         "202": [
@@ -91,6 +134,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "30-06-2024",
+                                "partenza": "02-07-2024",
+                                "tipo": "Camera Doppia",
+                                "id_prenotazione": "3c71a74b-eadd-41be-b149-7192f7664cb9"
                             }
                         ],
                         "203": [

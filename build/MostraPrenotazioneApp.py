@@ -190,98 +190,105 @@ class MostraPrenotazioneApp:
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 
     def update_data_json(self):
-        # Carica i dati correnti da data.json
-        data_json = multiplatform_open_read_data_json()
-                
-        # Estrai i dati della prenotazione corrente da current_prenotazione.json
-        current_prenotazione = multiplatform_open_read_current_prenotazione()
-                
-        # Estrai i dati dell'utente da current_user.json
-        current_user = multiplatform_open_read_current_user()
-        
-        username = current_user["username"]
-                
-        # Trova l'utente corrispondente
-        user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
+        try:
+            # Carica i dati correnti da data.json
+            data_json = multiplatform_open_read_data_json()
 
-        if user_data is None:
-            print(user_data, username)
-            print("Utente non trovato.")
-            return
+            # Estrai i dati della prenotazione corrente da current_prenotazione.json
+            current_prenotazione = multiplatform_open_read_current_prenotazione()
 
-        # Aggiungi il nome e il cognome alla prenotazione
-        current_prenotazione["id_utente"] = user_data.get("id_utente", "")
-        current_prenotazione["nome"] = user_data.get("nome", "")
-        current_prenotazione["cognome"] = user_data.get("cognome", "")
-        current_prenotazione["username"] = user_data.get("username", "")
-        
-        print(current_prenotazione)
-        
-        tipo_camera = current_prenotazione["tipo_camera"]
-        if(tipo_camera == "Camera Singola"):
-            numero_ospiti = 1
-        elif(tipo_camera == "Camera Doppia"):
-            numero_ospiti = 2
-        elif(tipo_camera == "Camera Tripla"):
-            numero_ospiti = 3
-        elif(tipo_camera == "Camera Quadrupla"):
-            numero_ospiti = 4
-        else:
-            numero_ospiti = None
+            # Estrai i dati dell'utente da current_user.json
+            current_user = multiplatform_open_read_current_user()
 
-        
+            username = current_user["username"]
 
-        # Trova la camera corrispondente alla prenotazione
-        camera_disponibile = False
-        for camera in data_json[1]["camere"]:
-            if current_prenotazione["tipo_camera"] in camera:
-                prenotazioni_camera = camera[current_prenotazione["tipo_camera"]]
-                # Trova la prima cella libera in base alle date di arrivo e partenza
-                for numero_camera, prenotazioni in prenotazioni_camera[0].items():
-                    cella_disponibile = True
-                    for prenotazione in prenotazioni:
-                        if prenotazione["arrivo"] == "" and prenotazione["partenza"] == "":
-                            continue  # La cella è libera, continua con la prossima camera
-                        elif (current_prenotazione["arrivo"] >= prenotazione["partenza"] or
-                            current_prenotazione["partenza"] <= prenotazione["arrivo"]):
-                            continue  # Le date della prenotazione non si sovrappongono, continua con la prossima camera
-                        else:
-                            cella_disponibile = False
-                            break  # La cella è occupata, esci dal ciclo
-                    if cella_disponibile:
-                        id_prenotazione = uuid.uuid4()
-                        # Aggiorna le date di arrivo e partenza
-                        prenotazioni.append({
-                            "arrivo": current_prenotazione["arrivo"],
-                            "partenza": current_prenotazione["partenza"],
-                            "tipo": current_prenotazione["tipo_camera"],
-                            "id_prenotazione": str(id_prenotazione)
-                        })
-                        
-                        print(f"Prenotazione inserita nella camera {current_prenotazione['tipo_camera']} {numero_camera}")
-                        prenotazione_utente = {
-                            "arrivo": current_prenotazione["arrivo"],
-                            "partenza": current_prenotazione["partenza"],
-                            "tipo": current_prenotazione["tipo_camera"],
-                            "id_prenotazione": str(id_prenotazione)
-                        }
+            # Trova l'utente corrispondente
+            user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
 
-                        user_data["prenotazioni"].append(prenotazione_utente)
-                        camera_disponibile = True
-                        break  # Esci dal ciclo delle camere
-                else:
-                    continue  # Prova con la prossima camera
-                break  # Esci dal ciclo delle camere
+            if user_data is None:
+                print(user_data, username)
+                print("Utente non trovato.")
+                return
 
-        # Se nessuna camera è disponibile, mostra un messaggio
-        if not camera_disponibile:
-            print("Non ci sono camere disponibili per la prenotazione.")
-            return
+            # Aggiungi il nome e il cognome alla prenotazione
+            current_prenotazione["id_utente"] = user_data.get("id_utente", "")
+            current_prenotazione["nome"] = user_data.get("nome", "")
+            current_prenotazione["cognome"] = user_data.get("cognome", "")
+            current_prenotazione["username"] = user_data.get("username", "")
 
-        # Sovrascrivi il file data.json con i dati aggiornati
-        write_data = multiplatform_open_write_data_json(data_json)
-        
-        print("Dati della prenotazione aggiornati con successo.")
+            print(current_prenotazione)
+
+            tipo_camera = current_prenotazione["tipo_camera"]
+            if (tipo_camera == "Camera Singola"):
+                numero_ospiti = 1
+            elif (tipo_camera == "Camera Doppia"):
+                numero_ospiti = 2
+            elif (tipo_camera == "Camera Tripla"):
+                numero_ospiti = 3
+            elif (tipo_camera == "Camera Quadrupla"):
+                numero_ospiti = 4
+            else:
+                numero_ospiti = None
+
+            # Trova la camera corrispondente alla prenotazione
+            camera_disponibile = False
+            for camera in data_json[1]["camere"]:
+                if current_prenotazione["tipo_camera"] in camera:
+                    prenotazioni_camera = camera[current_prenotazione["tipo_camera"]]
+                    # Trova la prima cella libera in base alle date di arrivo e partenza
+                    for numero_camera, prenotazioni in prenotazioni_camera[0].items():
+                        cella_disponibile = True
+                        for prenotazione in prenotazioni:
+                            if prenotazione["arrivo"] == "" and prenotazione["partenza"] == "":
+                                continue  # La cella è libera, continua con la prossima camera
+                            else:
+                                arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
+                                partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
+                                arrivo_corrente = datetime.strptime(current_prenotazione["arrivo"], "%d-%m-%Y")
+                                partenza_corrente = datetime.strptime(current_prenotazione["partenza"], "%d-%m-%Y")
+                                if not (
+                                        arrivo_corrente >= partenza_prenotazione or partenza_corrente <= arrivo_prenotazione):
+                                    cella_disponibile = False
+                                    break  # La cella è occupata, esci dal ciclo
+                        if cella_disponibile:
+                            id_prenotazione = uuid.uuid4()
+                            # Aggiorna le date di arrivo e partenza
+                            prenotazioni.append({
+                                "arrivo": current_prenotazione["arrivo"],
+                                "partenza": current_prenotazione["partenza"],
+                                "tipo": current_prenotazione["tipo_camera"],
+                                "id_prenotazione": str(id_prenotazione)
+                            })
+
+                            print(
+                                f"Prenotazione inserita nella camera {current_prenotazione['tipo_camera']} {numero_camera}")
+                            prenotazione_utente = {
+                                "arrivo": current_prenotazione["arrivo"],
+                                "partenza": current_prenotazione["partenza"],
+                                "tipo": current_prenotazione["tipo_camera"],
+                                "id_prenotazione": str(id_prenotazione)
+                            }
+
+                            user_data["prenotazioni"].append(prenotazione_utente)
+                            camera_disponibile = True
+                            break  # Esci dal ciclo delle camere
+                    if camera_disponibile:
+                        break  # Esci dal ciclo delle categorie di camere
+
+            # Se nessuna camera è disponibile, mostra un messaggio
+            if not camera_disponibile:
+                print("Non ci sono camere disponibili per la prenotazione.")
+                return
+
+            # Sovrascrivi il file data.json con i dati aggiornati
+            write_data = multiplatform_open_write_data_json(data_json)
+
+            print("Dati della prenotazione aggiornati con successo.")
+
+        except KeyError as e:
+            print(f"Errore: chiave mancante {e}")
+        except Exception as e:
+            print(f"Errore durante l'aggiornamento di data.json: {e}")
 
 
 
