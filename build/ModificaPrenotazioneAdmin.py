@@ -19,7 +19,54 @@ class ModificaPrenotazioneAdmin:
 
         self.arrival_calendar = None
         self.departure_calendar = None
-                            
+
+        data = multiplatform_open_read_data_json()
+
+        with open("current_entry_prenotazione.json", "r") as prenotazione_json:
+            current_prenotazione = json.load(prenotazione_json)
+            print(current_prenotazione)
+
+        self.arrivo = ""
+        self.partenza = ""
+        self.tipo_camera = ""
+
+        pattern = r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
+
+        match = re.search(pattern, current_prenotazione)
+        if match:
+            self.arrivo = match.group(1)
+            self.partenza = match.group(2)
+            self.tipo_camera = match.group(3)
+            print(self.arrivo, self.partenza, self.tipo_camera)
+            i = 0
+            if data:
+                for user in data[0]["users"]:
+                    admin = False
+                    if (user["role"] == "admin"):
+                        admin = True
+                        prenotazioni = user.get('prenotazioni', [])
+                        for prenotazione in prenotazioni:
+                            print(user)
+                            arrivo_utente = prenotazione["arrivo"]
+                            partenza_utente = prenotazione["partenza"]
+                            tipo_camera = prenotazione["tipo_camera"]
+
+                            if (arrivo_utente == self.arrivo and partenza_utente == self.partenza and tipo_camera == self.tipo_camera):
+                                print("prenotazione trovata")
+                                nome = prenotazione["nome"]
+                                cognome = prenotazione["cognome"]
+                                cellulare = prenotazione["cellulare"]
+                                email = prenotazione["email"]          
+
+                        print("--------------------------------------")
+                    else:
+                        print(user)
+
+                    '''prenotazioni = user.get('prenotazioni', [])
+                    for prenotazione in prenotazioni:
+                        if prenotazione['arrivo'] == self.arrivo and prenotazione['partenza'] == self.partenza and prenotazione['tipo_camera'] == self.tipo_camera:
+                            print(prenotazione)'''
+                      
         self.canvas = Canvas(
             self.window,
             bg = "#FAFFFD",
@@ -107,7 +154,7 @@ class ModificaPrenotazioneAdmin:
         )
 
         self.combo_var = tk.StringVar()
-        self.combo_var.set("Camera Singola")
+        self.combo_var.set(self.tipo_camera)
         self.combo = ttk.Combobox(
             self.canvas,
             textvariable=self.combo_var,
@@ -121,7 +168,7 @@ class ModificaPrenotazioneAdmin:
         
         self.arrival_button = Button(
             self.canvas,
-            text="Seleziona data di arrivo",
+            text=self.arrivo,
             command=lambda: self.open_arrival_calendar(),
             bg="#FAFFFD",
             fg="#000716",
@@ -134,7 +181,7 @@ class ModificaPrenotazioneAdmin:
 
         self.departure_button = Button(
             self.canvas,
-            text="Seleziona data di partenza",
+            text=self.partenza,
             command=lambda: self.open_departure_calendar(),
             bg="#FAFFFD",
             fg="#000716",
@@ -235,53 +282,12 @@ class ModificaPrenotazioneAdmin:
 
         self.window.resizable(False, False)
 
+        if admin:
+            self.entry_1.insert(0, nome)
+            self.entry_2.insert(0, cognome)
+            self.entry_3.insert(0, email)
+            self.entry_7.insert(0, cellulare)
 
-        data = multiplatform_open_read_data_json()
-
-        with open("current_entry_prenotazione.json", "r") as prenotazione_json:
-            current_prenotazione = json.load(prenotazione_json)
-            print(current_prenotazione)
-
-        self.arrivo = ""
-        self.partenza = ""
-        self.tipo_camera = ""
-
-        pattern = r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
-
-        match = re.search(pattern, current_prenotazione)
-        if match:
-            self.arrivo = match.group(1)
-            self.partenza = match.group(2)
-            self.tipo_camera = match.group(3)
-            print(self.arrivo, self.partenza, self.tipo_camera)
-            i = 0
-            if data:
-                for user in data[0]["users"]:
-                    if (user["role"] == "admin"):
-                        prenotazioni = user.get('prenotazioni', [])
-                        for prenotazione in prenotazioni:
-                            print(user)
-                            arrivo_utente = prenotazione["arrivo"]
-                            partenza_utente = prenotazione["partenza"]
-                            tipo_camera = prenotazione["tipo_camera"]
-
-                            if (
-                                    arrivo_utente == self.arrivo and partenza_utente == self.partenza and tipo_camera == self.tipo_camera):
-                                print("prenotazione trovata")
-                                nome = prenotazione["nome"]
-                                cognome = prenotazione["cognome"]
-                                cellulare = prenotazione["cellulare"]
-                                email = prenotazione["email"]
-                                self.entry_1.insert(0, nome)
-
-                        print("--------------------------------------")
-                    else:
-                        print(user)
-
-                    '''prenotazioni = user.get('prenotazioni', [])
-                    for prenotazione in prenotazioni:
-                        if prenotazione['arrivo'] == self.arrivo and prenotazione['partenza'] == self.partenza and prenotazione['tipo_camera'] == self.tipo_camera:
-                            print(prenotazione)'''
 
     def open_arrival_calendar(self):
         if platform.system() == "Darwin":
