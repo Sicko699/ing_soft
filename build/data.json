@@ -1,22 +1,12 @@
 [
     {
         "users": [
-            {
+            {   
+                "id_gestore": "a7f82b07-cca6-4da1-9d7e-9b9d518f169c",
                 "username": "admin",
                 "password": "admin123",
                 "role": "admin",
-                "prenotazioni": [
-                    {
-                        "nome": "ciao",
-                        "cognome": "ciao",
-                        "cellulare": "432",
-                        "email": "ciao",
-                        "tipo_camera": "Camera Singola",
-                        "arrivo": "29-06-2024",
-                        "partenza": "30-06-2024",
-                        "id_prenotazione": "86dc46d8-ba47-4c2b-b30c-322d46ea8376"
-                    }
-                ]
+                "prenotazioni": []
             },
             {
                 "id_utente": "c7070c04-4461-4a31-8ecb-aea8b89fbc5f",
@@ -27,14 +17,7 @@
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": [
-                    {
-                        "arrivo": "29-06-2024",
-                        "partenza": "30-06-2024",
-                        "tipo_camera": "Camera Singola",
-                        "id_prenotazione": "7c3a9edc-d1ca-49fa-b9b6-b126791d6b5a"
-                    }
-                ]
+                "prenotazioni": []
             }
         ]
     },
@@ -49,12 +32,6 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
-                            },
-                            {
-                                "arrivo": "29-06-2024",
-                                "partenza": "30-06-2024",
-                                "tipo_camera": "Camera Singola",
-                                "id_prenotazione": "7c3a9edc-d1ca-49fa-b9b6-b126791d6b5a"
                             }
                         ],
                         "102": [

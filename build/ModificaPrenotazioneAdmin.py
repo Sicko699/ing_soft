@@ -256,16 +256,11 @@ class ModificaPrenotazioneAdmin:
 
         self.window.resizable(False, False)
 
-        '''if admin:
-            '''
         if data:
             for user in data[0]["users"]:
-                admin = False
                 if (user["role"] == "admin"):
-                    admin = True
                     prenotazioni = user.get('prenotazioni', [])
                     for prenotazione in prenotazioni:
-                        print(user)
                         arrivo_utente = prenotazione["arrivo"]
                         partenza_utente = prenotazione["partenza"]
                         tipo_camera = prenotazione["tipo_camera"]
@@ -281,15 +276,25 @@ class ModificaPrenotazioneAdmin:
                             self.entry_2.insert(0, cognome)
                             self.entry_3.insert(0, email)
                             self.entry_7.insert(0, cellulare)
+                    break
+                elif(user["role"] == "utente"):
+                    prenotazioni = user.get('prenotazioni', [])
+                    for prenotazione in prenotazioni:
+                        arrivo_utente = prenotazione["arrivo"]
+                        partenza_utente = prenotazione["partenza"]
+                        tipo_camera = prenotazione ["tipo_camera"]
 
-                    print("--------------------------------------")
-                else:
-                    print(user)
+                        if(arrivo_utente == self.arrivo and partenza_utente == self.partenza and tipo_camera == self.tipo_camera):
+                            print("prenotazione trovata")
+                            nome = user["nome"]
+                            cognome = user["cognome"]
+                            cellulare = user["telefono"]
+                            email = user["email"]
 
-                '''prenotazioni = user.get('prenotazioni', [])
-                for prenotazione in prenotazioni:
-                    if prenotazione['arrivo'] == self.arrivo and prenotazione['partenza'] == self.partenza and prenotazione['tipo_camera'] == self.tipo_camera:
-                        print(prenotazione)'''
+                            self.entry_1.insert(0, nome)
+                            self.entry_2.insert(0, cognome)
+                            self.entry_3.insert(0, email)
+                            self.entry_7.insert(0, cellulare)
 
     def open_arrival_calendar(self):
         if platform.system() == "Darwin":
@@ -456,7 +461,7 @@ class ModificaPrenotazioneAdmin:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.check_availability(), self.update_data_json(), go_front_office_button(self.window)),
+            command=lambda: (self.check_availability(), self.modifica_prenotazione(), go_front_office_button(self.window)),
             relief="flat"
         )
         self.button_9.place(
@@ -507,8 +512,8 @@ class ModificaPrenotazioneAdmin:
                                 "cellulare": self.entry_7.get(),
                                 "email": self.entry_3.get(),
                                 "tipo_camera": self.combo_var.get(),
-                                "check-in": self.arrival_button.cget("text"),
-                                "check-out": self.departure_button.cget("text"),
+                                "arrivo": self.arrival_button.cget("text"),
+                                "partenza": self.departure_button.cget("text"),
                                 "id_prenotazione": str(uuid.uuid4())
                             }
                             for user in data[0]["users"]:
@@ -531,42 +536,94 @@ class ModificaPrenotazioneAdmin:
         if not camera_trovata:
             print("Nessuna camera disponibile nell'intervallo selezionato")
 
-    def update_data_json(self):
-        try:
-            with open("current_prenotazione_admin.json", "r") as file:
-                current_prenotazione = json.load(file)
-            print("current_prenotazione letto con successo:", current_prenotazione)
+    def modifica_prenotazione(self):
+        data = multiplatform_open_read_data_json()
 
-            # Example of updating data.json
-            with open("data.json", "r") as file:
-                data = json.load(file)
+        with open("current_entry_prenotazione.json", "r") as prenotazione_json:
+            current_entry_admin = json.load(prenotazione_json)
 
-            tipo_camera = current_prenotazione["tipo_camera"]
-            for categoria_camera in data[1]['camere']:
-                if tipo_camera in categoria_camera:
-                    for camera in categoria_camera[tipo_camera]:
-                        for numero_camera, prenotazioni in camera.items():
-                            camera_disponibile = True
-                            for prenotazione in prenotazioni:
-                                if prenotazione["arrivo"] and prenotazione["partenza"]:
-                                    arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
-                                    partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
-                                    if not (datetime.strptime(current_prenotazione["arrivo"], "%d-%m-%Y") >= partenza_prenotazione or datetime.strptime(current_prenotazione["partenza"], "%d-%m-%Y") <= arrivo_prenotazione):
+        pattern = r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
+
+        match = re.search(pattern, current_entry_admin)
+        if match:
+            arrivo = match.group(1)
+            partenza = match.group(2)
+            tipo_camera = match.group(3)
+        
+        if data:
+            for user in data[0]['users']:
+                prenotazioni = user.get('prenotazioni', [])
+                for prenotazione in prenotazioni:
+                    if prenotazione['arrivo'] == self.arrivo and prenotazione['partenza'] == self.partenza and prenotazione['tipo_camera'] == self.tipo_camera:
+                        prenotazione['arrivo'] = self.arrival_button.cget("text")
+                        prenotazione['partenza'] = self.departure_button.cget("text")
+                        prenotazione['tipo_camera'] = self.combo_var.get()
+                        print("Prenotazione aggiornata:", prenotazione)
+
+                        prenotazioni.remove(prenotazione)
+
+                    with open("data.json", "w") as file:
+                        json.dump(data, file, indent=4)
+                    
+            for categoria_camera in data[1]["camere"]:
+                for tipo, camere, in categoria_camera.items():
+                    if tipo == tipo_camera:
+                        for camera in camere:
+                            for numero_camera, dettagli in camera.items():
+                                for dettaglio in dettagli:
+                                    if dettaglio['arrivo'] == self.arrivo and dettaglio['partenza'] == self.partenza and dettaglio["tipo_camera"] == self.tipo_camera:
+                                        dettaglio['arrivo'] = self.arrival_button.cget("text")
+                                        dettaglio['partenza'] = self.departure_button.cget("text")
+                                        dettaglio['tipo_camera'] = self.combo_var.get()
+
+                                        dettagli.remove(dettaglio)
+
+                                        if dettaglio['tipo_camera'] == "Camera Singola":
+                                            numero_ospiti = 1
+                                        elif dettaglio['tipo_camera'] == "Camera Doppia":
+                                            numero_ospiti = 2
+                                        elif dettaglio['tipo_camera'] == "Camera Tripla":
+                                            numero_ospiti = 3
+                                        elif dettaglio['tipo_camera'] == "Camera Quadrupla":
+                                            numero_ospiti = 4
+                                        else:
+                                            numero_ospiti = None
+
                                         camera_disponibile = False
-                                        break
-                            if camera_disponibile:
-                                prenotazioni.append(current_prenotazione)
-                                break
+                                        for camera_tipo in data[1]["camere"]:
+                                            if dettaglio["tipo_camera"] in camera_tipo:
+                                                prenotazioni_camera = camera_tipo[dettaglio["tipo_camera"]]
+                                                for numero_camera, prenotazioni in prenotazioni_camera[0].items():
+                                                    cella_disponibile = True
+                                                    for prenotazione in prenotazioni:
+                                                        if prenotazione["arrivo"] == "" and prenotazione[
+                                                            "partenza"] == "":
+                                                            continue  # La cella è libera, continua con la prossima camera
+                                                        elif (datetime.strptime(dettaglio["arrivo"],
+                                                                                "%d-%m-%Y") >= datetime.strptime(
+                                                                prenotazione["partenza"], "%d-%m-%Y") or
+                                                              datetime.strptime(dettaglio["partenza"],
+                                                                                "%d-%m-%Y") <= datetime.strptime(
+                                                                    prenotazione["arrivo"], "%d-%m-%Y")):
+                                                            continue  # Le date della prenotazione non si sovrappongono, continua con la prossima camera
+                                                        else:
+                                                            cella_disponibile = False
+                                                            break  # La cella è occupata, esci dal ciclo
+                                                    if cella_disponibile:
+                                                        prenotazioni.append({
+                                                            "arrivo": dettaglio["arrivo"],
+                                                            "partenza": dettaglio["partenza"],
+                                                            "tipo_camera": dettaglio["tipo_camera"],
+                                                            "id_prenotazione": dettaglio['id_prenotazione']
+                                                        })
+                                                        break  # Esce dal ciclo delle camere disponibili
 
-            with open("data.json", "w") as file:
-                json.dump(data, file, indent=4)  # Add indent=4 for pretty-printing
-            print("data.json aggiornato con successo")
+                                        # Salva le modifiche nel file JSON
+                                        with open("data.json", "w") as file:
+                                            json.dump(data, file, indent=4)
+                                        return  # Esce dal ciclo delle camere disponibili
 
-        except KeyError as e:
-            print(f"Errore: chiave mancante {e}")
-        except Exception as e:
-            print(f"Errore durante l'aggiornamento di data.json: {e}")
-
+            print("Nessuna corrispondenza trovata per aggiornare le prenotazioni delle camere.")
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()

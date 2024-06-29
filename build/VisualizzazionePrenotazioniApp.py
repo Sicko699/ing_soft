@@ -363,7 +363,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_9,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(0)),
+            command=lambda: (self.save_entry(0), go_modifica_prenotazioni_admin(self.window)),
             relief="flat"
         )
         self.button_9.place(
@@ -378,7 +378,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_10,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(3)),
+            command=lambda: (self.save_entry(3), go_modifica_prenotazioni_admin(self.window)),
             relief="flat"
         )
         self.button_10.place(
@@ -393,7 +393,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_11,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(2)),
+            command=lambda: (self.save_entry(2), go_modifica_prenotazioni_admin(self.window)),
             relief="flat"
         )
         self.button_11.place(
@@ -408,7 +408,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_12,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(1)),
+            command=lambda: (self.save_entry(1), go_modifica_prenotazioni_admin(self.window)),
             relief="flat"
         )
         self.button_12.place(
@@ -423,7 +423,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_13,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(4)),
+            command=lambda: (self.save_entry(4), go_modifica_prenotazioni_admin(self.window)),
             relief="flat"
         )
         self.button_13.place(
@@ -438,7 +438,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_14,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(5)),
+            command=lambda: (self.save_entry(5), go_modifica_prenotazioni_admin(self.window)),
             relief="flat"
         )
         self.button_14.place(
@@ -453,7 +453,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_15,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(7)),
+            command=lambda: (self.save_entry(7), go_modifica_prenotazioni_admin(self.window)),
             relief="flat"
         )
         self.button_15.place(
@@ -468,7 +468,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_16,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(6)),
+            command=lambda: (self.save_entry(6), go_modifica_prenotazioni_admin(self.window)),
             relief="flat"
         )
         self.button_16.place(
@@ -657,6 +657,15 @@ def centrare_finestra(window):
     x = (schermo_larghezza - larghezza_finestra) // 2
     y = (schermo_altezza - altezza_finestra) // 2
     window.geometry('{}x{}+{}+{}'.format(larghezza_finestra, altezza_finestra, x, y))
+
+def go_modifica_prenotazioni_admin(window):
+    from ModificaPrenotazioneAdmin import ModificaPrenotazioneAdmin
+    window.destroy()
+    root = Tk()
+    root.title("Modifica Prenotazioni Admin")
+    app = ModificaPrenotazioneAdmin(root)
+    centrare_finestra(root)
+    root.mainloop()
 
 if __name__ == "__main__":
     root = Tk()
