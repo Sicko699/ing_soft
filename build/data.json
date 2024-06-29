@@ -25,42 +25,210 @@
             {
                 "Camera Singola": [
                     {
-                        "101": [],
-                        "102": [],
-                        "103": [],
-                        "104": [],
-                        "105": [],
-                        "106": []
+                        "101": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "102": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "103": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "104": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "105": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "106": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ]
                     }
                 ],
                 "Camera Doppia": [
                     {
-                        "201": [],
-                        "202": [],
-                        "203": [],
-                        "204": [],
-                        "205": [],
-                        "206": []
+                        "201": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "202": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "203": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "204": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "205": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "206": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ]
                     }
                 ],
                 "Camera Tripla": [
                     {
-                        "301": [],
-                        "302": [],
-                        "303": [],
-                        "304": [],
-                        "305": [],
-                        "306": []
+                        "301": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "302": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "303": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "304": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "305": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "306": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ]
                     }
                 ],
                 "Camera Quadrupla": [
                     {
-                        "401": [],
-                        "402": [],
-                        "403": [],
-                        "404": [],
-                        "405": [],
-                        "406": []
+                        "401": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "402": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "403": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "404": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "405": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ],
+                        "406": [
+                            {
+                                "arrivo": "",
+                                "partenza": "",
+                                "tipo_camera": "",
+                                "id_prenotazione": ""
+                            }
+                        ]
                     }
                 ]
             }
