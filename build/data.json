@@ -5,18 +5,7 @@
                 "username": "admin",
                 "password": "admin123",
                 "role": "admin",
-                "prenotazioni": [
-                    {
-                        "nome": "suca",
-                        "cognome": "suca",
-                        "cellulare": "432",
-                        "email": "suc432432432",
-                        "tipo_camera": "Camera Doppia",
-                        "check-in": "28-06-2024",
-                        "check-out": "05-07-2024",
-                        "id_prenotazione": "2551cce6-cfe6-4d02-a5ed-a80064a4eb5d"
-                    }
-                ]
+                "prenotazioni": []
             },
             {
                 "id_utente": "c7070c04-4461-4a31-8ecb-aea8b89fbc5f",
@@ -46,30 +35,9 @@
                 ],
                 "Camera Doppia": [
                     {
-                        "201": [
-                            {
-                                "arrivo": "28-06-2024",
-                                "partenza": "01-07-2024",
-                                "tipo_camera": "Camera Doppia",
-                                "id_prenotazione": "2f73d72f-96c3-4946-87b8-000834002f2f"
-                            }
-                        ],
-                        "202": [
-                            {
-                                "arrivo": "28-06-2024",
-                                "partenza": "30-06-2024",
-                                "tipo_camera": "Camera Doppia",
-                                "id_prenotazione": "f5fb15c9-83f9-46d3-a037-74d566842e91"
-                            }
-                        ],
-                        "203": [
-                            {
-                                "arrivo": "28-06-2024",
-                                "partenza": "05-07-2024",
-                                "tipo_camera": "Camera Doppia",
-                                "id_prenotazione": "1ff64c4b-d1e3-4c98-ad11-497efce62893"
-                            }
-                        ],
+                        "201": [],
+                        "202": [],
+                        "203": [],
                         "204": [],
                         "205": [],
                         "206": []

@@ -50,6 +50,7 @@ class MostraPrenotazioneApp:
         
 
         prezzo_totale = numero_giorni * prezzo
+        print(numero_giorni, prezzo, prezzo_totale)
         
         if(tipo_camera == "Camera Singola"):
             numero_ospiti = 1
