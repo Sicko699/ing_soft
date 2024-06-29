@@ -230,7 +230,7 @@ class VisualizzazionePrenotazioni:
                         numero_prenotazioni +=1
                         
                         if numero_prenotazioni <= 7:
-                            entry_value = f"Arrivo: {arrivo}, Partenza: {partenza}"
+                            entry_value = f"{arrivo}, {partenza}, {tipo_camera}"
                             entry = Entry(
                                 bd=0,
                                 bg="#EAEEEC",

@@ -1,10 +1,10 @@
 from pathlib import Path
 import uuid
-import os, platform, json
+import os, platform, json, re
 from tkcalendar import Calendar
 from datetime import datetime
 from tkinter import Tk, ttk, Canvas, Entry, Text, Button, PhotoImage
-from main import centrare_finestra, exit_button, go_home_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
+from main import multiplatform_open_read_data_json, centrare_finestra, exit_button, go_home_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
 import tkinter as tk
 
 abs = os.getcwd()
@@ -17,6 +17,33 @@ class ModificaPrenotazioneAdmin:
         self.window.geometry("862x519")
         self.window.configure(bg = "#FAFFFD")
 
+        self.arrival_calendar = None
+        self.departure_calendar = None
+
+        data = multiplatform_open_read_data_json()
+
+        with open("current_entry_prenotazione.json", "r") as prenotazione_json:
+            current_prenotazione = json.load(prenotazione_json)
+            print(current_prenotazione)
+
+        self.arrivo = ""
+        self.partenza = ""
+        self.tipo_camera = ""
+
+        pattern =  r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
+
+        match = re.search(pattern, current_prenotazione)
+        if match:
+            self.arrivo = match.group(1)
+            self.partenza = match.group(2)
+            self.tipo_camera = match.group(3)
+            if data:
+                for user in data[0]['users']:
+                    prenotazioni = user.get('prenotazioni', [])
+                    for prenotazione in prenotazioni:
+                        if prenotazione['arrivo'] == self.arrivo and prenotazione['partenza'] == self.partenza and prenotazione['tipo'] == self.tipo_camera:
+                            print(prenotazione)
+                            
         self.canvas = Canvas(
             self.window,
             bg = "#FAFFFD",

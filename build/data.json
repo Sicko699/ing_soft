@@ -5,7 +5,18 @@
                 "username": "admin",
                 "password": "admin123",
                 "role": "admin",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "nome": "Francesco",
+                        "cognome": "Sapo",
+                        "cellulare": "271682",
+                        "email": "sapo@outl",
+                        "tipo_camera": "Camera Tripla",
+                        "check-in": "29-06-2024",
+                        "check-out": "04-07-2024",
+                        "id_prenotazione": "db7cc4af-ec31-4b94-86ef-626467163d70"
+                    }
+                ]
             },
             {
                 "id_utente": "c7070c04-4461-4a31-8ecb-aea8b89fbc5f",
@@ -184,6 +195,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "29-06-2024",
+                                "partenza": "04-07-2024",
+                                "tipo_camera": "Camera Tripla",
+                                "id_prenotazione": "5dcc4786-07c6-4cc2-a2fe-618d981b299b"
                             }
                         ],
                         "302": [
