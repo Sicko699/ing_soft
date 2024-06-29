@@ -448,8 +448,8 @@ class InserimentoPrenotazione:
                                 "cellulare": self.entry_7.get(),
                                 "email": self.entry_3.get(),
                                 "tipo_camera": self.combo_var.get(),
-                                "check-in": self.arrival_button.cget("text"),
-                                "check-out": self.departure_button.cget("text"),
+                                "arrivo": self.arrival_button.cget("text"),
+                                "partenza": self.departure_button.cget("text"),
                                 "id_prenotazione": str(uuid.uuid4())
                             }
                             for user in data[0]["users"]:

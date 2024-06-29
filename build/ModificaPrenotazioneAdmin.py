@@ -30,7 +30,7 @@ class ModificaPrenotazioneAdmin:
         self.partenza = ""
         self.tipo_camera = ""
 
-        pattern =  r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
+        pattern = r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
 
         match = re.search(pattern, current_prenotazione)
         if match:
