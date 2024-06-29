@@ -91,6 +91,13 @@
                 "data": "26-06-2024",
                 "spedizione": "27-06-2024",
                 "consegna": "29-06-2024"
+            },
+            {
+                "nome_articolo": "Asciugamani",
+                "quantita": "211",
+                "data": "29-06-2024",
+                "spedizione": "30-06-2024",
+                "consegna": "02-07-2024"
             }
         ],
         "servizi": [],

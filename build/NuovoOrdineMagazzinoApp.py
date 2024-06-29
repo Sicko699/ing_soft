@@ -1,32 +1,30 @@
 from pathlib import Path
-import os, platform, json
-from datetime import datetime, timedelta
-from tkinter import ttk, Tk, Canvas, Entry, Text, Button, PhotoImage
+import os
 import tkinter as tk
-from main import centrare_finestra, multiplatform_open_write_data_json, multiplatform_open_read_data_json, exit_button, go_gestione_spa, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_home_button
+from tkinter import ttk, Tk, Canvas, Entry, Button, PhotoImage
+from datetime import datetime, timedelta
+from main import centrare_finestra, exit_button, go_gestione_spa, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_home_button
+from Magazzino import Magazzino  # Importa la classe Magazzino dal modulo magazzino
 
 abs_path = os.getcwd()
-
 ASSETS_PATH = abs_path + "/assets/frame13"
 
 class NuovoOrdineMagazzino:
-    def __init__(self,window):
+    def __init__(self, window):
         self.window = window
         self.window.geometry("862x519")
-        self.window.configure(bg = "#FAFFFD")
-        
+        self.window.configure(bg="#FAFFFD")
 
         self.canvas = Canvas(
             self.window,
-            bg = "#FAFFFD",
-            height = 519,
-            width = 862,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
+            bg="#FAFFFD",
+            height=519,
+            width=862,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
         )
-
-        self.canvas.place(x = 0, y = 0)
+        self.canvas.place(x=0, y=0)
         self.canvas.create_rectangle(
             0.0,
             0.0,
@@ -35,7 +33,7 @@ class NuovoOrdineMagazzino:
             fill="#3E97F1",
             outline=""
         )
-        
+
         self.combo_var = tk.StringVar()
         self.combo_var.set("")
         self.combo = ttk.Combobox(
@@ -102,7 +100,6 @@ class NuovoOrdineMagazzino:
         self.create_buttons()
 
         self.window.resizable(False, False)
-        
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -225,14 +222,12 @@ class NuovoOrdineMagazzino:
             height=49.16864776611328
         )
 
-    def relative_to_assets(self,path: str) -> Path:
+    def relative_to_assets(self, path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
-    
+
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-        
         assets_path = abs_path + "/assets/frame13"
-
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 
     def invia_ordine(self):
@@ -252,23 +247,12 @@ class NuovoOrdineMagazzino:
             "consegna": data_consegna.strftime("%d-%m-%Y")
         }
 
-        # Stampa dell'ordine per il controllo
-        print("Ordine da aggiungere:", ordine)
+        # Aggiungi l'ordine al magazzino utilizzando la classe Magazzino
+        if Magazzino.aggiungi_ordine(ordine):
+            print("Ordine aggiunto con successo.")
+        else:
+            print("Si è verificato un errore durante l'aggiunta dell'ordine.")
 
-        # Tentativo di leggere e aggiornare il file JSON
-        try:
-            data = multiplatform_open_read_data_json()
-            # Aggiungi l'ordine al magazzino
-            magazzino = data[3]["magazzino"]  # Assumendo che gli ordini magazzino siano nel quarto elemento di data
-            magazzino.append(ordine)
-
-            write_data = multiplatform_open_write_data_json(data)
-            
-            print("Ordine aggiunto con successo al file JSON.")
-        except Exception as e:
-            print("Si è verificato un errore durante l'aggiunta dell'ordine al file JSON:", e)
-
-            
 if __name__ == "__main__":
     root = Tk()
     root.title("Nuovo Ordine Magazzino")

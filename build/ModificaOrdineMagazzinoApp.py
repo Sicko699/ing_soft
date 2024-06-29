@@ -1,35 +1,35 @@
 from pathlib import Path
-import os, platform, json, re
+import os
+import re
+import tkinter as tk
+from tkinter import ttk, Tk, Canvas, Entry, Button, PhotoImage
 import tkinter.messagebox
 from datetime import datetime, timedelta
-from tkinter import ttk, Tk, Canvas, Entry, Text, Button, PhotoImage
-import tkinter as tk
-from main import centrare_finestra, multiplatform_open_write_data_json, multiplatform_open_read_data_json, exit_button, go_gestione_spa, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_home_button
+from main import centrare_finestra, exit_button, go_gestione_magazzino, go_home_button, go_front_office_button, \
+    go_back_office_button, go_gestione_servizi, multiplatform_open_read_data_json, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
-
 ASSETS_PATH = abs_path + "/assets/frame13"
 
+from Magazzino import Magazzino  # Importa la classe Magazzino
+
+
 class ModificaOrdineMagazzino:
-    def __init__(self,window):
+    def __init__(self, window):
         self.window = window
         self.window.geometry("862x519")
-        self.window.configure(bg = "#FAFFFD")
-        
-        self.nome_articolo = None
-        self.quantita = None
+        self.window.configure(bg="#FAFFFD")
 
         self.canvas = Canvas(
             self.window,
-            bg = "#FAFFFD",
-            height = 519,
-            width = 862,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
+            bg="#FAFFFD",
+            height=519,
+            width=862,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
         )
-
-        self.canvas.place(x = 0, y = 0)
+        self.canvas.place(x=0, y=0)
         self.canvas.create_rectangle(
             0.0,
             0.0,
@@ -38,13 +38,14 @@ class ModificaOrdineMagazzino:
             fill="#3E97F1",
             outline=""
         )
-        
+
         self.combo_var = tk.StringVar()
         self.combo_var.set("")
         self.combo = ttk.Combobox(
             self.canvas,
             textvariable=self.combo_var,
-            values=["Lenzuola", "Cuscini", "Materasso", "Topper", "Asciugamani", "Carta igienica", "Spazzolini", "Kit di benvenuto", "Detersivo", "Sapone"],
+            values=["Lenzuola", "Cuscini", "Materasso", "Topper", "Asciugamani", "Carta igienica", "Spazzolini",
+                    "Kit di benvenuto", "Detersivo", "Sapone"],
             state="readonly",
             width=20,
             height=5,
@@ -106,22 +107,16 @@ class ModificaOrdineMagazzino:
 
         self.window.resizable(False, False)
 
-        with open("current_entry_ordine.json", "r") as user_json:
-            current_entry = json.load(user_json)
-
-        #print(current_entry, "ciao")
-
-
+        current_entry = Magazzino.carica_ordine_corrente()
         pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
         match = re.search(pattern, current_entry)
-        nome_articolo = match.group(1)
-        quantita = match.group(2)
-        data_ordine_vecchio = match.group(3)
-        
-        print(nome_articolo, quantita, data_ordine_vecchio, "init")
+        if match:
+            nome_articolo_vecchio = match.group(1)
+            quantita_vecchia = match.group(2)
+            data_ordine_vecchio = match.group(3)
 
-        self.combo_var.set(nome_articolo)
-        self.entry_2.insert(0, quantita)
+            self.combo_var.set(nome_articolo_vecchio)
+            self.entry_2.insert(0, quantita_vecchia)
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -214,21 +209,6 @@ class ModificaOrdineMagazzino:
             height=45.0
         )
 
-        self.button_image_8 = PhotoImage(file=self.relative_to_assets("button_8.png"))
-        self.button_8 = Button(
-            image=self.button_image_8,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: go_gestione_spa(self.window),
-            relief="flat"
-        )
-        self.button_8.place(
-            x=24.0,
-            y=338.0,
-            width=162.0,
-            height=45.0
-        )
-
         self.button_image_9 = PhotoImage(file=self.relative_to_assets("button_9.png"))
         self.button_9 = Button(
             image=self.button_image_9,
@@ -244,120 +224,34 @@ class ModificaOrdineMagazzino:
             height=49.16864776611328
         )
 
-    '''
     def save_changes(self):
-        with open("data.json", "r") as user_file:
-            data = json.load(user_file)
-
-        with open("current_entry_ordine.json", "r") as user_json:
-            current_entry = json.load(user_json)
-        
-        print("current entry", current_entry)
+        current_entry = Magazzino.carica_ordine_corrente()
 
         pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
         match = re.search(pattern, current_entry)
-
         if match:
             nome_articolo_vecchio = match.group(1)
             quantita_vecchia = match.group(2)
-            data_ordine_vecchio = match.group(3)
-
-            print("suca", nome_articolo_vecchio, quantita_vecchia, data_ordine_vecchio)
+            data_consegna_vecchia = match.group(3)
 
             new_nome_articolo = self.combo_var.get()
-            new_quantita = self.entry_2.get()
-            new_data_ordine = datetime.now().date()
-            new_data_spedizione = new_data_ordine + timedelta(days=1)
-            new_data_consegna = new_data_ordine + timedelta(days=3)
+            new_quantita_articolo = self.entry_2.get()
 
-            #print(new_nome_articolo, new_quantita, new_data_ordine, new_data_spedizione, new_data_consegna)
+            if Magazzino.aggiorna_ordine(nome_articolo_vecchio, quantita_vecchia, data_consegna_vecchia,
+                                         new_nome_articolo, new_quantita_articolo):
+                tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
+                go_gestione_magazzino(self.window)
+            else:
+                tkinter.messagebox.showerror("Errore",
+                                             "Si è verificato un errore durante il salvataggio delle modifiche.")
 
-            nuova_prenotazione = {
-                "nome_articolo": new_nome_articolo,
-                "quantita": new_quantita,
-                "data": new_data_ordine.strftime("%d-%m-%Y"),
-                "spedizione": new_data_spedizione.strftime("%d-%m-%Y"),
-                "consegna": new_data_consegna.strftime("%d-%m-%Y")
-            }
-            data[-1]["magazzino"].append(nuova_prenotazione)
-            #print("Aggiunta nuova prenotazione!")
-            #print(data[-1]["magazzino"], "\n")
-    '''
-
-    def agg_giorni(self, date, days):
-        giorni = {
-            1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
-            7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31
-        }
-
-        def bisestile(year):
-            return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
-
-        if bisestile(date.year):
-            giorni[2] = 29
-
-        new_day = date.day + days
-        new_month = date.month
-        new_year = date.year
-
-        while new_day > giorni[new_month]:
-            new_day -= giorni[new_month]
-            new_month += 1
-            if new_month > 12:
-                new_month = 1
-                new_year += 1
-                if bisestile(new_year):
-                    giorni[2] = 29
-                else:
-                    giorni[2] = 28
-
-        return datetime(new_year, new_month, new_day)
-
-    def save_changes(self):
-        data = multiplatform_open_read_data_json()
-
-        with open("current_entry_ordine.json", "r") as user_json:
-            current_entry = json.load(user_json)
-
-        pattern = r'\s*([^,]+),\s*Quantit\u00e0:\s*([^,]+),\s*Arrivo:\s*([^,]+)'
-        match = re.search(pattern, current_entry)
-        nome_articolo_vecchio = match.group(1)
-        quantita_vecchia = match.group(2)
-        data_consegna_vecchia = match.group(3)
-
-        print(nome_articolo_vecchio, quantita_vecchia, data_consegna_vecchia)
-
-        new_nome_articolo = self.combo_var.get()
-        new_quantita_articolo = self.entry_2.get()
-        new_data_ordine = datetime.strptime("26-06-2024", "%d-%m-%Y")
-        new_data_spedizione = self.agg_giorni(new_data_ordine, 1)
-        new_data_consegna = self.agg_giorni(new_data_ordine, 3)
-
-        for ordine in data[-1]["magazzino"]:
-            if ordine["nome_articolo"] == nome_articolo_vecchio and ordine["quantita"] == quantita_vecchia and ordine["consegna"] == data_consegna_vecchia:
-                print("OK")
-
-                ordine["nome_articolo"] = new_nome_articolo
-                ordine["quantita"] = new_quantita_articolo
-                ordine["data"] = new_data_ordine.strftime("%d-%m-%Y")
-                ordine["spedizione"] = new_data_spedizione.strftime("%d-%m-%Y")
-                ordine["consegna"] = new_data_consegna.strftime("%d-%m-%Y")
-                break
-
-        multiplatform_open_write_data_json(data)
-        tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
-        go_gestione_magazzino(self.window)
-
-    def relative_to_assets(self,path: str) -> Path:
+    def relative_to_assets(self, path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
-    
-    def load_button_image(self, image_path):
-        abs_path = os.getcwd()
-        
-        assets_path = abs_path + "/assets/frame13"
 
-        return PhotoImage(file=Path(assets_path) / Path(image_path))
-            
+    def load_button_image(self, image_path):
+        return PhotoImage(file=self.relative_to_assets(image_path))
+
+
 if __name__ == "__main__":
     root = Tk()
     root.title("Modifica Ordine Magazzino")
