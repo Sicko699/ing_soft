@@ -30,11 +30,11 @@ def exit_button(window):
     root.mainloop()
 
 def go_home_button(window):
-    from MainApp import MainApp
+    from FrontOfficeApp import FrontOfficeApp
     window.destroy()
     root = Tk()
-    root.title("Main App")
-    app = MainApp(root)
+    root.title("Front Office")
+    app = FrontOfficeApp(root)
     centrare_finestra(root)
     root.mainloop()
 

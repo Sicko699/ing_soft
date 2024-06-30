@@ -1,5 +1,6 @@
 from pathlib import Path
 import os, platform, json, re
+import tkinter.messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button, multiplatform_open_read_data_json
 
@@ -483,7 +484,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_17,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_17 clicked"),
+            command=lambda: (self.save_entry(0), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_17.place(
@@ -498,7 +499,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_18,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_18 clicked"),
+            command=lambda: (self.save_entry(1), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_18.place(
@@ -513,7 +514,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_19,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_19 clicked"),
+            command=lambda: (self.save_entry(2), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_19.place(
@@ -528,7 +529,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_20,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_20 clicked"),
+            command=lambda: (self.save_entry(3), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_20.place(
@@ -543,7 +544,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_21,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_21 clicked"),
+            command=lambda: (self.save_entry(4), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_21.place(
@@ -558,7 +559,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_22,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_22 clicked"),
+            command=lambda: (self.save_entry(5), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_22.place(
@@ -573,7 +574,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_23,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_23 clicked"),
+            command=lambda: (self.save_entry(6), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_23.place(
@@ -588,7 +589,7 @@ class VisualizzazionePrenotazioni:
             image=self.button_image_24,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_24 clicked"),
+            command=lambda: (self.save_entry(7), self.elimina_prenotazione()),
             relief="flat"
         )
         self.button_24.place(
@@ -602,41 +603,40 @@ class VisualizzazionePrenotazioni:
         data = multiplatform_open_read_data_json()
 
         with open("current_entry_prenotazione.json", "r") as prenotazione_json:
-            current_prenotazione = json.load(prenotazione_json)
-            print(current_prenotazione)
-
-        self.arrivo = ""
-        self.partenza = ""
-        self.tipo_camera = ""
+            current_entry_admin = json.load(prenotazione_json)
 
         pattern = r'(\d{2}-\d{2}-\d{4}), (\d{2}-\d{2}-\d{4}), (.+)'
-        match = re.search(pattern, current_prenotazione)
+
+        match = re.search(pattern, current_entry_admin)
         if match:
-            self.arrivo = match.group(1)
-            self.partenza = match.group(2)
-            self.tipo_camera = match.group(3)
+            arrivo = match.group(1)
+            partenza = match.group(2)
+            tipo_camera = match.group(3)
 
-            if data:
-                for user in data[0]["users"]:
-                    if (user["role"] == "admin"):
-                        prenotazioni = user.get('prenotazioni', [])
-                        for prenotazione in prenotazioni:
-                            print(user)
-                            arrivo_utente = prenotazione["arrivo"]
-                            partenza_utente = prenotazione["partenza"]
-                            tipo_camera = prenotazione["tipo_camera"]
+        if data:
+            for user in data[0]['users']:
+                prenotazioni = user.get('prenotazioni', [])
+                for prenotazione in prenotazioni:
+                    if prenotazione['arrivo'] == arrivo and prenotazione['partenza'] == partenza and prenotazione['tipo_camera'] == tipo_camera:
+                        prenotazioni.remove(prenotazione)
 
-                            if (arrivo_utente == self.arrivo and partenza_utente == self.partenza and tipo_camera == self.tipo_camera):
+                    with open("data.json", "w") as file:
+                        json.dump(data, file, indent=4)
 
-                                print("--------------------------------------")
-                    else:
-                        prenotazioni = user.get('prenotazioni', [])
-                        for prenotazione in prenotazioni:
-                            print(user)
-                            arrivo_utente = prenotazione["arrivo"]
-                            partenza_utente = prenotazione["partenza"]
-                            tipo_camera = prenotazione["tipo_camera"]
+            for categoria_camera in data[1]['camere']:
+                for tipo, camere in categoria_camera.items():
+                    if tipo == tipo_camera:
+                        for camera in camere:
+                            for numero_camera, dettagli in camera.items():
+                                for dettaglio in dettagli:
+                                    if dettaglio['arrivo'] == arrivo and dettaglio['partenza'] == partenza and dettaglio['tipo_camera'] == tipo_camera:
+                                        dettagli.remove(dettaglio)
+                                    
+                                    with open("data.json", "w") as file:
+                                        json.dump(data, file, indent=4)
 
+            tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata!")
+            go_visualizzazione_prenotazioni(self.window)
 
     def relative_to_assets(self,path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
@@ -657,6 +657,15 @@ def centrare_finestra(window):
     x = (schermo_larghezza - larghezza_finestra) // 2
     y = (schermo_altezza - altezza_finestra) // 2
     window.geometry('{}x{}+{}+{}'.format(larghezza_finestra, altezza_finestra, x, y))
+
+def go_visualizzazione_prenotazioni(window):
+    from VisualizzazionePrenotazioniApp import VisualizzazionePrenotazioni
+    window.destroy()
+    root = Tk()
+    root.title("Visualizzazione Prenotazioni")
+    app = VisualizzazionePrenotazioni(root)
+    centrare_finestra(root)
+    root.mainloop()
 
 def go_modifica_prenotazioni_admin(window):
     from ModificaPrenotazioneAdmin import ModificaPrenotazioneAdmin
