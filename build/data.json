@@ -17,7 +17,20 @@
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "arrivo": "30-06-2024",
+                        "partenza": "04-07-2024",
+                        "tipo_camera": "Camera Doppia",
+                        "id_prenotazione": "9038cb3a-9620-4d04-b520-5d274bd2767b"
+                    },
+                    {
+                        "arrivo": "28-06-2024",
+                        "partenza": "07-07-2024",
+                        "tipo_camera": "Camera Quadrupla",
+                        "id_prenotazione": "0cae3d6e-8f8c-491d-930b-c140368828f5"
+                    }
+                ]
             }
         ]
     },
@@ -84,6 +97,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "30-06-2024",
+                                "partenza": "04-07-2024",
+                                "tipo_camera": "Camera Doppia",
+                                "id_prenotazione": "9038cb3a-9620-4d04-b520-5d274bd2767b"
                             }
                         ],
                         "202": [
@@ -188,6 +207,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "28-06-2024",
+                                "partenza": "07-07-2024",
+                                "tipo_camera": "Camera Quadrupla",
+                                "id_prenotazione": "0cae3d6e-8f8c-491d-930b-c140368828f5"
                             }
                         ],
                         "402": [
@@ -248,11 +273,6 @@
     {
         "magazzino": [],
         "servizi": [],
-        "spa": [
-            {
-                "nome_servizio": "Suca",
-                "numero_camera": "101"
-            }
-        ]
+        "spa": []
     }
 ]

@@ -3,7 +3,6 @@ from pathlib import Path
 import platform, json, os
 from tkinter import Tk, Canvas, Button, PhotoImage
 from datetime import datetime
-import tkinter.messagebox
 from main import go_cerca_camere, centrare_finestra, multiplatform_open_read_current_user, multiplatform_open_read_data_json, multiplatform_open_read_current_prenotazione, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
@@ -170,7 +169,7 @@ class MostraPrenotazioneApp:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command= self.update_data_json,  # Collega il bottone alla funzione di aggiornamento
+            command=self.update_data_json,  # Collega il bottone alla funzione di aggiornamento
             relief="flat"
         )
         self.button_2.place(
@@ -274,7 +273,6 @@ class MostraPrenotazioneApp:
                             camera_disponibile = True
                             break  # Esci dal ciclo delle camere
                     if camera_disponibile:
-                        tkinter.messagebox.showinfo("Avviso", "Prenotazione confermata!")
                         break  # Esci dal ciclo delle categorie di camere
 
             # Se nessuna camera è disponibile, mostra un messaggio
@@ -286,8 +284,6 @@ class MostraPrenotazioneApp:
             write_data = multiplatform_open_write_data_json(data_json)
 
             print("Dati della prenotazione aggiornati con successo.")
-            go_cerca_camere(self.window)
-
 
         except KeyError as e:
             print(f"Errore: chiave mancante {e}")

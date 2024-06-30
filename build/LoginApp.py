@@ -7,14 +7,16 @@ from pathlib import Path
 import json, tempfile
 import os
 import platform
-import faulthandler;
+import faulthandler
+import datetime
+import threading
+import shutil
 
 faulthandler.enable()
 import verify_login
 from main import go_front_office_button, go_home_button, go_cerca_camere, multiplatform_open_write_current_user
 
 abs_path = os.getcwd()
-
 ASSETS_PATH = abs_path + "/assets/frame3"
 
 
@@ -191,7 +193,36 @@ def go_registrazione(window):
     root.mainloop()
 
 
+def backup_data_json():
+    src_path = os.path.join(abs_path, 'data.json')
+    backup_dir = os.path.join(abs_path, 'backups')
+
+    if not os.path.exists(backup_dir):
+        os.makedirs(backup_dir)
+
+    backup_file_name = f"data_backup_{datetime.datetime.now().strftime('%Y%m%d')}.json"
+    backup_path = os.path.join(backup_dir, backup_file_name)
+
+    shutil.copy(src_path, backup_path)
+    print(f"Backup created at {backup_path}")
+
+
+def programma_backup():
+    now = datetime.datetime.now()
+    mezzanotte = (now + datetime.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+    secondi_mezzanotte = (mezzanotte - now).total_seconds()
+
+    threading.Timer(secondi_mezzanotte, run_backup).start()
+
+
+def run_backup():
+    backup_data_json()
+    programma_backup()
+
+
 if __name__ == "__main__":
+    programma_backup()
+
     root = Tk()
     root.title("Login")
     app = LoginApp(root)

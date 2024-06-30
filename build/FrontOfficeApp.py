@@ -13,7 +13,7 @@ class FrontOfficeApp:
         self.window = window
         self.window.geometry("862x519")
         self.window.configure(bg = "#FAFFFD")
-        
+
         # Inizializzazione delle variabili
         prenotazione_singola = 0
         prenotazione_doppia = 0
@@ -30,24 +30,40 @@ class FrontOfficeApp:
 
         # Ottenere la data odierna
         oggi = datetime.now().date()
-        oggi_date = oggi.strftime("%d-%m-%Y")
+
+        # Funzione per convertire stringhe di date in oggetti datetime
+        def str_to_date(date_str):
+            return datetime.strptime(date_str, "%d-%m-%Y").date()
 
         # Controllare le prenotazioni
         for camera in data[1].get('camere', []):
             for tipo, prenotazioni_camera in camera.items():
                 for numero_camera, prenotazioni in prenotazioni_camera[0].items():
                     for prenotazione in prenotazioni:
-                        if prenotazione["arrivo"] == "":
+                        arrivo = prenotazione.get("arrivo", "")
+                        partenza = prenotazione.get("partenza", "")
+                        if not arrivo or not partenza:
                             continue
-                        elif prenotazione["arrivo"] <= oggi_date and prenotazione["partenza"] >= oggi_date:
-                            if tipo == "Camera Singola":
-                                prenotazione_singola += 1
-                            elif tipo == "Camera Doppia":
-                                prenotazione_doppia += 1
-                            elif tipo == "Camera Tripla":
-                                prenotazione_tripla += 1
-                            elif tipo == "Camera Quadrupla":
-                                prenotazione_quadrupla += 1
+                        try:
+                            arrivo_date = str_to_date(arrivo)
+                            partenza_date = str_to_date(partenza)
+                            if arrivo_date <= oggi <= partenza_date:
+                                if tipo == "Camera Singola":
+                                    prenotazione_singola += 1
+                                elif tipo == "Camera Doppia":
+                                    prenotazione_doppia += 1
+                                elif tipo == "Camera Tripla":
+                                    prenotazione_tripla += 1
+                                elif tipo == "Camera Quadrupla":
+                                    prenotazione_quadrupla += 1
+                        except ValueError as e:
+                            print(f"Errore nella conversione della data: {e}")
+
+        # Stampare il risultato
+        print(f"Occupazione Camera Singola: {prenotazione_singola}")
+        print(f"Occupazione Camera Doppia: {prenotazione_doppia}")
+        print(f"Occupazione Camera Tripla: {prenotazione_tripla}")
+        print(f"Occupazione Camera Quadrupla: {prenotazione_quadrupla}")
 
         self.canvas = Canvas(
             self.window,

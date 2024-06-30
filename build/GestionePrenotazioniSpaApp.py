@@ -398,7 +398,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_15,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(0)),
+            command=lambda: (self.save_entry_modifica(0)),
             relief="flat"
         )
         self.button_15.place(
@@ -413,7 +413,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_16,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(3)),
+            command=lambda: (self.save_entry_modifica(3)),
             relief="flat"
         )
         self.button_16.place(
@@ -488,7 +488,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_21,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(6), go_nuova_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(6)),
             relief="flat"
         )
         self.button_21.place(
@@ -558,7 +558,23 @@ class GestionePrenotazioniSpa:
         with open("current_entry.json", "w") as file:
             json.dump(current_entry, file)
 
+    def save_entry_modifica(self, index):
+        # Stampa il contenuto di self.entry_list e l'indice
+        print("Entry list:", self.entry_list)
+        print("Index:", index)
+
+        # Verifica se l'indice è valido
+        if index >= len(self.entry_list) or index < 0:
+            tkinter.messagebox.showerror("Errore", "Prenotazione non trovata")
+            return
+
+        current_entry = self.entry_list[index].get()
+
+        with open("current_entry.json", "w") as file:
+            json.dump(current_entry, file)
+
         go_modifica_prenotazione_spa(self.window)
+
     def elimina_prenotazione(self):
         data = multiplatform_open_read_data_json()
 
