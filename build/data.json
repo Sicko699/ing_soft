@@ -1,7 +1,7 @@
 [
     {
         "users": [
-            {   
+            {
                 "id_gestore": "a7f82b07-cca6-4da1-9d7e-9b9d518f169c",
                 "username": "admin",
                 "password": "admin123",
@@ -246,38 +246,11 @@
         ]
     },
     {
-        "magazzino": [
-            {
-                "nome_articolo": "Materasso",
-                "quantita": "4",
-                "data": "26-06-2024",
-                "spedizione": "27-06-2024",
-                "consegna": "29-06-2024"
-            },
-            {
-                "nome_articolo": "Topper",
-                "quantita": "12",
-                "data": "26-06-2024",
-                "spedizione": "27-06-2024",
-                "consegna": "29-06-2024"
-            },
-            {
-                "nome_articolo": "Asciugamani",
-                "quantita": "211",
-                "data": "29-06-2024",
-                "spedizione": "30-06-2024",
-                "consegna": "02-07-2024"
-            }
-        ],
-        "servizi": [
-            {
-                "nome_servizio": "Visita guidata",
-                "numero_camera": ""
-            }
-        ],
+        "magazzino": [],
+        "servizi": [],
         "spa": [
             {
-                "nome_servizio": "bucchin",
+                "nome_servizio": "Suca",
                 "numero_camera": "101"
             }
         ]

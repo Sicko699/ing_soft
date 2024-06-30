@@ -398,7 +398,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_15,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(0), go_modifica_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(0)),
             relief="flat"
         )
         self.button_15.place(
@@ -413,7 +413,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_16,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(3), go_modifica_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(3)),
             relief="flat"
         )
         self.button_16.place(
@@ -428,7 +428,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_17,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(2), go_modifica_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(2)),
             relief="flat"
         )
         self.button_17.place(
@@ -443,7 +443,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_18,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(1), go_modifica_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(1)),
             relief="flat"
         )
         self.button_18.place(
@@ -458,7 +458,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_19,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(4), go_modifica_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(4)),
             relief="flat"
         )
         self.button_19.place(
@@ -473,7 +473,7 @@ class GestionePrenotazioniSpa:
             image=self.button_image_20,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.save_entry(5), go_modifica_prenotazione_spa(self.window)),
+            command=lambda: (self.save_entry(5)),
             relief="flat"
         )
         self.button_20.place(
@@ -544,35 +544,53 @@ class GestionePrenotazioniSpa:
         )
 
     def save_entry(self, index):
+        # Stampa il contenuto di self.entry_list e l'indice
+        print("Entry list:", self.entry_list)
+        print("Index:", index)
+
+        # Verifica se l'indice è valido
+        if index >= len(self.entry_list) or index < 0:
+            tkinter.messagebox.showerror("Errore", "Prenotazione non trovata")
+            return
+
         current_entry = self.entry_list[index].get()
-        
+
         with open("current_entry.json", "w") as file:
             json.dump(current_entry, file)
-                
+
+        go_modifica_prenotazione_spa(self.window)
     def elimina_prenotazione(self):
         data = multiplatform_open_read_data_json()
-                
+
         with open("current_entry.json", "r") as user_json:
             current_entry = json.load(user_json)
-                
+
         pattern = r'Tipo:\s*([^,]+),\s*Numero camera:\s*([^,]+)'
         match = re.search(pattern, current_entry)
+        if not match:
+            tkinter.messagebox.showerror("Errore", "Formato di current_entry non valido.")
+            return
+
         tipo = match.group(1)
         numero_camera = match.group(2)
-        
+
         print(tipo, numero_camera)
 
-        # Itera sulla lista delle prenotazioni spa
+        # Trova l'indice della prenotazione da eliminare
+        prenotazione_da_eliminare = None
         for prenotazione in data[-1]["spa"]:
-            # Verifica se il nome_servizio e il numero_camera corrispondono ai criteri
             if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
-                # Rimuovi l'elemento dalla lista
-                data[-1]["spa"].remove(prenotazione)
+                prenotazione_da_eliminare = prenotazione
                 break
-        
-        # Scrivi i dati aggiornati nel JSON
-        multiplatform_open_write_data_json(data)
-        tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
+
+        if prenotazione_da_eliminare:
+            data[-1]["spa"].remove(prenotazione_da_eliminare)
+            # Scrivi i dati aggiornati nel JSON
+            multiplatform_open_write_data_json(data)
+            tkinter.messagebox.showinfo("Avviso", "Prenotazione eliminata con successo!")
+        else:
+            tkinter.messagebox.showinfo("Avviso", "Prenotazione non trovata.")
+
         go_gestione_spa(self.window)
     
     def relative_to_assets(self,path: str) -> Path:
