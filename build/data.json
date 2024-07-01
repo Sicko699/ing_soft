@@ -6,7 +6,18 @@
                 "username": "admin",
                 "password": "admin123",
                 "role": "admin",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "nome": "",
+                        "cognome": "",
+                        "cellulare": "",
+                        "email": "",
+                        "tipo_camera": "Camera Tripla",
+                        "arrivo": "30-06-2024",
+                        "partenza": "07-07-2024",
+                        "id_prenotazione": "3bf1f412-28f4-4a2b-bf83-3d1bde4b34cd"
+                    }
+                ]
             },
             {
                 "id_utente": "c7070c04-4461-4a31-8ecb-aea8b89fbc5f",
@@ -155,6 +166,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "30-06-2024",
+                                "partenza": "07-07-2024",
+                                "tipo_camera": "Camera Tripla",
+                                "id_prenotazione": "72a1a911-30ba-41c8-ba00-46cd608b2efa"
                             }
                         ],
                         "302": [

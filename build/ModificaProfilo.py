@@ -3,56 +3,40 @@ import tkinter.messagebox
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import centrare_finestra, go_home_button_user, multiplatform_open_write_data_json, multiplatform_open_read_data_json, multiplatform_open_read_current_user
+from Clienti import Cliente
 
 abs_path = os.getcwd()
 
 ASSETS_PATH = abs_path + "/assets/frame18"
 
 class ModificaProfilo:
-    def __init__(self,window):
+    def __init__(self, window):
         self.window = window
         self.window.geometry("862x519")
-        self.window.configure(bg = "#FAFFFD")
-
+        self.window.configure(bg="#FAFFFD")
 
         self.canvas = Canvas(
             self.window,
-            bg = "#FAFFFD",
-            height = 519,
-            width = 862,
-            bd = 0,
-            highlightthickness = 0,
-            relief = "ridge"
+            bg="#FAFFFD",
+            height=519,
+            width=862,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
         )
 
-        self.canvas.place(x = 0, y = 0)
+        self.canvas.place(x=0, y=0)
         self.canvas.create_rectangle(
             262.0,
             26.0,
             599.0,
             494.0,
             fill="#56AAFF",
-            outline="")
+            outline=""
+        )
 
-        data_json = multiplatform_open_read_data_json()
-
-        current_user = multiplatform_open_read_current_user()
-
-        username = current_user["username"]
-
-        user_data = next((user for user in data_json[0]["users"] if user["username"] == username), None)
-
-        if user_data is None:
-            print("Utente non trovato.")
-            return
-
-        #print(user_data)
-        nome = user_data.get("nome", "")
-        cognome = user_data.get("cognome", "")
-        email = user_data.get("email", "")
-        telefono = user_data.get("telefono", "")
-        username = user_data.get("username", "")
-        password = user_data.get("password", "")
+        self.profile_manager = Cliente()
+        self.load_user_data()
 
         self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
         self.entry_bg_1 = self.canvas.create_image(
@@ -203,12 +187,13 @@ class ModificaProfilo:
             width=233.0,
             height=30.0
         )
-        self.entry_1.insert(0, nome)
-        self.entry_2.insert(0, cognome)
-        self.entry_3.insert(0, email)
-        self.entry_4.insert(0, telefono)
-        self.entry_5.insert(0, username)
-        self.entry_6.insert(0, password)
+
+        self.entry_1.insert(0, self.nome)
+        self.entry_2.insert(0, self.cognome)
+        self.entry_3.insert(0, self.email)
+        self.entry_4.insert(0, self.telefono)
+        self.entry_5.insert(0, self.username)
+        self.entry_6.insert(0, self.password)
 
         self.canvas.create_text(
             302.0,
@@ -236,8 +221,10 @@ class ModificaProfilo:
 
         self.window.resizable(False, False)
 
+    def load_user_data(self):
+        self.nome, self.cognome, self.email, self.telefono, self.username, self.password = self.profile_manager.get_user_info()
+
     def save_changes(self):
-        # Leggi i valori dalle Entry
         nome = self.entry_1.get()
         cognome = self.entry_2.get()
         email = self.entry_3.get()
@@ -245,35 +232,11 @@ class ModificaProfilo:
         username = self.entry_5.get()
         password = self.entry_6.get()
 
-        # Leggi il file data.json
-        data = multiplatform_open_read_data_json()
-
-        # Trova l'utente corrispondente
-        current_user = multiplatform_open_read_current_user()
-
-        username_check = current_user["username"]
-        user_data = next((user for user in data[0]["users"] if user["username"] == username_check), None)
-
-
-
-        username_utente = user_data["username"]
-
-        for user in data[0]["users"]:
-            if user["username"] == username_check:
-                # Aggiorna i valori dell'utente
-                user["nome"] = nome
-                user["cognome"] = cognome
-                user["email"] = email
-                user["telefono"] = telefono
-                user["username"] = username
-                user["password"] = password
-
-
-        # Scrivi le modifiche nel file data.json
-        multiplatform_open_write_data_json(data)
-
-        tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
-        go_home_button_user(self.window)
+        if self.profile_manager.update_user_info(nome, cognome, email, telefono, username, password):
+            tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
+            go_home_button_user(self.window)
+        else:
+            tkinter.messagebox.showerror("Errore", "Errore durante il salvataggio delle modifiche.")
 
     def create_buttons(self):
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
@@ -306,14 +269,12 @@ class ModificaProfilo:
             height=45.0
         )
 
-    def relative_to_assets(self,path: str) -> Path:
+    def relative_to_assets(self, path: str) -> Path:
         return Path(ASSETS_PATH) / Path(path)
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()
-
         assets_path = abs_path + "/assets/frame18"
-
         return PhotoImage(file=Path(assets_path) / Path(image_path))
 
 if __name__ == "__main__":

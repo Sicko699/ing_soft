@@ -142,7 +142,18 @@ class ModificaPrenotazioneServizi:
             
         new_tipo = self.entry_1.get()
         new_numero_camera = self.entry_2.get()
-            
+
+        camere = [
+            '101', '102', '103', '104', '105', '106',
+            '201', '202', '203', '204', '205', '206',
+            '301', '302', '303', '304', '305', '306',
+            '401', '402', '403', '404', '405', '406'
+        ]
+
+        if new_numero_camera not in camere:
+            tkinter.messagebox.showerror("Errore","Numero di camera non valido. Inserisci un numero di camera corretto.")
+            return
+
         for prenotazione in data[-1]["servizi"]:
             if prenotazione["nome_servizio"] == tipo and prenotazione["numero_camera"] == numero_camera:
                 prenotazione["nome_servizio"] = new_tipo

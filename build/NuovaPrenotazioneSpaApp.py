@@ -1,5 +1,6 @@
 from pathlib import Path
 import os, platform, json
+import tkinter.messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from main import centrare_finestra, exit_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa, go_home_button
 
@@ -230,7 +231,19 @@ class NuovaPrenotazioneSpa:
     def invia_prenotazione(self):
         nome_servizio = self.entry_1.get()
         numero_camera = self.entry_2.get()
-        
+
+        camere = [
+            '101', '102', '103', '104', '105', '106',
+            '201', '202', '203', '204', '205', '206',
+            '301', '302', '303', '304', '305', '306',
+            '401', '402', '403', '404', '405', '406'
+        ]
+
+        if numero_camera not in camere:
+            tkinter.messagebox.showerror("Errore",
+                                         "Numero di camera non valido. Inserisci un numero di camera corretto.")
+            return
+
         servizio = {
             "nome_servizio" : nome_servizio,
             "numero_camera" : numero_camera

@@ -544,9 +544,6 @@ class GestionePrenotazioniSpa:
         )
 
     def save_entry(self, index):
-        # Stampa il contenuto di self.entry_list e l'indice
-        print("Entry list:", self.entry_list)
-        print("Index:", index)
 
         # Verifica se l'indice è valido
         if index >= len(self.entry_list) or index < 0:
