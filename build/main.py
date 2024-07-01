@@ -215,4 +215,4 @@ def go_modifica_ordine_magazzino(window):
     root.title("Modifica Ordine Magazzino")
     app = ModificaOrdineMagazzino(root)
     centrare_finestra(root)
-    root.mainloop
+    root.mainloop()

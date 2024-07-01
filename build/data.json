@@ -288,8 +288,34 @@
         ]
     },
     {
-        "magazzino": [],
-        "servizi": [],
-        "spa": []
+        "magazzino": [
+            {
+                "nome_articolo": "Topper",
+                "quantita": "1",
+                "data": "01-07-2024",
+                "spedizione": "02-07-2024",
+                "consegna": "04-07-2024"
+            }
+        ],
+        "servizi": [
+            {
+                "nome_servizio": "Visita guidata",
+                "numero_camera": "202"
+            },
+            {
+                "nome_servizio": "Noleggio biciclette",
+                "numero_camera": "204"
+            }
+        ],
+        "spa": [
+            {
+                "nome_servizio": "Massaggio",
+                "numero_camera": "101"
+            },
+            {
+                "nome_servizio": "Sauna",
+                "numero_camera": "102"
+            }
+        ]
     }
 ]
