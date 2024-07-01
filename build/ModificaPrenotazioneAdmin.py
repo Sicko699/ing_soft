@@ -276,7 +276,7 @@ class ModificaPrenotazioneAdmin:
                             self.entry_2.insert(0, cognome)
                             self.entry_3.insert(0, email)
                             self.entry_7.insert(0, cellulare)
-                    break
+                    
                 elif(user["role"] == "utente"):
                     prenotazioni = user.get('prenotazioni', [])
                     for prenotazione in prenotazioni:
@@ -519,9 +519,11 @@ class ModificaPrenotazioneAdmin:
                             for user in data[0]["users"]:
                                 if user["role"] == "admin":
                                     user["prenotazioni"].append(prenotazione_admin)
-                                    break  # Esci dal ciclo una volta trovato l'utente admin
-
-                                # Salva le modifiche a data.json
+                                
+                                elif user["role"] == "utente":
+                                    user["prenotazioni"].append(prenotazione_admin)
+                                    break
+                            
                             with open("data.json", "w") as file:
                                 json.dump(data, file, indent=4)
 
@@ -551,7 +553,7 @@ class ModificaPrenotazioneAdmin:
             tipo_camera = match.group(3)
         
         if data:
-            for user in data[0]['users']:
+            for user in data[0]['users']:    
                 prenotazioni = user.get('prenotazioni', [])
                 for prenotazione in prenotazioni:
                     if prenotazione['arrivo'] == self.arrivo and prenotazione['partenza'] == self.partenza and prenotazione['tipo_camera'] == self.tipo_camera:
