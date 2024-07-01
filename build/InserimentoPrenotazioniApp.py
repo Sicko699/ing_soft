@@ -435,7 +435,8 @@ class InserimentoPrenotazione:
                                 "arrivo": data_arrivo.strftime("%d-%m-%Y"),
                                 "partenza": data_partenza.strftime("%d-%m-%Y"),
                                 "tipo_camera": tipo_camera,
-                                "id_prenotazione": str(id_prenotazione)
+                                "id_prenotazione": str(id_prenotazione),
+                                "role": "admin"
                             }
                             with open("current_prenotazione_admin.json", "w") as file:
                                 json.dump(current_prenotazione_admin, file, indent=4)
@@ -450,7 +451,8 @@ class InserimentoPrenotazione:
                                 "tipo_camera": self.combo_var.get(),
                                 "arrivo": self.arrival_button.cget("text"),
                                 "partenza": self.departure_button.cget("text"),
-                                "id_prenotazione": str(uuid.uuid4())
+                                "id_prenotazione": str(id_prenotazione),
+                                "role": "admin"
                             }
                             for user in data[0]["users"]:
                                 if user["role"] == "admin":

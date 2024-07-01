@@ -257,7 +257,8 @@ class MostraPrenotazioneApp:
                                 "arrivo": current_prenotazione["arrivo"],
                                 "partenza": current_prenotazione["partenza"],
                                 "tipo_camera": current_prenotazione["tipo_camera"],
-                                "id_prenotazione": str(id_prenotazione)
+                                "id_prenotazione": str(id_prenotazione),
+                                "role": "utente"
                             })
 
                             print(
@@ -266,7 +267,8 @@ class MostraPrenotazioneApp:
                                 "arrivo": current_prenotazione["arrivo"],
                                 "partenza": current_prenotazione["partenza"],
                                 "tipo_camera": current_prenotazione["tipo_camera"],
-                                "id_prenotazione": str(id_prenotazione)
+                                "id_prenotazione": str(id_prenotazione),
+                                "role": "utente"
                             }
 
                             user_data["prenotazioni"].append(prenotazione_utente)

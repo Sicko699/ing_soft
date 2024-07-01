@@ -6,7 +6,19 @@
                 "username": "admin",
                 "password": "admin123",
                 "role": "admin",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "nome": "Fra",
+                        "cognome": "Fra",
+                        "cellulare": "1263722",
+                        "email": "fRA",
+                        "tipo_camera": "Camera Singola",
+                        "arrivo": "02-07-2024",
+                        "partenza": "09-07-2024",
+                        "id_prenotazione": "2dab7046-2d35-4c03-b33c-4399c23ce164",
+                        "role": "admin"
+                    }
+                ]
             },
             {
                 "id_utente": "c7070c04-4461-4a31-8ecb-aea8b89fbc5f",
@@ -17,7 +29,15 @@
                 "username": "Ciao",
                 "password": "Ciao",
                 "role": "utente",
-                "prenotazioni": []
+                "prenotazioni": [
+                    {
+                        "arrivo": "04-07-2024",
+                        "partenza": "16-07-2024",
+                        "tipo_camera": "Camera Doppia",
+                        "id_prenotazione": "273b68bb-c378-4532-a980-50d1e08606d8",
+                        "role": "utente"
+                    }
+                ]
             }
         ]
     },
@@ -32,6 +52,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "02-07-2024",
+                                "partenza": "09-07-2024",
+                                "tipo_camera": "Camera Singola",
+                                "id_prenotazione": "44ade709-b849-49ad-b8d0-be3f93e89c10"
                             }
                         ],
                         "102": [
@@ -84,6 +110,12 @@
                                 "partenza": "",
                                 "tipo_camera": "",
                                 "id_prenotazione": ""
+                            },
+                            {
+                                "arrivo": "04-07-2024",
+                                "partenza": "16-07-2024",
+                                "tipo_camera": "Camera Doppia",
+                                "id_prenotazione": "b0014fd2-ff7e-4d6c-a193-1f4809a9d0fc"
                             }
                         ],
                         "202": [

@@ -369,7 +369,8 @@ class ModificaPrenotazione:
                                                             "arrivo": dettaglio["arrivo"],
                                                             "partenza": dettaglio["partenza"],
                                                             "tipo_camera": dettaglio["tipo_camera"],
-                                                            "id_prenotazione": dettaglio['id_prenotazione']
+                                                            "id_prenotazione": dettaglio['id_prenotazione'],
+                                                            "role": "utente"
                                                         })
                                                         break  # Esce dal ciclo delle camere disponibili
 
