@@ -2,6 +2,7 @@ import re
 import tkinter as tk
 from tkinter import Tk, Button, ttk, PhotoImage
 from tkcalendar import Calendar
+import tkinter.messagebox
 from pathlib import Path
 import platform, json, os
 from datetime import datetime
@@ -153,7 +154,7 @@ class ModificaPrenotazione:
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: (self.check_availability(), self.modifica_prenotazione()),
+            command=lambda: (self.check_availability(), self.modifica_prenotazione(), go_lista_prenotazioni(self.window)),
             relief="flat"
         )
         self.button_1.place(
@@ -377,6 +378,7 @@ class ModificaPrenotazione:
                                         # Salva le modifiche nel file JSON
                                         with open("data.json", "w") as file:
                                             json.dump(data, file, indent=4)
+                                        tkinter.messagebox.showinfo("Avviso", "Modifica Confermata!")
                                         return  # Esce dal ciclo delle camere disponibili
 
             print("Nessuna corrispondenza trovata per aggiornare le prenotazioni delle camere.")

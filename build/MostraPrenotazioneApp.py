@@ -3,7 +3,7 @@ from pathlib import Path
 import platform, json, os
 from tkinter import Tk, Canvas, Button, PhotoImage
 from datetime import datetime
-from main import go_cerca_camere, centrare_finestra, multiplatform_open_read_current_user, multiplatform_open_read_data_json, multiplatform_open_read_current_prenotazione, multiplatform_open_write_data_json
+from main import go_lista_prenotazioni, go_cerca_camere, centrare_finestra, multiplatform_open_read_current_user, multiplatform_open_read_data_json, multiplatform_open_read_current_prenotazione, multiplatform_open_write_data_json
 
 abs_path = os.getcwd()
 
@@ -169,7 +169,7 @@ class MostraPrenotazioneApp:
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=self.update_data_json,  # Collega il bottone alla funzione di aggiornamento
+            command=lambda: (self.update_data_json(), go_lista_prenotazioni(self.window)),  # Collega il bottone alla funzione di aggiornamento
             relief="flat"
         )
         self.button_2.place(

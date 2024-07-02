@@ -2,6 +2,7 @@ from pathlib import Path
 import uuid
 import os, platform, json, re
 from tkcalendar import Calendar
+import tkinter.messagebox
 from datetime import datetime
 from tkinter import Tk, ttk, Canvas, Entry, Text, Button, PhotoImage
 from main import multiplatform_open_read_data_json, centrare_finestra, exit_button, go_home_button, go_back_office_button, go_front_office_button, go_gestione_magazzino, go_gestione_servizi, go_gestione_spa
@@ -612,6 +613,7 @@ class ModificaPrenotazioneAdmin:
                                         # Salva le modifiche nel file JSON
                                         with open("data.json", "w") as file:
                                             json.dump(data, file, indent=4)
+                                        tkinter.messagebox.showinfo("Avviso", "Modifiche confermate!")
                                         return  # Esce dal ciclo delle camere disponibili
 
             print("Nessuna corrispondenza trovata per aggiornare le prenotazioni delle camere.")

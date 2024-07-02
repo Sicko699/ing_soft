@@ -241,7 +241,7 @@ class ModificaPrenotazioneServizi:
             height=45.0
         )
 
-        self.button_image_7 = PhotoImage(file=self.relative_to_assets("button_7.png"))
+        self.button_image_7 = PhotoImage(file=self.relative_to_assets("button_8 copy.png"))
         self.button_7 = Button(
             image=self.button_image_7,
             borderwidth=0,
@@ -256,7 +256,7 @@ class ModificaPrenotazioneServizi:
             height=45.0
         )
 
-        self.button_image_8 = PhotoImage(file=self.relative_to_assets("button_8.png"))
+        self.button_image_8 = PhotoImage(file=self.relative_to_assets("button_9 copy.png"))
         self.button_8 = Button(
             image=self.button_image_8,
             borderwidth=0,
