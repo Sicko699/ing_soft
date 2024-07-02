@@ -239,7 +239,7 @@ class CercaCamere:
         # Ottieni le date di arrivo e partenza
         data_arrivo = datetime.strptime(self.arrival_button.cget("text"), "%d-%m-%Y")
         data_partenza = datetime.strptime(self.departure_button.cget("text"), "%d-%m-%Y")
-        print(tipo_camera, data_arrivo, data_partenza)
+        
         # Carica i dati dal file JSON
         data = multiplatform_open_read_data_json()
 
@@ -252,7 +252,7 @@ class CercaCamere:
                             camera_disponibile = True
                             for prenotazione in prenotazioni:
                                 if prenotazione["arrivo"] and prenotazione["partenza"]:
-                                    print(prenotazione)
+                                    
                                     # Se la prenotazione è vuota, la camera è libera
                                     arrivo_prenotazione = datetime.strptime(prenotazione["arrivo"], "%d-%m-%Y")
                                     partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
@@ -276,9 +276,9 @@ class CercaCamere:
                                     partenza_prenotazione = datetime.strptime(prenotazione["partenza"], "%d-%m-%Y")
 
                                 '''
-                    print("Tutte le camere sono disponibili nell'intervallo selezionato.")
+                    
                     return
-        print("Nessuna camera disponibile nell'intervallo selezionato.")
+        
 
 
 if __name__ == "__main__":

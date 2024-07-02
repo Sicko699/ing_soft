@@ -316,7 +316,6 @@ class ModificaPrenotazioneSpa:
             
             with open("data.json", "w") as file:
                 json.dump(data, file, indent=4)
-            print("Servizio spa aggiunto con successo")
         except Exception as e:
             print("Si è verificato un errore:", e)
 

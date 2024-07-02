@@ -429,7 +429,6 @@ class InserimentoPrenotazione:
                                     camera_disponibile = False
                                     break
                         if camera_disponibile:
-                            print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato")
                             id_prenotazione = uuid.uuid4()
                             current_prenotazione_admin = {
                                 "arrivo": data_arrivo.strftime("%d-%m-%Y"),
@@ -440,7 +439,7 @@ class InserimentoPrenotazione:
                             }
                             with open("current_prenotazione_admin.json", "w") as file:
                                 json.dump(current_prenotazione_admin, file, indent=4)
-                            print("current_prenotazione_admin.json aggiornato con successo")
+
                             camera_trovata = True
 
                             prenotazione_admin = {
@@ -463,13 +462,12 @@ class InserimentoPrenotazione:
                             with open("data.json", "w") as file:
                                 json.dump(data, file, indent=4)
 
-                            print("Prenotazione aggiunta con successo per l'utente admin.")
                             break
 
                     if camera_trovata:
-                        break  # Exit the loop since we found an available camera
+                        break
             if camera_trovata:
-                break  # Exit the loop since we found an available camera
+                break
 
         if not camera_trovata:
             print("Nessuna camera disponibile nell'intervallo selezionato")
@@ -478,9 +476,7 @@ class InserimentoPrenotazione:
         try:
             with open("current_prenotazione_admin.json", "r") as file:
                 current_prenotazione = json.load(file)
-            print("current_prenotazione letto con successo:", current_prenotazione)
 
-            # Example of updating data.json
             with open("data.json", "r") as file:
                 data = json.load(file)
 
@@ -502,8 +498,7 @@ class InserimentoPrenotazione:
                                 break
 
             with open("data.json", "w") as file:
-                json.dump(data, file, indent=4)  # Add indent=4 for pretty-printing
-            print("data.json aggiornato con successo")
+                json.dump(data, file, indent=4)
 
         except KeyError as e:
             print(f"Errore: chiave mancante {e}")

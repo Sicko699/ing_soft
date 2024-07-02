@@ -556,10 +556,6 @@ class GestionePrenotazioniSpa:
             json.dump(current_entry, file)
 
     def save_entry_modifica(self, index):
-        # Stampa il contenuto di self.entry_list e l'indice
-        print("Entry list:", self.entry_list)
-        print("Index:", index)
-
         # Verifica se l'indice è valido
         if index >= len(self.entry_list) or index < 0:
             tkinter.messagebox.showerror("Errore", "Prenotazione non trovata")
@@ -586,8 +582,6 @@ class GestionePrenotazioniSpa:
 
         tipo = match.group(1)
         numero_camera = match.group(2)
-
-        print(tipo, numero_camera)
 
         # Trova l'indice della prenotazione da eliminare
         prenotazione_da_eliminare = None

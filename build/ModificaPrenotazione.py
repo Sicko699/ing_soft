@@ -28,7 +28,6 @@ class ModificaPrenotazione:
         current_user = multiplatform_open_read_current_user()
         with open("current_entry_prenotazione_user.json", "r") as prenotazione_json:
             current_prenotazione = json.load(prenotazione_json)
-            print(current_prenotazione)
 
         # Initialize attributes to default values
         self.arrivo = ""
@@ -51,7 +50,6 @@ class ModificaPrenotazione:
                         for prenotazione in prenotazioni:
                             if prenotazione['arrivo'] == self.arrivo:
                                 prenotazione_modificare = prenotazione
-                                print("prenotazione", prenotazione_modificare)
                                 self.arrivo = prenotazione_modificare['arrivo']
                                 self.partenza = prenotazione_modificare['partenza']
                                 self.tipo_camera = prenotazione_modificare['tipo_camera']
@@ -242,7 +240,6 @@ class ModificaPrenotazione:
         # Ottieni le date di arrivo e partenza
         data_arrivo = datetime.strptime(self.arrival_button.cget("text"), "%d-%m-%Y")
         data_partenza = datetime.strptime(self.departure_button.cget("text"), "%d-%m-%Y")
-        print(tipo_camera, data_arrivo, data_partenza)
         # Carica i dati dal file JSON
         data = multiplatform_open_read_data_json()
 
@@ -255,7 +252,6 @@ class ModificaPrenotazione:
                             for prenotazione in prenotazioni:
                                 # Se la prenotazione è vuota, la camera è libera
                                 if prenotazione["arrivo"] == "" and prenotazione["partenza"] == "":
-                                    print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato.")
                                     current_prenotazione = {
                                         "arrivo": data_arrivo.strftime("%d-%m-%Y"),
                                         "partenza": data_partenza.strftime("%d-%m-%Y"),
@@ -310,7 +306,6 @@ class ModificaPrenotazione:
                             prenotazione['arrivo'] = self.arrival_button.cget("text")
                             prenotazione['partenza'] = self.departure_button.cget("text")
                             prenotazione['tipo_camera'] = self.combo_var.get()
-                            print("Prenotazione aggiornata:", prenotazione)
 
                         with open("data.json", "w") as file:
                             json.dump(data, file, indent=4)
@@ -380,8 +375,6 @@ class ModificaPrenotazione:
                                             json.dump(data, file, indent=4)
                                         tkinter.messagebox.showinfo("Avviso", "Modifica Confermata!")
                                         return  # Esce dal ciclo delle camere disponibili
-
-            print("Nessuna corrispondenza trovata per aggiornare le prenotazioni delle camere.")
 
 
 if __name__ == "__main__":

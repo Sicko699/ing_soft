@@ -25,7 +25,6 @@ class ModificaPrenotazioneAdmin:
 
         with open("current_entry_prenotazione.json", "r") as prenotazione_json:
             current_prenotazione = json.load(prenotazione_json)
-            print(current_prenotazione)
 
         self.arrivo = ""
         self.partenza = ""
@@ -38,7 +37,6 @@ class ModificaPrenotazioneAdmin:
             self.arrivo = match.group(1)
             self.partenza = match.group(2)
             self.tipo_camera = match.group(3)
-            print(self.arrivo, self.partenza, self.tipo_camera)
             i = 0
 
                       
@@ -267,7 +265,6 @@ class ModificaPrenotazioneAdmin:
                         tipo_camera = prenotazione["tipo_camera"]
 
                         if (arrivo_utente == self.arrivo and partenza_utente == self.partenza and tipo_camera == self.tipo_camera):
-                            print("prenotazione trovata")
                             nome = prenotazione["nome"]
                             cognome = prenotazione["cognome"]
                             cellulare = prenotazione["cellulare"]
@@ -286,7 +283,6 @@ class ModificaPrenotazioneAdmin:
                         tipo_camera = prenotazione ["tipo_camera"]
 
                         if(arrivo_utente == self.arrivo and partenza_utente == self.partenza and tipo_camera == self.tipo_camera):
-                            print("prenotazione trovata")
                             nome = user["nome"]
                             cognome = user["cognome"]
                             cellulare = user["telefono"]
@@ -494,7 +490,6 @@ class ModificaPrenotazioneAdmin:
                                     camera_disponibile = False
                                     break
                         if camera_disponibile:
-                            print(f"La camera {numero_camera} è disponibile nell'intervallo selezionato.")
                             id_prenotazione = uuid.uuid4()
                             current_prenotazione_admin = {
                                 "arrivo": data_arrivo.strftime("%d-%m-%Y"),
@@ -504,7 +499,6 @@ class ModificaPrenotazioneAdmin:
                             }
                             with open("current_prenotazione_admin.json", "w") as file:
                                 json.dump(current_prenotazione_admin, file, indent=4)
-                            print("current_prenotazione_admin.json aggiornato con successo")
                             camera_trovata = True
 
                             prenotazione_modificata_admin = {
@@ -538,7 +532,6 @@ class ModificaPrenotazioneAdmin:
                             with open("data.json", "w") as file:
                                 json.dump(data, file, indent=4)
         
-                            print("Prenotazione aggiornata con successo.")
                             break
 
                     if camera_trovata:
@@ -639,7 +632,6 @@ class ModificaPrenotazioneAdmin:
                         prenotazione['arrivo'] = self.arrival_button.cget("text")
                         prenotazione['partenza'] = self.departure_button.cget("text")
                         prenotazione['tipo_camera'] = self.combo_var.get()
-                        print("Prenotazione aggiornata:", prenotazione)
 
                         break  # Exit the loop after updating the correct booking
 
@@ -698,8 +690,6 @@ class ModificaPrenotazioneAdmin:
                                         with open("data.json", "w") as file:
                                             json.dump(data, file, indent=4)
                                         return  # Esce dal ciclo delle camere disponibili
-
-            print("Nessuna corrispondenza trovata per aggiornare le prenotazioni delle camere.")
 
     def load_button_image(self, image_path):
         abs_path = os.getcwd()

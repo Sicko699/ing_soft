@@ -58,12 +58,7 @@ class FrontOfficeApp:
                                     prenotazione_quadrupla += 1
                         except ValueError as e:
                             print(f"Errore nella conversione della data: {e}")
-
-        # Stampare il risultato
-        print(f"Occupazione Camera Singola: {prenotazione_singola}")
-        print(f"Occupazione Camera Doppia: {prenotazione_doppia}")
-        print(f"Occupazione Camera Tripla: {prenotazione_tripla}")
-        print(f"Occupazione Camera Quadrupla: {prenotazione_quadrupla}")
+        
 
         self.canvas = Canvas(
             self.window,

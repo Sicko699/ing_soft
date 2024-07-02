@@ -304,7 +304,7 @@ class BackOfficeApp:
 
             # Verifica se il file contiene la sezione 'camere'
             if "camere" not in data[1]:
-                print("Errore: Sezione 'camere' non trovata nel file JSON.")
+                
                 return
 
             camere_data = data[1]["camere"]
